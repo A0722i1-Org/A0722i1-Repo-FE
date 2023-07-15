@@ -1,14 +1,18 @@
-import {City} from './City';
 import {Account} from '../../account/model/Account';
 import {CustomerType} from './CustomerType';
+import {Cart} from '../../cart/model/Cart';
 
 export interface Customer {
-  customerId: number;
-  customerName: string;
-  phone: string;
-  customerAddress: string;
-  customerProvince: City;
-  customerImg: string;
-  customerType: CustomerType;
-  account: Account;
+  customerId?: number;
+  name?: string;
+  phone?: string;
+  gender?: boolean;
+  dateOfBirth?: Date;
+  idCard?: string;
+  customerAddress?: string;
+  customerImg?: string;
+  customerType?: CustomerType;
+  account?: Account;
+  cart?: Cart;
+  enable?: boolean;
 }

@@ -1,8 +1,10 @@
+import {Role} from './Role';
+
 export interface Account {
   accountId?: number;
-  accountName: string;
+  username?: string;
   encryptPassword?: string;
   email?: string;
-  verificationCode?: string;
-  isEnabled?: boolean;
+  roles?: Role[];
+  enable?: boolean;
 }
