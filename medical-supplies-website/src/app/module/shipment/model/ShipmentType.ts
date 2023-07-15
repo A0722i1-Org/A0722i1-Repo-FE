@@ -1,4 +1,4 @@
 export interface ShipmentType {
-  shipmentTypeId?: number;
-  shipmentTypeName?: string;
+  shipmentTypeId: number;
+  shipmentTypeName: string;
 }
