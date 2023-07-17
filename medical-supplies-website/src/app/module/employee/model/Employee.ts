@@ -1,4 +1,5 @@
 import {Account} from '../../account/model/Account';
+import {Position} from './Position';
 
 export interface Employee {
   employeeId?: number;

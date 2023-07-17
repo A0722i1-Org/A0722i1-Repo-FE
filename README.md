@@ -15,25 +15,25 @@
 	+ Hiện danh sách (trang chủ với home): **/
 	+ Thêm mới: **/create
 	+ Chỉnh sửa: **/update/:id
-	+ Xem chi tiết: **/detail/:id
+	+ Xem chi tiết: **/detail hoặc **/detail/:id
 	+ Đăng nhập: **/login
 	+ Đổi mật khẩu: **/change-password
-	+ Xóa: dùng modal confirm trong list, k cần link
+	+ Xóa: **/delete hoặc **/delete/:id (hoặc dùng modal confirm trong list)
 
 2. Component:
 - Tên một số đối tượng trong component:
-	+ router: Router
-	+ activatedRoute : ActivatedRoute
-	+ entityService: EntityService (vd: receiptService: ReceiptService)
+	+ private _router: Router
+	+ private _activatedRoute : ActivatedRoute
+	+ private _entityService: EntityService (vd: receiptService: ReceiptService)
 
 - Đặt tên component:
 	VD:
-	+ Hiển thị danh sách: shipmentList (gồm searchForm [id=search-form] cho search và modal [id: delete-modal] cho xóa)
-	+ Thêm mới: shipmentCreate (gồm mainForm [id=main-form] cho form chính và subForm [id=sub-form] cho form con bên trong mainForm nếu có)
-	+ Chỉnh sửa: shipmentUpdate (gồm mainForm [id=main-form] cho form chính và subForm [id=sub-form] cho form con bên trong mainForm nếu có)
+	+ Hiển thị danh sách: ng g c shipment-list (gồm searchForm [id=search-form] cho search và modal [id: delete-modal] cho xóa)
+	+ Thêm mới: ng g c shipment-create (gồm mainForm [id=main-form] cho form chính)
+	+ Chỉnh sửa: ng g c shipment-update (gồm mainForm [id=main-form] cho form chính)
 
 3. Service:
-- Tên đối tượng HttpClient: http
+- Tên đối tượng bơm vào: private _http: HttpClient
 
 - Tên một số phương thức trong service:
 	+ findAll() => trả về tập đối tượng
@@ -46,3 +46,4 @@
 	+ update()
 	+ delete()
 	+ deleteBy...And...Or...() (And và Or là không bắt buộc)
+	+ getDetail()
