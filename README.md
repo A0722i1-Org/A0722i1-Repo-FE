@@ -47,3 +47,5 @@
 	+ delete()
 	+ deleteBy...And...Or...() (And và Or là không bắt buộc)
 	+ getDetail()
+4. Các lưu ý khác:
+   - Tên thuộc tính (property): nếu là private thì để dấu _ phía trước. Vd: private _customer: Customer và thêm các getters/setters nếu cần (cách thêm tương tự như java: alt + insert) 
