@@ -1,0 +1,23 @@
+.form-label {
+  font-weight: bold;
+}
+body {
+  max-width: 75%; padding: 50px; margin: auto
+}
+.validate-form {
+  color: red;
+}
+h3 {
+  text-align: center;
+  color: #00b894  ;
+}
+.table th{
+  position: sticky;
+  top: -1px;
+  background: white;
+  z-index: 1;
+  text-align: center;
+}
+td {
+  text-align: center;
+}
