@@ -21,9 +21,19 @@ export class TokenStorageService {
     window.localStorage.setItem(TOKEN_KEY, token);
   }
 
+  public saveUserLocal(user) {
+    window.localStorage.removeItem(USER_KEY);
+    window.localStorage.setItem(USER_KEY, JSON.stringify(user));
+  }
+
   public saveTokenSession(token: string) {
     window.sessionStorage.removeItem(TOKEN_KEY);
     window.sessionStorage.setItem(TOKEN_KEY, token);
+  }
+
+  public saveUserSession(user) {
+    window.sessionStorage.removeItem(USER_KEY);
+    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
   public getToken(): string {
@@ -32,16 +42,6 @@ export class TokenStorageService {
     } else {
       return sessionStorage.getItem(TOKEN_KEY);
     }
-  }
-
-  public saveUserLocal(user) {
-    window.localStorage.removeItem(USER_KEY);
-    window.localStorage.setItem(USER_KEY, JSON.stringify(user));
-  }
-
-  public saveUserSession(user) {
-    window.sessionStorage.removeItem(USER_KEY);
-    window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
   }
 
   getUser() {
