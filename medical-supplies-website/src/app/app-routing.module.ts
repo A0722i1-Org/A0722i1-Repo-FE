@@ -1,5 +1,6 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import {NgModule} from '@angular/core';
+import {Routes, RouterModule} from '@angular/router';
+import {LoginComponent} from './module/security/component/login/login.component';
 
 
 const routes: Routes = [
@@ -10,11 +11,13 @@ const routes: Routes = [
   {path: 'employees', loadChildren: () => import('./module/employee/employee.module').then(module => module.EmployeeModule)},
   {path: 'accounts', loadChildren: () => import('./module/account/account.module').then(module => module.AccountModule)},
   {path: 'shipments', loadChildren: () => import('./module/shipment/shipment.module').then(module => module.ShipmentModule)},
-  {path: 'receipts', loadChildren: () => import('./module/receipt/receipt.module').then(module => module.ReceiptModule)}
+  {path: 'receipts', loadChildren: () => import('./module/receipt/receipt.module').then(module => module.ReceiptModule)},
+  {path: 'login', component: LoginComponent}
 ];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {
+}
