@@ -5,6 +5,7 @@ import {DatePipe} from '@angular/common';
 import {CustomerUserDetail} from '../../model/CustomerUserDetail';
 import {CustomerService} from '../../service/customer.service';
 import Swal from 'sweetalert2';
+import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-customer-user-detail',
@@ -29,23 +30,34 @@ export class CustomerUserDetailComponent implements OnInit {
       accountEmail: new FormControl('')
     });
 
-    this._customerService.getUserDetail().subscribe(data => {
-      this.customerUserDetail = data;
+    this._customerService.getUserDetail().pipe(
+      tap(response => {
+        if (response.status === 202 || response.status === 404) {
+          this._handlingError();
+        }
+      })
+    ).subscribe(response => {
+      this.customerUserDetail = response.body;
       this.customerUserDetail.dateOfBirth = new DatePipe('en-US').transform(new Date(this.customerUserDetail.dateOfBirth), 'yyyy-MM-dd');
       this.mainForm.patchValue(this.customerUserDetail);
     }, error => {
-      Swal.fire({
-        icon: 'error',
-        title: 'Lỗi...',
-        text: 'Bạn không có quyền truy cập!',
-        confirmButtonColor: '#55efc4'
-      });
-      this._router.navigateByUrl('/accounts/login');
+        this._handlingError();
     });
   }
 
   public showUpdateComponent(): void {
     this._router.navigateByUrl('/customers/user-detail-update');
+  }
+
+  // Error handling
+  private _handlingError() {
+    Swal.fire({
+      icon: 'error',
+      title: 'Lỗi...',
+      text: 'Bạn không có quyền truy cập!',
+      confirmButtonColor: '#55efc4'
+    });
+    this._router.navigateByUrl('/');
   }
 
   // Getters/Setters Begin.

@@ -36,11 +36,11 @@ export class EmployeeUserDetailComponent implements OnInit {
     }, error => {
       Swal.fire({
         icon: 'error',
-        title: 'Lỗi ' + error.status,
+        title: 'Lỗi...',
         text: 'Bạn không có quyền truy cập!',
         confirmButtonColor: '#55efc4'
       });
-      this._router.navigateByUrl('/accounts/login');
+      this._router.navigateByUrl('/');
     });
   }
 
