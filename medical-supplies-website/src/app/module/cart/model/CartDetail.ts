@@ -6,5 +6,5 @@ export interface CartDetail {
   product?: Product;
   quantity?: number;
   status?: boolean;
-  cart?: Cart;
+  cartId?: number;
 }
