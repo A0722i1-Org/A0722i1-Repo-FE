@@ -55,28 +55,20 @@ export class LoginComponent implements OnInit {
         })
       )
       .subscribe(data => {
-          if (this.formLogin.value.remember_me) {
+          if (this.formLogin.value.remember_me && data.token !== undefined) {
             this.tokenStorageService.saveTokenLocal(data.token);
             this.tokenStorageService.saveUserLocal(data.username);
+            sessionStorage.clear();
           } else {
             this.tokenStorageService.saveTokenSession(data.token);
             this.tokenStorageService.saveUserSession(data.username);
           }
           this.authService.isLoggedIn = true;
-          if (this.authService.isLoggedIn === true) {
-            this.username = this.tokenStorageService.getUser().username;
-            this.roles = this.tokenStorageService.getUser().roles;
-            this.formLogin.reset();
-            this.router.navigateByUrl(this.returnUrl);
-            this.shareService.sendClickEvent();
-            Swal.fire({
-              position: 'top-end',
-              icon: 'success',
-              title: 'Đăng nhập thành công',
-              showConfirmButton: false,
-              timer: 1500
-            });
-          }
+          this.username = this.tokenStorageService.getUser().username;
+          this.roles = this.tokenStorageService.getUser().roles;
+          this.formLogin.reset();
+          this.router.navigateByUrl(this.returnUrl);
+          this.shareService.sendClickEvent();
         },
         err => {
           this.authService.isLoggedIn = false;
