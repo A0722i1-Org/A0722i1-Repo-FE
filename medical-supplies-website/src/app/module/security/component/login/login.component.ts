@@ -14,10 +14,11 @@ import Swal from 'sweetalert2';
 })
 export class LoginComponent implements OnInit {
   formLogin: FormGroup;
-  username: string;
-  roles: string[];
+  username = '';
+  roles: string[] = [];
   returnUrl: string;
-  message: string = null;
+  message = '';
+  showPassword = false;
 
   constructor(
     private authService: AuthService,
@@ -80,5 +81,9 @@ export class LoginComponent implements OnInit {
         err => {
           this.authService.isLoggedIn = false;
         });
+  }
+
+  togglePasswordVisibility() {
+    this.showPassword = !this.showPassword;
   }
 }

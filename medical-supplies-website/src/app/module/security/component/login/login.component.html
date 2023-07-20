@@ -17,10 +17,13 @@
           <i class="fas fa-user"></i>
           <input type="text" name="user" placeholder="Tài khoản" formControlName="username"/>
         </div>
-        <span *ngIf="message != null" style="color: red">{{message}}</span>
-        <div class="input-field">
-          <i class="fas fa-lock"></i>
+        <div *ngIf="!showPassword" class="input-field">
+          <i class="fa fa-eye" (click)="togglePasswordVisibility()"></i>
           <input type="password" name="pass" placeholder="Mật khẩu" formControlName="password"/>
+        </div>
+        <div *ngIf="showPassword" class="input-field">
+          <i class="fa fa-eye-slash" (click)="togglePasswordVisibility()"></i>
+          <input type="text" name="pass" placeholder="Mật khẩu" formControlName="password"/>
         </div>
         <span *ngIf="message != null" style="color: red">{{message}}</span>
         <div>
