@@ -4,6 +4,8 @@ import {AuthService} from '../../service/auth.service';
 import {TokenStorageService} from '../../service/token-storage.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ShareService} from '../../service/share.service';
+import {tap} from 'rxjs/operators';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-login',
@@ -15,6 +17,7 @@ export class LoginComponent implements OnInit {
   username: string;
   roles: string[];
   returnUrl: string;
+  message: string = null;
 
   constructor(
     private authService: AuthService,
@@ -42,23 +45,38 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authService.login(this.formLogin.value).subscribe(data => {
-        if (this.formLogin.value.remember_me) {
-          this.tokenStorageService.saveTokenLocal(data.token);
-          this.tokenStorageService.saveUserLocal(data.username);
-        } else {
-          this.tokenStorageService.saveTokenSession(data.token);
-          this.tokenStorageService.saveUserSession(data.username);
-        }
-        this.authService.isLoggedIn = true;
-        this.username = this.tokenStorageService.getUser().username;
-        this.roles = this.tokenStorageService.getUser().roles;
-        this.formLogin.reset();
-        this.router.navigateByUrl(this.returnUrl);
-        this.shareService.sendClickEvent();
-      },
-      err => {
-        this.authService.isLoggedIn = false;
-      });
+    this.authService.login(this.formLogin.value)
+      .pipe(
+        tap(response => {
+          if (response.status === 202) {
+            this.message = 'Thông tin đăng nhập không chính xác';
+          }
+        })
+      )
+      .subscribe(data => {
+          if (this.formLogin.value.remember_me) {
+            this.tokenStorageService.saveTokenLocal(data.token);
+            this.tokenStorageService.saveUserLocal(data.username);
+          } else {
+            this.tokenStorageService.saveTokenSession(data.token);
+            this.tokenStorageService.saveUserSession(data.username);
+          }
+          this.authService.isLoggedIn = true;
+          this.username = this.tokenStorageService.getUser().username;
+          this.roles = this.tokenStorageService.getUser().roles;
+          this.formLogin.reset();
+          this.router.navigateByUrl(this.returnUrl);
+          this.shareService.sendClickEvent();
+          Swal.fire({
+            position: 'top-end',
+            icon: 'success',
+            title: 'Đăng nhập thành công',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        },
+        err => {
+          this.authService.isLoggedIn = false;
+        });
   }
 }

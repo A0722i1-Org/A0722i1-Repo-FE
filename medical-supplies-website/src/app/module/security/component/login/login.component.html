@@ -17,10 +17,12 @@
           <i class="fas fa-user"></i>
           <input type="text" name="user" placeholder="Tài khoản" formControlName="username"/>
         </div>
+        <span *ngIf="message != null" style="color: red">{{message}}</span>
         <div class="input-field">
           <i class="fas fa-lock"></i>
           <input type="password" name="pass" placeholder="Mật khẩu" formControlName="password"/>
         </div>
+        <span *ngIf="message != null" style="color: red">{{message}}</span>
         <div>
           <input class="form-check-input align-middle me-2" type="checkbox" id="disabledFieldsetCheck"
                  formControlName="remember_me">
