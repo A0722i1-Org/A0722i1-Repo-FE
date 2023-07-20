@@ -1,10 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Employee} from '../../model/Employee';
 import {FormControl, FormGroup} from '@angular/forms';
 import {EmployeeService} from '../../service/employee.service';
 import {Router} from '@angular/router';
 import {EmployeeUserDetail} from '../../model/EmployeeUserDetail';
 import {DatePipe} from '@angular/common';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-employee-user-detail',
@@ -33,6 +33,14 @@ export class EmployeeUserDetailComponent implements OnInit {
       this.employeeUserDetail = data;
       this.employeeUserDetail.dateOfBirth = new DatePipe('en-US').transform(new Date(this.employeeUserDetail.dateOfBirth), 'yyyy-MM-dd');
       this.mainForm.patchValue(this.employeeUserDetail);
+    }, error => {
+      Swal.fire({
+        icon: 'error',
+        title: 'Lỗi ' + error.status,
+        text: 'Bạn không có quyền truy cập!',
+        confirmButtonColor: '#55efc4'
+      });
+      this._router.navigateByUrl('/accounts/login');
     });
   }
 
