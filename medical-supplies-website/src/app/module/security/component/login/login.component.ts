@@ -62,18 +62,20 @@ export class LoginComponent implements OnInit {
             this.tokenStorageService.saveUserSession(data.username);
           }
           this.authService.isLoggedIn = true;
-          this.username = this.tokenStorageService.getUser().username;
-          this.roles = this.tokenStorageService.getUser().roles;
-          this.formLogin.reset();
-          this.router.navigateByUrl(this.returnUrl);
-          this.shareService.sendClickEvent();
-          Swal.fire({
-            position: 'top-end',
-            icon: 'success',
-            title: 'Đăng nhập thành công',
-            showConfirmButton: false,
-            timer: 1500
-          });
+          if (this.authService.isLoggedIn === true) {
+            this.username = this.tokenStorageService.getUser().username;
+            this.roles = this.tokenStorageService.getUser().roles;
+            this.formLogin.reset();
+            this.router.navigateByUrl(this.returnUrl);
+            this.shareService.sendClickEvent();
+            Swal.fire({
+              position: 'top-end',
+              icon: 'success',
+              title: 'Đăng nhập thành công',
+              showConfirmButton: false,
+              timer: 1500
+            });
+          }
         },
         err => {
           this.authService.isLoggedIn = false;
