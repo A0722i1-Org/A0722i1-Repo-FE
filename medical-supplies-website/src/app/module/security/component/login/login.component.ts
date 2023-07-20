@@ -55,11 +55,12 @@ export class LoginComponent implements OnInit {
         })
       )
       .subscribe(data => {
-          if (this.formLogin.value.remember_me && data.token !== undefined) {
+          if (this.formLogin.value.remember_me) {
+            sessionStorage.clear();
             this.tokenStorageService.saveTokenLocal(data.token);
             this.tokenStorageService.saveUserLocal(data.username);
-            sessionStorage.clear();
           } else {
+            localStorage.clear();
             this.tokenStorageService.saveTokenSession(data.token);
             this.tokenStorageService.saveUserSession(data.username);
           }
