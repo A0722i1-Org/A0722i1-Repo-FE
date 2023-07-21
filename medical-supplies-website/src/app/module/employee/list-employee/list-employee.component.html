@@ -13,6 +13,7 @@
         <button style="margin: 0px 4px" type="submit"><i class="fa fa-search"></i></button>
       </div>
     </form>
+    <div class="error" *ngIf="employees.length==0">Danh sách rỗng !!!</div>
     <div class="row g-4 py-5">
       <div class="col-md-3" *ngFor="let employee of employees">
         <div class="product-single-card">
@@ -65,7 +66,6 @@
       </div>
     </div>
   </div>
-  <div class="error" *ngIf="employees.length==0">Không thể tìm thấy !!!</div>
 </section>
 <div id="modal" [ngClass]="{'modal': true, 'open': isModalOpen}" class="modal">
   <div style="justify-content: center; margin-top: 10%;" class="modal-content">
