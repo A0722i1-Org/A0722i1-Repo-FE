@@ -1,37 +1,36 @@
 <section>
   <div class="container">
-    <form #searchForm="ngForm" (ngSubmit)="search(searchForm.value.nameEmployee,searchForm.value.dateofbirth,searchForm.value.position)" class="form__filter d-flex">
+    <form #searchForm="ngForm" (ngSubmit)="search(searchForm.value.nameEmployee,searchForm.value.dateofbirth,searchForm.value.pos)" class="form__filter d-flex">
       <div class="search-container">
-        <input name="nameEmployee" [(ngModel)]="employeeNameSearch" type="text" placeholder="Tên Nhân Viên">
+        <input name="nameEmployee" [(ngModel)]="employeeNameSearch" [value]=""  type="text" placeholder="Tên Nhân Viên">
         <input [(ngModel)]="dateOfBirth" name="dateofbirth" type="date" placeholder="Ngày sinh">
-        <select  [(ngModel)]="posName" name="position" class="position">
+        <select  [(ngModel)]="posName" name="pos" class="position">
           <option selected value="">
             Chọn chức vụ
           </option>
          <option *ngFor="let pos of positions" [value]="pos.positionName">{{pos.positionName}}</option>
         </select>
-        <button type="submit"><i class="fa fa-search"></i></button>
+        <button style="margin: 0px 4px" type="submit"><i class="fa fa-search"></i></button>
       </div>
     </form>
-    <div class="error" *ngIf="employees.length==0">Không thể tìm thấy !!!</div>
     <div class="row g-4 py-5">
       <div class="col-md-3" *ngFor="let employee of employees">
         <div class="product-single-card">
           <div class="product-top-area">
-            <div class="product-discount" *ngIf="employee.gender==false" >
+            <div class="product-discount" *ngIf="employee.gender==1" >
                 Nữ
             </div>
-            <div class="product-discount" *ngIf="employee.gender==true" >
+            <div class="product-discount" *ngIf="employee.gender==0" >
               Nam
             </div>
             <div class="product-img">
               <div class="first-view">
-                <img src="{{employee.employeeImg}}" alt="logo"
-                     class="img-fluid" onerror="this.src='https://i.ibb.co/qpB9ZCZ/placeholder.png'">
+                <img [src]="employee?.employeeImg" alt="logo"
+                     class="img-fluid" >
               </div>
               <div class="hover-view">
-                <img src="{{employee.employeeImg}}" alt="logo"
-                     class="img-fluid" onerror="this.src='https://i.ibb.co/qpB9ZCZ/placeholder.png'">
+                <img [src]="employee?.employeeImg" alt="logo"
+                     class="img-fluid" >
               </div>
             </div>
             <div class="sideicons">
@@ -66,26 +65,27 @@
       </div>
     </div>
   </div>
+  <div class="error" *ngIf="employees.length==0">Không thể tìm thấy !!!</div>
 </section>
-<div id="modal" class="modal">
+<div id="modal" [ngClass]="{'modal': true, 'open': isModalOpen}" class="modal">
   <div style="justify-content: center; margin-top: 10%;" class="modal-content">
-    <span id="close-modal-button" style="cursor: pointer" (click)="closeEmployeeModal()" class="close">&times;</span>
+    <span id="close-modal-button"  (click)="closeEmployeeModal()" class="close">X</span>
     <div class="object-details">
       <img style="width: 100px;height:150px ;margin-left: 30px;"
-           src="{{employee.employeeImg}}" alt="logo"
-           class="img-fluid" onerror="this.src='https://i.ibb.co/qpB9ZCZ/placeholder.png'">
+           [src]="employee?.employeeImg" alt="logo"
+           class="img-fluid">
       <div class="object-info" style="margin:0px 100px;">
-        <h4 class="object-name">{{employee.employeeCode}}</h4>
-        <p class="object-description">Tên nhân viên: {{employee.employeeName}}</p>
-        <p *ngIf="employee.gender==true" class="object-address">Giới tính: Nữ </p>
-        <p *ngIf="employee.gender==false" class="object-address">Giới tính: Nam </p>
-        <p class="object-address">Ngày sinh:{{employee.dateOfBirth|date:'dd/MM/yyyy'}}</p>
-        <p class="object-address">Tên tài khoản: {{employee.account.username}}</p>
-        <p class="object-address">Quê quán: {{employee.employeeAddress}}</p>
-        <p class="object-address">Số điện thoại:{{employee.phone}}</p>
-        <p class="object-address">CMND: {{employee.idCard}}</p>
-        <p class="object-address">Email: {{employee.email}}</p>
-        <p class="object-address">Chức vụ: {{employee.position.positionName}}</p>
+        <h4 class="object-name">{{employee?.employeeCode}}</h4>
+        <p class="object-description">Tên nhân viên: {{employee?.employeeName}}</p>
+        <p *ngIf="employee?.gender==1" class="object-address">Giới tính: Nữ </p>
+        <p *ngIf="employee?.gender==2" class="object-address">Giới tính: Nam </p>
+        <p class="object-address">Ngày sinh: {{employee?.dateOfBirth|date:'dd/MM/yyyy'}}</p>
+        <p class="object-address">Tên tài khoản: {{employee?.account.username}}</p>
+        <p class="object-address">Quê quán: {{employee?.employeeAddress}}</p>
+        <p class="object-address">Số điện thoại: {{employee?.phone}}</p>
+        <p class="object-address">CMND: {{employee?.idCard}}</p>
+        <p class="object-address">Email: {{employee?.email}}</p>
+        <p class="object-address">Chức vụ: {{employee?.position.positionName}}</p>
       </div>
     </div>
   </div>

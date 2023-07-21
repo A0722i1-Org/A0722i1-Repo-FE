@@ -10,13 +10,12 @@ import { Observable } from 'rxjs';
 })
 export class EmployeeService {
   private _API_URL = 'http://localhost:8080/api/v1/employee';
-  employees : Employee [] = []
 
   constructor(private httpClient :  HttpClient ) {
   }
-  getEmployeeWithNameAndDobAndPos(name : String,dateOfBirth : String,positionName : String):Observable<any[]>{
+  getEmployeeWithNameAndDobAndPos(name : string,dateOfBirth : string,positionName : string):Observable<Employee[]>{
     // @ts-ignore
-    return this.httpClient.get(this._API_URL+"?name"+name+"&date="+dateOfBirth+"&pos="+positionName)
+    return this.httpClient.get(this._API_URL+"?name="+name+"&date="+dateOfBirth+"&pos="+positionName)
   }
    // @ts-ignore
   getEmployeeById(id : Number):Observable<Employee>{
@@ -27,6 +26,6 @@ export class EmployeeService {
   }
   // @ts-ignore
   getAllPos():Observable<any>{
-    return  this.httpClient.get("http://localhost:8080/api/positions");
+    return  this.httpClient.get("http://localhost:8080/api/v1/employee/positions");
   }
 }

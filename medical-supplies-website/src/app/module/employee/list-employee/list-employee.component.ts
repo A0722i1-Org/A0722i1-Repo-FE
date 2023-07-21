@@ -3,7 +3,7 @@ import {EmployeeService} from "../service/employee.service";
 import {Employee} from "../model/Employee";
 import {Position} from "../model/Position";
 import Swal from 'sweetalert2';
-import {query} from "@angular/animations";
+
 
 
 @Component({
@@ -12,50 +12,60 @@ import {query} from "@angular/animations";
   styleUrls: ['./list-employee.component.css']
 })
 export class ListEmployeeComponent implements OnInit {
-  employees : Employee[] = []
-  employeeNameSearch :string = '';
-  dateOfBirth : string = '';
-  posName : string = '';
-  positions :Position[] = []
-  employeeNameDelete : string = '';
-  employee : Employee;
-  modal : any;
-  constructor(private employeeService : EmployeeService) { }
+  employeeNameSearch :string ='';
+  dateOfBirth : string ='';
+  posName : string ='';
+  positions :Position [] = []
+  employeeNameDelete : string ='';
+  employee : Employee ;
+  isModalOpen = false;
+
+  employees : Employee [] = []
+  constructor(private employeeService : EmployeeService) {
+    this.getAllWithSearch();
+    this.getAllPosition();
+    console.log(this.employees)
+  }
 
   openEmployeeModal() {
-    this.modal.style.display  = "block";
+    this.isModalOpen = true;
   }
+
   closeEmployeeModal() {
-    this.modal.style.display = 'none';
+    this.isModalOpen = false;
   }
   getAllWithSearch(){
-    this.employeeService.getEmployeeWithNameAndDobAndPos(this.employeeNameSearch,this.dateOfBirth,this.posName).subscribe(next =>{
+    this.employeeService.getEmployeeWithNameAndDobAndPos(this.employeeNameSearch,this.dateOfBirth,this.posName)
+      .subscribe(next =>{
       this.employees = next;
     })
   }
   getAllPosition(){
-    this.employeeService.getAllPos().subscribe(next=>{
+    this.employeeService.getAllPos().subscribe(next => {
       this.positions = next;
+
+
     })
   }
   ngOnInit(): void {
-    this.getAllPosition();
-    this.getAllWithSearch();
-    this.modal = document.querySelector('modal') as unknown as ElementRef;
   }
   getEmployee(id_employee : Number){
     this.employeeService.getEmployeeById(id_employee).subscribe(next=>{
       this.employee = next;
+      console.log(next);
       this.openEmployeeModal()
     })
 
   }
   search(nameEmployee: string, dateofbirth: string, position: string) {
     const specialCharPattern = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/;
-    this.employeeNameSearch = nameEmployee;
+    this.employeeNameSearch = nameEmployee
+    console.log(nameEmployee)
     this.dateOfBirth = dateofbirth;
+    console.log(dateofbirth)
     this.posName = position;
-    console.log(this.dateOfBirth)
+    console.log(position)
+
     if(specialCharPattern.test(this.employeeNameSearch)||this.employeeNameSearch.length>36){
       Swal.fire({
         icon: 'error',
@@ -66,16 +76,28 @@ export class ListEmployeeComponent implements OnInit {
         timer: 3000  // Adjust the duration of the alert (in milliseconds) as needed
       });
     }
-    this.employeeService.getEmployeeWithNameAndDobAndPos(this.employeeNameSearch,this.dateOfBirth,this.posName).subscribe(next =>{
-      this.employees = next;
-    })
+    else {
+      this.employeeService.getEmployeeWithNameAndDobAndPos(this.employeeNameSearch, this.dateOfBirth, this.posName).subscribe(next => {
+        if(next.length==0){
+          this.employees = [];
+          console.log(this.employees)
+          console.log("goodbye")
+        }
+        console.log(next);
+        this.employees = next;
+        console.log(next);
+        console.log('hello')
+      })
+    }
   }
 
-  delete(employeeId: number,employeName:string) {
-    this.employeeNameDelete = employeName;
+  delete(employeeId: number,employeeName:string) {
+    this.employeeNameDelete = employeeName;
+    console.log(this.employeeNameDelete)
+    console.log(employeeId)
     Swal.fire({
       title: 'Bạn có chắc không ?',
-      text: "Xóa "+this.employeeNameDelete+ " này khỏi danh sách ",
+      text: "Xóa "+this.employeeNameDelete+ " khỏi danh sách ",
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#00b894',
@@ -92,7 +114,9 @@ export class ListEmployeeComponent implements OnInit {
             confirmButtonColor: '#00b894',
             confirmButtonText: 'Đóng',
           }
+
         )
+        this.getAllWithSearch()
       }
     })
   }
