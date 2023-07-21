@@ -32,8 +32,8 @@ export class CustomerUserDetailComponent implements OnInit {
 
     this._customerService.getUserDetail().pipe(
       tap(response => {
-        if (response.status === 202 || response.status === 404) {
-          this._handlingError();
+        if (response.status === 202) {
+          this._handleError('Bạn phải đăng nhập trước khi truy cập vào trang này!', '/login');
         }
       })
     ).subscribe(response => {
@@ -41,7 +41,7 @@ export class CustomerUserDetailComponent implements OnInit {
       this.customerUserDetail.dateOfBirth = new DatePipe('en-US').transform(new Date(this.customerUserDetail.dateOfBirth), 'yyyy-MM-dd');
       this.mainForm.patchValue(this.customerUserDetail);
     }, error => {
-        this._handlingError();
+      this._handleError('Bạn không được phép truy cập vào trang web này!');
     });
   }
 
@@ -50,14 +50,18 @@ export class CustomerUserDetailComponent implements OnInit {
   }
 
   // Error handling
-  private _handlingError() {
+  private _handleError(message: string, url?: string) {
     Swal.fire({
       icon: 'error',
       title: 'Lỗi...',
-      text: 'Bạn không có quyền truy cập!',
+      text: message,
       confirmButtonColor: '#55efc4'
     });
-    this._router.navigateByUrl('/');
+    if (url) {
+      this._router.navigateByUrl(url);
+    } else {
+      this._router.navigateByUrl('/');
+    }
   }
 
   // Getters/Setters Begin.
