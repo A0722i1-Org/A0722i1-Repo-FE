@@ -40,8 +40,8 @@ export class LoginComponent implements OnInit {
     if (this.tokenStorageService.getToken()) {
       const user = this.tokenStorageService.getUser();
       this.authService.isLoggedIn = true;
-      this.roles = this.tokenStorageService.getUser().roles;
-      this.username = this.tokenStorageService.getUser().username;
+      this.roles = this.tokenStorageService.getRole();
+      this.username = this.tokenStorageService.getUser();
     }
   }
 
@@ -59,14 +59,14 @@ export class LoginComponent implements OnInit {
             sessionStorage.clear();
             this.tokenStorageService.saveTokenLocal(data.token);
             this.tokenStorageService.saveUserLocal(data.username);
+            this.tokenStorageService.saveRoleLocal(data.roles[0]);
           } else {
             localStorage.clear();
             this.tokenStorageService.saveTokenSession(data.token);
             this.tokenStorageService.saveUserSession(data.username);
+            this.tokenStorageService.saveRoleSession(data.roles[0]);
           }
           this.authService.isLoggedIn = true;
-          this.username = this.tokenStorageService.getUser().username;
-          this.roles = this.tokenStorageService.getUser().roles;
           this.formLogin.reset();
           this.router.navigateByUrl(this.returnUrl);
           this.shareService.sendClickEvent();
