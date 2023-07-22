@@ -93,6 +93,7 @@ export class ListEmployeeComponent implements OnInit {
           });
         }else {
           this.employees = next;
+          console.log(next)
         }
       })
     }
