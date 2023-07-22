@@ -38,7 +38,7 @@ export class HeaderComponent implements OnInit {
 
   logOut() {
     this.tokenStorageService.signOut();
-    this.router.navigateByUrl('');
-    this.shareService.sendClickEvent();
+    location.reload();
   }
+
 }
