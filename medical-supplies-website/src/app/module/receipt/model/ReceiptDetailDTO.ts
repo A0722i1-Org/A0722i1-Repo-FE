@@ -1,6 +1,6 @@
 export class ReceiptDetailDTO {
-  private productId: number;
-  private quantity: number;
+  public productId: number;
+  public quantity: number;
 
   constructor(productId: number, quantity: number) {
     this.productId = productId;
