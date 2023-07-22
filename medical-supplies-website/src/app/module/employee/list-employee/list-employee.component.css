@@ -273,9 +273,7 @@ button[type="submit"] {
   background-color: #00b894;
   color: #ffff;
   }
-.search-container:hover{
-  border: 5px solid #00B894;
-}
+
 .form__filter {
   display: flex;
   height: 100px;
