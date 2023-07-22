@@ -26,6 +26,6 @@ export class EmployeeService {
   }
   // @ts-ignore
   getAllPos():Observable<any>{
-    return  this.httpClient.get("http://localhost:8080/api/v1/employee/positions");
+    return  this.httpClient.get("http://localhost:8080/api/v1/position");
   }
 }

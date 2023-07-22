@@ -82,9 +82,7 @@ export class ListEmployeeComponent implements OnInit {
       });
     } else {
       this.employeeService.getEmployeeWithNameAndDobAndPos(this.employeeNameSearch, this.dateOfBirth, this.posName).subscribe(next => {
-        this.employees = next;
-        console.log(this.employees)
-        if (this.employees.length == 0) {
+        if (next.length == 0) {
           Swal.fire({
             icon: 'error',
             text: 'Không tìm thấy nhân viên ' + this.employeeNameSearch,
@@ -93,6 +91,8 @@ export class ListEmployeeComponent implements OnInit {
             showConfirmButton: false,
             timer: 3000
           });
+        }else {
+          this.employees = next;
         }
       })
     }
