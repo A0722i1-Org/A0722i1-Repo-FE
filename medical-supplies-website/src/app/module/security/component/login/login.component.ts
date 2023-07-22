@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../service/auth.service';
 import {TokenStorageService} from '../../service/token-storage.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ShareService} from '../../service/share.service';
 import {tap} from 'rxjs/operators';
 import Swal from 'sweetalert2';
+import {validate} from 'codelyzer/walkerFactory/walkerFn';
 
 @Component({
   selector: 'app-login',
@@ -31,8 +32,14 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.formLogin = new FormGroup({
-        username: new FormControl(''),
-        password: new FormControl(''),
+        username: new FormControl('', [
+          Validators.required,
+          Validators.pattern('^[^!@#$%^&*()_+=-]+$')
+        ]),
+        password: new FormControl('', [
+          Validators.required,
+          Validators.maxLength(32)
+        ]),
         remember_me: new FormControl('')
       }
     );
@@ -50,7 +57,7 @@ export class LoginComponent implements OnInit {
       .pipe(
         tap(response => {
           if (response.status === 202) {
-            this.message = 'Thông tin đăng nhập không chính xác';
+            this.message = 'Chú ý: Thông tin đăng nhập không hợp lệ.';
           }
         })
       )
