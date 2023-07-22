@@ -8,9 +8,15 @@
           <option selected value="">
             Chọn chức vụ
           </option>
-         <option *ngFor="let pos of positions" [value]="pos.positionName">{{pos.positionName}}</option>
+          <option *ngFor="let pos of positions" [value]="pos.positionName">{{pos.positionName}}</option>
         </select>
         <button style="margin: 0px 4px" type="submit"><i class="fa fa-search"></i></button>
+      </div>
+      <div class="btn-create">
+      <a routerLink="#" >
+        <i class="fa-solid fa-plus"></i>
+        Thêm mới
+      </a>
       </div>
     </form>
     <div class="error" *ngIf="employees.length==0">Danh sách rỗng !!!</div>
@@ -19,7 +25,7 @@
         <div class="product-single-card">
           <div class="product-top-area">
             <div class="product-discount" *ngIf="employee.gender==1" >
-                Nữ
+              Nữ
             </div>
             <div class="product-discount" *ngIf="employee.gender==0" >
               Nam
@@ -90,4 +96,3 @@
     </div>
   </div>
 </div>
-

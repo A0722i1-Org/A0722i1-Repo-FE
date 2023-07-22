@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {EmployeeService} from "../service/employee.service";
 import {Employee} from "../model/Employee";
 import {Position} from "../model/Position";
@@ -93,7 +93,6 @@ export class ListEmployeeComponent implements OnInit {
           });
         }else {
           this.employees = next;
-          console.log(next)
         }
       })
     }
