@@ -1,1 +1,88 @@
-<p>header works!</p>
+<nav class="navbar navbar-expand-lg fixed-top ">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="#">
+      <img src="assets/images/logo.png" alt="" style="width: 200px; height: 100%">
+    </a>
+    <button class="navbar-toggler text-light" type="button" data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon">
+      </span>
+    </button>
+    <div class="collapse navbar-collapse ms-2" id="navbarSupportedContent">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link active " aria-current="page" href="#">Trang Chủ</a>
+        </li>
+        <li class="nav-item dropdown" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+             aria-expanded="false">Hệ thống
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Quản lý tài khoản</a></li>
+            <li><a class="dropdown-item" href="#">Quản lý nhân viên</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Khác...</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown" *ngIf="['ROLE_ADMIN', 'ROLE_ACCOUNTANT'].indexOf(role)!==-1">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+             aria-expanded="false">Quản lý
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Quản lý Vật tư</a></li>
+            <li><a class="dropdown-item" href="#">Quản lý Khách hàng</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Khác...</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item dropdown" *ngIf="['ROLE_ADMIN', 'ROLE_ACCOUNTANT', 'ROLE_SALE'].indexOf(role)!==-1">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+             aria-expanded="false">Danh mục
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">Quản lý Nhập Kho</a></li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><a class="dropdown-item" href="#">Quản lý Bán hàng</a></li>
+            <li><a class="dropdown-item" href="#">Quản lý Trả hàng</a></li>
+          </ul>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link disabled"><i class="fas fa-question-circle"></i> Trợ giúp</a>
+        </li>
+      </ul>
+
+      <div class="d-flex">
+        <a *ngIf="!isLoggedIn" type="button" class="btn btn-outline-light mb-3 mb-lg-0 me-2" routerLink="login">
+          Đăng nhập
+        </a>
+<!--                <a type="button" class="btn btn-outline-warning mb-3 mb-lg-0">Đăng ký</a>-->
+        <div *ngIf="isLoggedIn" class="user-profile">
+          <span class="text-light">Xin chào: {{username}}</span>
+          <div class="user-profile__avatar-container  ms-3 me-3">
+            <i class="fa fa-user-circle fa-2x" aria-hidden="true" style="color: #f0f0f0"></i>
+            <div class="user-profile__options">
+              <a href="#" class="dropdown-item">Cá nhân</a>
+              <hr class="dropdown-divider">
+              <a href="#" class="dropdown-item" (click)="logOut()">Thoát</a>
+            </div>
+          </div>
+        </div>
+        <a class="me-auto cart-icon me-3">
+          <i class="fa fa-shopping-cart fa-2x" style="color: #f0f0f0"></i>
+          <span class="cart-item-count">0</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
