@@ -71,7 +71,7 @@
           <div class="user-profile__avatar-container  ms-3 me-3">
             <i class="fa fa-user-circle fa-2x" aria-hidden="true" style="color: #f0f0f0"></i>
             <div class="user-profile__options">
-              <a href="#" class="dropdown-item">Cá nhân</a>
+              <a href="#" [routerLink]="userDetailUrl" class="dropdown-item">Cá nhân</a>
               <hr class="dropdown-divider">
               <a href="#" class="dropdown-item" (click)="logOut()">Thoát</a>
             </div>
