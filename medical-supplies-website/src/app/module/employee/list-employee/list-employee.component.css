@@ -50,7 +50,6 @@ Product Single Card - Start
   border-radius: 3px;
   padding: 5px 10px;
   user-select: none;
-  z-index: 999;
 }
 
 .product-single-card .product-top-area .product-img {
