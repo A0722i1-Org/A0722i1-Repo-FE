@@ -170,8 +170,8 @@
         </ul>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-        <button (click)="deleteProduct(productDTO?.product_Id)" data-bs-dismiss="modal" type="button" class="btn btn-primary">Save</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
+        <button (click)="deleteProduct(productDTO?.product_Id)" data-bs-dismiss="modal" type="button" class="btn btn-primary">Xóa vật tư</button>
       </div>
     </div>
   </div>
@@ -183,7 +183,7 @@
       <div class="modal-header">
         <h4 class="modal-title" id="modelTitleId1">Thông báo</h4>
       </div>
-      <div #htmlContent class="modal-body" style="background-image: url('../../../../../assets/img/logo.png'); background-repeat: no-repeat;">
+      <div #htmlContent class="modal-body" >
         <div class="invoice">
           <div class="section">
             <h3 style="text-align: center;">Hóa đơn nhập kho vật tư y tế</h3>
@@ -212,7 +212,7 @@
                 <td>{{p.expire_Date | date: "MM/dd/yyyy" }}</td>
               </tr>
               <tr>
-                <td colspan="3">Tổng tiền:</td>
+                <td colspan="3" style="font-weight: bold">Tổng tiền:</td>
                 <td colspan="2">{{totalAmount | currency: "VND" }}</td>
               </tr>
             </table>
