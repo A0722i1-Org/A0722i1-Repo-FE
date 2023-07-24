@@ -10,7 +10,7 @@ import {ShipmentDto} from '../model/ShipmentDto';
 import {Employee} from '../../employee/model/Employee';
 import {Shipment} from '../model/Shipment';
 import {IShipmentDto} from '../model/IShipmentDto';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 
 @Injectable({

@@ -8,7 +8,7 @@ import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { ReturnCanceComponent } from './component/return-cance/return-cance.component';
 import { ReturnCanceCreateComponent } from './component/return-cance-create/return-cance-create.component';
-import {NgxPaginationModule} from "ngx-pagination";
+import {NgxPaginationModule} from 'ngx-pagination';
 
 
 
