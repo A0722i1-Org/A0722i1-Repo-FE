@@ -127,6 +127,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "medical-supplies-website"
+    }
+  },
+  "defaultProject": "medical-supplies-website",
+  "cli": {
+    "analytics": false
+  }
 }
