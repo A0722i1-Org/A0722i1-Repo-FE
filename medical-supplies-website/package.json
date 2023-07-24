@@ -32,6 +32,10 @@
     "@angular/cli": "~9.0.7",
     "@angular/compiler-cli": "~9.0.7",
     "@angular/language-service": "~9.0.7",
+<<<<<<< HEAD
+=======
+    "@bazel/typescript": "^5.8.1",
+>>>>>>> edb640dcb752fd0bfc045e9a9756f4eba89dae87
     "@types/jasmine": "~3.5.0",
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "^12.11.1",
