@@ -1,26 +1,25 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {CustomerDto} from '../../model/CustomerDto';
+import {ShipmentType} from '../../model/ShipmentType';
 import {ShipmentService} from '../../service/shipment.service';
 import {Router} from '@angular/router';
-import {ShipmentType} from '../../model/ShipmentType';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {CustomerDto} from '../../model/CustomerDto';
 import {ShipmentDetailDto} from '../../model/ShipmentDetailDto';
 import {Employee} from '../../../employee/model/Employee';
+import { FormControl, FormGroup, Validators} from '@angular/forms';
 import {ShipmentDto} from '../../model/ShipmentDto';
 import Swal from 'sweetalert2';
+import { jsPDF } from 'jspdf';
+import html2canvas from 'html2canvas';
 import {Shipment} from '../../model/Shipment';
 import {IShipmentDto} from '../../model/IShipmentDto';
-import {jsPDF} from 'jspdf';
-import html2canvas from 'html2canvas';
-
 
 
 @Component({
-  selector: 'app-shipment-list',
-  templateUrl: './shipment-list.component.html',
-  styleUrls: ['./shipment-list.component.css']
+  selector: 'app-return-cance',
+  templateUrl: './return-cance.component.html',
+  styleUrls: ['./return-cance.component.css']
 })
-export class ShipmentListComponent implements OnInit {
+export class ReturnCanceComponent implements OnInit {
   @ViewChild('htmlContent') htmlContent!: ElementRef;
   @ViewChild('pdfViewer') pdfViewer!: ElementRef;
   currentDate: Date = new Date();
@@ -50,7 +49,7 @@ export class ShipmentListComponent implements OnInit {
 
   ngOnInit(): void {
     this.shipmentForm = new FormGroup({
-      shipmentTypeId: new FormControl('1', [Validators.required]),
+      shipmentTypeId: new FormControl('2', [Validators.required]),
       invoiceCode: new FormControl('', [Validators.required, Validators.pattern('HD-\\d{3}')]),
       customerId: new FormControl(''),
       phone: new FormControl('', [Validators.required, Validators.pattern('^0\\d{9}$')])
@@ -147,10 +146,10 @@ export class ShipmentListComponent implements OnInit {
         timer: 1500
       });
     } else {
-      this.shipmentDto.customerId = this.customerDto.customer_Id;
-      this.shipmentDto.employeeId = this.employees.employeeId;
-      this.shipmentDto.listShipmentDetailDtos = this.shipmentDetailDto;
-      if (!this.shipmentDto.listShipmentDetailDtos || this.shipmentDto.listShipmentDetailDtos.length === 0) {
+    this.shipmentDto.customerId = this.customerDto.customer_Id;
+    this.shipmentDto.employeeId = this.employees.employeeId;
+    this.shipmentDto.listShipmentDetailDtos = this.shipmentDetailDto;
+    if (!this.shipmentDto.listShipmentDetailDtos || this.shipmentDto.listShipmentDetailDtos.length === 0) {
         Swal.fire({
           position: 'center',
           icon: 'warning',
@@ -159,16 +158,16 @@ export class ShipmentListComponent implements OnInit {
           timer: 1500
         });
       }
-      this.shipmentService.saveInvoice(this.shipmentDto).subscribe(data => {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
-          title: 'Lưu hóa đơn thành công',
-          showConfirmButton: false,
-          timer: 1500
-        });
-        console.log(data);
+    this.shipmentService.saveInvoice(this.shipmentDto).subscribe(data => {
+      Swal.fire({
+        position: 'center',
+        icon: 'success',
+        title: 'Lưu hóa đơn thành công',
+        showConfirmButton: false,
+        timer: 1500
       });
+      console.log(data);
+    });
     }
   }
   /*giữ nội dung khi chuyển trang*/
@@ -212,4 +211,3 @@ export class ShipmentListComponent implements OnInit {
     return null;
   }
 }
-

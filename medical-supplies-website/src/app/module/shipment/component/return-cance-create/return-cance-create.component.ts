@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import {ShipmentService} from '../../service/shipment.service';
+import {Component, OnInit} from '@angular/core';
 import {Product} from '../../../product/model/Product';
+import {ShipmentService} from '../../service/shipment.service';
 import {ProductDto} from '../../model/ProductDto';
 import {Router} from '@angular/router';
+import Swal from 'sweetalert2';
 
 @Component({
-  selector: 'app-shipment-create',
-  templateUrl: './shipment-create.component.html',
-  styleUrls: ['./shipment-create.component.css']
+  selector: 'app-return-cance-create',
+  templateUrl: './return-cance-create.component.html',
+  styleUrls: ['./return-cance-create.component.css']
 })
-export class ShipmentCreateComponent implements OnInit {
+export class ReturnCanceCreateComponent implements OnInit {
   products: Product[];
   productDto: ProductDto[];
 
@@ -44,6 +45,6 @@ export class ShipmentCreateComponent implements OnInit {
     console.log(shipmentItems);
     // Tiến hành reset lại danh sách tạm
     // this.shipmentService.clearShipmentItems();
-    this.router.navigate(['/shipments/shipment']);
+    this.router.navigate(['/shipments/return']);
   }
 }

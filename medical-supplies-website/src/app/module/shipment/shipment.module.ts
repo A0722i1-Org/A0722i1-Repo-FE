@@ -4,8 +4,12 @@ import { CommonModule } from '@angular/common';
 import { ShipmentRoutingModule } from './shipment-routing.module';
 import { ShipmentListComponent } from './component/shipment-list/shipment-list.component';
 import { ShipmentCreateComponent } from './component/shipment-create/shipment-create.component';
-import {HttpClientModule} from "@angular/common/http";
-import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {HttpClientModule} from '@angular/common/http';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import { ReturnCanceComponent } from './component/return-cance/return-cance.component';
+import { ReturnCanceCreateComponent } from './component/return-cance-create/return-cance-create.component';
+
+
 
 
 @NgModule({
@@ -16,6 +20,6 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
     ReactiveFormsModule,
     FormsModule
   ],
-  declarations: [ShipmentListComponent, ShipmentCreateComponent]
+  declarations: [ShipmentListComponent, ShipmentCreateComponent, ReturnCanceComponent, ReturnCanceCreateComponent]
 })
 export class ShipmentModule { }

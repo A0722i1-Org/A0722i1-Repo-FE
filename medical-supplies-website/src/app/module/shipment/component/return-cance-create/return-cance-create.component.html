@@ -9,7 +9,7 @@
         <th scope="col" style="background: #00b894; color: white">Tên vật tư</th>
         <th scope="col" style="background: #00b894; color: white">Số lượng</th>
         <th scope="col" style="background: #00b894; color: white">Thành tiền</th>
-        <th scope="col" style="background: #00b894; color: white">Ghi chú</th>
+        <th scope="col" style="background: #00b894; color: white">Lí do</th>
         <th style="background: #00b894; color: white">Chọn</th>
       </tr>
       </thead>
@@ -25,8 +25,8 @@
       </tr>
       </tbody>
     </table>
-    <a type="button" class="btn" style="float: right;background: #00b894; color: white;margin-left: 10px;" routerLink="/shipments/shipment"><i class="fa-solid fa-person-walking-arrow-loop-left"></i> Trở về</a>
-    <button class="btn" style="float: right;background: #00b894; color: white"  (click)="create()" [disabled]="shipmentService.shipmentDetailDto?.length === 0"><i class="fa-solid fa-pen-to-square"></i> Thêm </button>
+    <a type="button" class="btn" style="float: right;background: #00b894; color: white;margin-left: 10px;" routerLink="/shipments/return"><i class="fa-solid fa-person-walking-arrow-loop-left"></i> Trở về</a>
+     <button class="btn" style="float: right;background: #00b894; color: white"  (click)="create()" [disabled]="shipmentService.shipmentDetailDto?.length === 0"><i class="fa-solid fa-pen-to-square"></i> Thêm </button>
     <br>
     <nav aria-label="Page navigation example" style=" display: flex; justify-content: center;">
       <ul class="pagination">
@@ -47,5 +47,4 @@
     </nav>
   </div>
 </div>
-
 
