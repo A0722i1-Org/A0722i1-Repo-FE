@@ -6,7 +6,7 @@ export interface Employee {
   employeeCode?:string;
   employeeName?: string;
   gender?: number;
-  dateOfBirth?: Date;
+  dateOfBirth?: string;
   employeeAddress?: string;
   employeeImg?: string;
   salary?: number;
