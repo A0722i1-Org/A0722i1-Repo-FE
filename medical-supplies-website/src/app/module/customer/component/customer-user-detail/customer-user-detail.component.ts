@@ -40,9 +40,6 @@ export class CustomerUserDetailComponent implements OnInit {
       })
     ).subscribe(response => {
       this.customerUserDetail = response.body;
-      this.customerUserDetail.customerImg =
-        'https://firebasestorage.googleapis.com/v0/b/a0722i1-khanhnl.appspot.com/o/' +
-        'avatar-test.jpg?alt=media&token=99df7d23-fc6c-47d8-8336-efb34d6f311a';
       this.customerUserDetail.dateOfBirth = new DatePipe('en-US').transform(new Date(this.customerUserDetail.dateOfBirth), 'yyyy-MM-dd');
       this.mainForm.patchValue(this.customerUserDetail);
     }, error => {
