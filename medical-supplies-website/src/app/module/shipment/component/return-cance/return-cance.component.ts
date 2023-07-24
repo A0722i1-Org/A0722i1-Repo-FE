@@ -128,47 +128,50 @@ export class ReturnCanceComponent implements OnInit {
 
   /*Lưu xóa đơn xuất kho*/
   saveInvoice() {
-    this.shipmentDto = this.shipmentForm.value;
-    if (this.shipmentForm.invalid) {
-      Swal.fire({
-        position: 'center',
-        icon: 'warning',
-        title: 'Vui lòng nhập đầy đủ thông tin!',
-        showConfirmButton: false,
-        timer: 1500
-      });
-    } else if (this.checkInvoiceCode(this.iShipmentDtos, this.shipmentDto.invoiceCode) != null) {
-      Swal.fire({
-        position: 'center',
-        icon: 'warning',
-        title: 'Mã hóa đơn đã tồn tại !',
-        showConfirmButton: false,
-        timer: 1500
-      });
-    } else {
-    this.shipmentDto.customerId = this.customerDto.customer_Id;
-    this.shipmentDto.employeeId = this.employees.employeeId;
-    this.shipmentDto.listShipmentDetailDtos = this.shipmentDetailDtos;
-    if (!this.shipmentDto.listShipmentDetailDtos || this.shipmentDto.listShipmentDetailDtos.length === 0) {
+    this.shipmentService.findAllInvoiceCode().subscribe(shipment => {
+      this.iShipmentDtos = shipment;
+      this.shipmentDto = this.shipmentForm.value;
+      if (this.shipmentForm.invalid) {
         Swal.fire({
           position: 'center',
           icon: 'warning',
-          title: 'Vui lòng nhập danh sách vật tư !',
+          title: 'Vui lòng nhập đầy đủ thông tin!',
           showConfirmButton: false,
           timer: 1500
         });
+      } else if (this.checkInvoiceCode(this.iShipmentDtos, this.shipmentDto.invoiceCode) != null) {
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Mã hóa đơn đã tồn tại !',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      } else {
+        this.shipmentDto.customerId = this.customerDto.customer_Id;
+        this.shipmentDto.employeeId = this.employees.employeeId;
+        this.shipmentDto.listShipmentDetailDtos = this.shipmentDetailDtos;
+        if (!this.shipmentDto.listShipmentDetailDtos || this.shipmentDto.listShipmentDetailDtos.length === 0) {
+          Swal.fire({
+            position: 'center',
+            icon: 'warning',
+            title: 'Vui lòng nhập danh sách vật tư !',
+            showConfirmButton: false,
+            timer: 1500
+          });
+        }
+        this.shipmentService.saveInvoice(this.shipmentDto).subscribe(data => {
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Lưu hóa đơn thành công',
+            showConfirmButton: false,
+            timer: 1500
+          });
+          console.log(data);
+        });
       }
-    this.shipmentService.saveInvoice(this.shipmentDto).subscribe(data => {
-      Swal.fire({
-        position: 'center',
-        icon: 'success',
-        title: 'Lưu hóa đơn thành công',
-        showConfirmButton: false,
-        timer: 1500
-      });
-      console.log(data);
-    });
-    }
+    }) ;
   }
   /*giữ nội dung khi chuyển trang*/
   saveTempShipmentDto() {

@@ -40,7 +40,7 @@ export class ShipmentCreateComponent implements OnInit {
   }
 
   /*Thêm qua list tạm*/
-  create(value: number) {
+  create() {
     const shipmentItems = this.shipmentService.getShipmentDetailDto();
     // Sử dụng danh sách tạm shipmentItems ở đây để thực hiện các thao tác bạn cần với các sản phẩm đã chọn
     console.log(shipmentItems);

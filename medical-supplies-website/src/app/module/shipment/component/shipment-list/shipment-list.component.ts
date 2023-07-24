@@ -205,6 +205,7 @@ export class ShipmentListComponent implements OnInit {
     }
     return totalPrice;
   }
+  /*Check trung hoa don*/
   checkInvoiceCode(shipments: IShipmentDto[], invoiceCode: string) {
     // tslint:disable-next-line:prefer-for-of
     for (let i = 0; i < shipments.length ; i++) {
