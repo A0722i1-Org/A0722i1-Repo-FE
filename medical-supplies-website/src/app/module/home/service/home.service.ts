@@ -16,9 +16,16 @@ export class HomeService {
   findAll(currentpage: number): Observable<any> {
     return this.httpClient.get<any>(this.API_PRO_MAIN + '/home?page=' + `${currentpage}`);
   }
-  search(keyword: string): Observable<any> {
-    return this.httpClient.get<any[]>(`${this.API_PRO_MAIN} + '/home' + '/search?' + ${keyword}`);
+
+    searchByName(keyword: string, currentpage: number): Observable<any> {
+    return this.httpClient.get<any[]>(`${this.API_PRO_MAIN}/home/search-name?page=${currentpage}&${keyword}`);
   }
+
+  searchByCate(keyword: number, currentpage: number): Observable<any> {
+    console.log(`${this.API_PRO_MAIN}/home/search-cate?page=${currentpage}&${keyword}`);
+    return this.httpClient.get<any[]>(`${this.API_PRO_MAIN}/home/search-cate?page=${currentpage}&categoryId=${keyword}`);
+  }
+
   getProductHighest(): Observable<any> {
     return this.httpClient.get<any>(this.API_PRO_MAIN + '/home' + '/highest');
   }

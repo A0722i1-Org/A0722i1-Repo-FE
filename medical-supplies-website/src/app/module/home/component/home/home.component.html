@@ -68,67 +68,41 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="filter">
-          <ul class="category">
-            <li class="category__item active">
-              <!--                                    <span (click)="setValueCategorySearch('')" class="category_text">-->
-              <span class="category_text">
+          <li class="category__item active" (click)="getAllProduct()">
+            <span class="category_text">
                                       <i class="fa-solid fa-truck-medical" style="color: #FFD333;"></i>
                                         <span class="label">Tất cả</span>
 
                                     </span>
-            </li>
-            <li class="category__item ">
-                                    <span class="category_text">
-                                        <i class="fa-solid fa-mask-face" style="color: #FFD333;"></i>
-                                        <span class="label">Khẩu trang</span>
-                                    </span>
-            </li>
+          </li>
+          <ul class="category" *ngFor="let cate of categories" (click)="searchCategory(cate.categoryId)">
             <li class="category__item">
-                                    <span class="category_text">
-                                        <i class="fa-solid fa-shield-virus" style="color: #FFD333;"></i>
-                                        <span class="label">Bảo hộ</span>
-                                    </span>
-            </li>
-            <li class="category__item">
-                                    <span class="category_text">
-                                        <i class="fa-solid fa-thermometer" style="color: #FFD333;"></i>
-                                        <span class="label">Kit test</span>
-                                    </span>
-            </li>
-            <li class="category__item">
-                                    <span class="category_text">
-                                        <i class="fa-solid fa-notes-medical" style="color: #FFD333;"></i>
-                                       <span class="label">Khác</span>
-                                    </span>
+              <div class="category_text">
+                <i class="fa-solid fa-mask-face" style="color: #FFD333;"></i>
+                <div class="label">{{cate.categoryName}}</div>
+              </div>
             </li>
           </ul>
-          <form action="" class="form__filter d-flex">
+
+          <form action="" class="form__filter d-flex" [formGroup]="rfSearch" (ngSubmit)="search()">
             <div class="search-container">
-              <input type="text" placeholder="Tìm kiếm...">
+              <input type="text" placeholder="Tìm kiếm..." formControlName="productName">
               <button type="submit"><i class="fa fa-search"></i></button>
             </div>
-            <select class="select__price">
-              <option value="">--Chọn mức giá--</option>
-              <option value="">Nhỏ hơn 100 nghìn</option>
-              <option value="">Từ 100 nghìn đến 2 triệu</option>
-              <option value="">Lớn hơn 2 triệu</option>
-            </select>
           </form>
-
         </div>
       </div>
     </div>
   </div>
 
-
   <div class="content">
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
-          <div *ngIf="productsMain.length === 0">
+          <div *ngIf="productsMain === undefined">
             <p>Not found!</p>
           </div>
-          <div *ngIf="productsMain.length !== 0">
+          <div *ngIf="productsMain !== undefined">
             <div class="row">
               <div class="col-lg-3 col-sm-6 col-12 col-md-4 mb-4" *ngFor="let pro of productsMain">
                 <div class="card">
@@ -138,7 +112,7 @@
                         <div class="type-lb">
                           <p class="sale">Bán chạy</p>
                         </div>
-                        <img src="assets/images/huyetap.png" class="img-fluid" alt="Image"
+                        <img src="{{pro.product_Img}}" class="img-fluid" alt="Image"
                              style="height: 250px; width: 500px">
                         <div class="mask-icon">
                           <ul>
@@ -165,12 +139,11 @@
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </div>
 
-    <!--  phantrang-->
+      phantrang
     <div>
       <nav aria-label="Page navigation example" style=" display: flex;
     justify-content: center;">
@@ -182,7 +155,7 @@
           </li>
           <li class="page-item"><a class="page-link btn" (click)="pageOne()">1</a></li>
           <li class="page-item"><a class="page-link btn" (click)="pageTwo()">2</a></li>
-          <li class="page-item"><a class="page-link btn" (click)="pageThree()">3</a></li>
+          <li class="page-item"><a class="page-link btn page-active" (click)="pageThree()">3</a></li>
           <li class="page-item">
             <a class="page-link btn" aria-label="Next">
               <span aria-hidden="true" (click)="nextPage()">&raquo;</span>

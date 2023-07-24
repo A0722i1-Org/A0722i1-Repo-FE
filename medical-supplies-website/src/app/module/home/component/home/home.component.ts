@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ProductMain} from '../../model/product-main';
 import {HomeService} from '../../service/home.service';
 import {FormControl, FormGroup} from '@angular/forms';
+import {CategoryHomeService} from '../../service/category-home.service';
+import {CategoryMain} from '../../model/category-main';
 
 @Component({
   selector: 'app-home',
@@ -12,19 +14,19 @@ export class HomeComponent implements OnInit {
   productsMain: ProductMain[];
   currentPage = 1;
   rfSearch: FormGroup;
-  categorys: any;
+  categories: CategoryMain[];
 
 
-  constructor(private homeService: HomeService) {
+  constructor(private homeService: HomeService,
+              private categoryHomeService: CategoryHomeService) {
   }
 
   ngOnInit(): void {
     this.getAllProduct();
+    this.getAllCategory();
     this.rfSearch = new FormGroup({
       productName: new FormControl(''),
       categoryName: new FormControl(''),
-      minPrice: new FormControl(''),
-      maxPrice: new FormControl(''),
     });
   }
 
@@ -38,6 +40,15 @@ export class HomeComponent implements OnInit {
     );
   }
 
+  getAllCategory() {
+    this.categoryHomeService.getCategories().subscribe((data) => {
+        this.categories = data;
+      },
+      error => {
+        console.error('Error fetching category:', error);
+      }
+    );
+  }
 
   nextPage() {
     this.currentPage = this.currentPage + 1;
@@ -50,6 +61,8 @@ export class HomeComponent implements OnInit {
   }
 
   pageOne() {
+
+
     this.currentPage = 1;
     this.getAllProduct();
   }
@@ -65,31 +78,23 @@ export class HomeComponent implements OnInit {
   }
 
   search() {
-    let keyword = '?';
+    let keyword = '';
     const productName = this.rfSearch.value.productName;
-    console.log(`productName: ${productName}`);
     if (productName !== '' && productName != null) {
-      keyword += `productName=${productName}&`;
+      keyword += `productName=${productName}`;
     }
-    const categoryName = this.rfSearch.value.categoryName;
-    console.log(`categoryName: ${categoryName}`);
-    if (categoryName !== '' && categoryName != null) {
-      keyword += `categoryName=${categoryName}&`;
-    }
-    const minPrice = this.rfSearch.value.minPrice;
-    console.log(`minPrice: ${minPrice}`);
-    if (minPrice !== '' && minPrice != null) {
-      keyword += `minPrice=${minPrice}&`;
-    }
-    const maxPrice = this.rfSearch.value.maxPrice;
-    console.log(`maxPrice: ${maxPrice}`);
-    if (maxPrice !== '' && maxPrice != null) {
-      keyword += `maxPrice=${maxPrice}`;
-    }
-    console.log(`keyword: ${keyword}`);
-    this.homeService.search(keyword).subscribe(next => {
-      console.log(next);
+    this.homeService.searchByName(keyword, this.currentPage).subscribe(next => {
       this.rfSearch.reset();
+      if (next != null) {
+        this.productsMain = next.content;
+      } else {
+        this.productsMain = [];
+      }
+    });
+  }
+
+  searchCategory(categoryId: number) {
+    this.homeService.searchByCate(categoryId, this.currentPage).subscribe(next => {
       if (next != null) {
         this.productsMain = next.content;
       } else {
