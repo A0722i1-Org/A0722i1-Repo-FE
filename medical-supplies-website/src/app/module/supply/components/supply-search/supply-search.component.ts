@@ -71,10 +71,11 @@ export class SupplySearchComponent implements OnInit {
     this.supplyService.search(keyword).subscribe(next => {
       console.log(next);
       this.supplyForm.reset();
-      if (next != null)
+      if (next != null) {
         this.newItemEvent.emit(next.content);
-      else
+      } else {
         this.newItemEvent.emit([]);
+      }
     });
   }
 }

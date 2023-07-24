@@ -4,7 +4,7 @@ import {SupplyListComponent} from './components/supply-list/supply-list.componen
 
 
 const routes: Routes = [{
-  path: 'list',
+  path: '',
   component: SupplyListComponent
 }];
 

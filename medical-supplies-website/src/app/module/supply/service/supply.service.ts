@@ -2,20 +2,22 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import { TokenStorageService } from '../../security/service/token-storage.service';
+import {Supply} from '../model/Supply';
 
 @Injectable({
   providedIn: 'root'
 })
 export class SupplyService {
 
-  private  _API_URL = 'http://localhost:8080/api/v1/supply/';
+  private  _API_URL = 'http://localhost:8080/api/v1/supply';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private tokenStorageService: TokenStorageService) { }
 
   getAll(): Observable<any> {
-    const token : string = this.tokenStorageService.getToken();
-    const headers : HttpHeaders = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<Supply[]>(this._API_URL, {headers});
+    console.log('check');
+    // const token: string = this.tokenStorageService.getToken();
+    // const headers: HttpHeaders = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<Supply[]>(this._API_URL);
   }
 
   search(keyword: string): Observable<any> {

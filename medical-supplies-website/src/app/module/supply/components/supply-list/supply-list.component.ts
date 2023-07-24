@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {Supply} from "../../model/Supply";
-import {SupplyService} from "../../service/supply.service";
+import {Supply} from '../../model/Supply';
+import {SupplyService} from '../../service/supply.service';
 
 @Component({
   selector: 'app-supply-list',
@@ -18,7 +18,7 @@ export class SupplyListComponent implements OnInit {
   getAll() {
     this.supplyService.getAll().subscribe(data => {
       this.supplies = data.content;
-    })
+    });
   }
 
   constructor(private supplyService: SupplyService) {
