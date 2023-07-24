@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
     this.getCart();
   }
 
-  getAllProduct() {
+  getAllProduct(): any {
     this.homeService.findAll(this.currentPage).subscribe((products) => {
         this.productsMain = products.content;
       },
