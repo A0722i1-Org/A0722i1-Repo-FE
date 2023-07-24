@@ -85,8 +85,8 @@ Product Single Card - Start
 }
 
 .product-single-card .product-top-area .sideicons .sideicons-btn {
-  background-color: #fff;
-  color: #00b894;
+  background-color: #00b894;
+  color: #ffffff;
   border-radius: 50%;
   border: none;
   width: 35px;
@@ -245,9 +245,9 @@ Product Single Card - Start
 }
 .search-container {
   padding: 8px 16px;
-  border-radius: 15px;
   display: flex;
   border: 1px solid #00B894;
+  border-radius: 15px;
 
 }
 input[type="text"] {
@@ -260,16 +260,16 @@ input[type="text"] {
 button[type="submit"] {
   width: 40px;
   height: 40px;
-  background-color:#ffff;
+  background-color:#00B894;
   border: none;
-  color: #00b894;
+  color: #ffff;
   cursor: pointer;
   border-radius: 50%;
   -moz-border-radius:50%;
   -webkit-border-radius: 50%;
 }
 .search-container:hover button[type="submit"]{
-  background-color: #00b894;
+  background-color: #fdcc0d;
   color: #ffff;
 }
 
@@ -279,9 +279,6 @@ button[type="submit"] {
   align-items: center;
   justify-content: space-between;
   padding: 0 16px;
-}
-.search-container {
-  margin-right: 10px; /* Cách với phần tử bên phải */
 }
 input[type="date"] {
   padding: 10px;
@@ -295,30 +292,25 @@ input[type="date"] {
   border:none;
   outline: none;
   width: 150px;
-  border-radius: 15px;
 }
 @media (max-width: 480px) {
+  search-container{
+    width: 100%;
+  }
   input[type="text"] {
-    width: 75px;
+    width: 60px;
   }
   input[type="date"] {
-    width: 35px;
+    width: 40px;
   }
   .position{
-    width: 35px;
-  }
-  .modal-content{
-    font-size: xx-small;
-
-  }
-  search-container{
-    width: 70%;
+    width: 40px;
   }
 
 }
 @media (max-width: 320px) {
   search-container{
-    width: 70%;
+    width: 100%;
   }
   input[type="text"] {
     width: 60px;

@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, DoCheck, OnChanges, OnInit} from '@angular/core';
 import {EmployeeService} from "../service/employee.service";
 import {Employee} from "../model/Employee";
 import {Position} from "../model/Position";
@@ -22,9 +22,6 @@ export class ListEmployeeComponent implements OnInit {
   employees: Employee [] = []
 
   constructor(private employeeService: EmployeeService) {
-    this.getAllWithSearch();
-    this.getAllPosition();
-    console.log(this.employees)
   }
 
   openEmployeeModal() {
@@ -35,10 +32,11 @@ export class ListEmployeeComponent implements OnInit {
     this.isModalOpen = false;
   }
 
-  getAllWithSearch() {
-    this.employeeService.getEmployeeWithNameAndDobAndPos(this.employeeNameSearch, this.dateOfBirth, this.posName)
+   getAllWithSearch() {
+     this.employeeService.getEmployeeWithNameAndDobAndPos(this.employeeNameSearch, this.dateOfBirth, this.posName)
       .subscribe(next => {
         this.employees = next;
+        console.log(this.employees);
       })
   }
 
@@ -51,12 +49,13 @@ export class ListEmployeeComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAllWithSearch();
+    this.getAllPosition();
   }
 
   getEmployee(id_employee: Number) {
     this.employeeService.getEmployeeById(id_employee).subscribe(next => {
       this.employee = next;
-      console.log(next);
       this.openEmployeeModal()
     })
 
