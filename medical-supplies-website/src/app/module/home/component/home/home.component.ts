@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductMain} from '../../model/product-main';
 import {HomeService} from '../../service/home.service';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-home',
@@ -10,12 +11,21 @@ import {HomeService} from '../../service/home.service';
 export class HomeComponent implements OnInit {
   productsMain: ProductMain[];
   currentPage = 1;
+  rfSearch: FormGroup;
+  categorys: any;
+
 
   constructor(private homeService: HomeService) {
   }
 
   ngOnInit(): void {
     this.getAllProduct();
+    this.rfSearch = new FormGroup({
+      productName: new FormControl(''),
+      categoryName: new FormControl(''),
+      minPrice: new FormControl(''),
+      maxPrice: new FormControl(''),
+    });
   }
 
   getAllProduct() {
@@ -27,6 +37,7 @@ export class HomeComponent implements OnInit {
       }
     );
   }
+
 
   nextPage() {
     this.currentPage = this.currentPage + 1;
@@ -52,4 +63,39 @@ export class HomeComponent implements OnInit {
     this.currentPage = 3;
     this.getAllProduct();
   }
+
+  search() {
+    let keyword = '?';
+    const productName = this.rfSearch.value.productName;
+    console.log(`productName: ${productName}`);
+    if (productName !== '' && productName != null) {
+      keyword += `productName=${productName}&`;
+    }
+    const categoryName = this.rfSearch.value.categoryName;
+    console.log(`categoryName: ${categoryName}`);
+    if (categoryName !== '' && categoryName != null) {
+      keyword += `categoryName=${categoryName}&`;
+    }
+    const minPrice = this.rfSearch.value.minPrice;
+    console.log(`minPrice: ${minPrice}`);
+    if (minPrice !== '' && minPrice != null) {
+      keyword += `minPrice=${minPrice}&`;
+    }
+    const maxPrice = this.rfSearch.value.maxPrice;
+    console.log(`maxPrice: ${maxPrice}`);
+    if (maxPrice !== '' && maxPrice != null) {
+      keyword += `maxPrice=${maxPrice}`;
+    }
+    console.log(`keyword: ${keyword}`);
+    this.homeService.search(keyword).subscribe(next => {
+      console.log(next);
+      this.rfSearch.reset();
+      if (next != null) {
+        this.productsMain = next.content;
+      } else {
+        this.productsMain = [];
+      }
+    });
+  }
+
 }

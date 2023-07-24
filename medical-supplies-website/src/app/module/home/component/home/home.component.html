@@ -55,35 +55,8 @@
             </button>
           </div>
         </div>
-        <div class="col-lg-2 sidebar__right">
-          <div class="my__card w-100" style="border: none;">
-            <div class="my__card__body">
-              <p class="d-flex justify-content-between">
-                <span><i class="fa-solid fa-crown text-warning"></i> 1</span>
-                <span class="text-dark" style="font-size: 20px;">90.000&#x20AB;</span>
-              </p>
-            </div>
-            <img src="imgs/home/kit-test.jpg" height="120px" class="d-block w-100" alt="">
-
-          </div>
-          <div class="my__card w-100" style="border: none;">
-            <div class="my__card__body">
-              <p class="d-flex justify-content-between">
-                <span><i class="fa-solid fa-crown text-warning"></i> 2</span>
-                <span class="text-dark" style="font-size: 20px;">80.000&#x20AB;</span>
-              </p>
-            </div>
-            <img src="imgs/home/nhiet-am-ke.jpg" height="120px" class="d-block w-100" alt="">
-          </div>
-          <div class="my__card w-100" style="border: none;">
-            <div class="my__card__body">
-              <p class="d-flex justify-content-between">
-                <span><i class="fa-solid fa-crown text-warning"></i> 3</span>
-                <span class="text-dark" style="font-size: 20px;">80.000&#x20AB;</span>
-              </p>
-            </div>
-            <img src="imgs/home/img.png" height="120px" class="d-block w-100" alt="">
-          </div>
+        <div class="col-lg-2 sidebar__right" >
+        <app-list-highest></app-list-highest>
         </div>
       </div>
     </div>
@@ -136,9 +109,9 @@
             </div>
             <select class="select__price">
               <option value="">--Chọn mức giá--</option>
-              <option value="">Nhỏ hơn 100 nghìn</option>
-              <option value="">Từ 100 nghìn đến 2 triệu</option>
-              <option value="">Lớn hơn 2 triệu</option>
+              <option value="1">Nhỏ hơn 100 nghìn</option>
+              <option value="2">Từ 100 nghìn đến 2 triệu</option>
+              <option value="3">Lớn hơn 2 triệu</option>
             </select>
           </form>
 
@@ -147,23 +120,15 @@
     </div>
   </div>
 
-  <!--<div class="content-found">-->
-  <!--    <div class="container-fluid">-->
-  <!--        <div class="row">-->
-  <!--            <div class="col-lg-12 text-center">-->
-  <!--                <p class="not-found-text">Không có sản phẩm nào!</p>-->
-  <!--                <a class="not-found-image" href="#">-->
-  <!--                    <img src="imgs/home/not_found.webp" alt="" style="width: 800px; height: 100%">-->
-  <!--                </a>-->
-  <!--            </div>-->
-  <!--        </div>-->
-  <!--    </div>-->
-  <!--</div>-->
 
   <div class="content">
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
+          <div *ngIf="productsMain.length === 0">
+            <p>Not found!</p>
+          </div>
+          <div *ngIf="productsMain.length !== 0">
           <div class="row">
             <div class="col-lg-3 col-sm-6 col-12 col-md-4 mb-4" *ngFor="let pro of productsMain">
               <div class="card">
@@ -205,25 +170,25 @@
     </div>
   </div>
 
-<!--  phantrang-->
-    <div>
-      <nav aria-label="Page navigation example" style=" display: flex;
+  <!--  phantrang-->
+  <div>
+    <nav aria-label="Page navigation example" style=" display: flex;
     justify-content: center;">
-        <ul class="pagination">
-          <li class="page-item">
-            <a class="page-link" aria-label="Previous" (click)="previousPage()" >
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li class="page-item"><a class="page-link" (click)="pageOne()">1</a></li>
-          <li class="page-item"><a class="page-link" (click)="pageTwo()" >2</a></li>
-          <li class="page-item"><a class="page-link" (click)="pageThree()" >3</a></li>
-          <li class="page-item">
-            <a class="page-link" aria-label="Next">
-              <span aria-hidden="true" (click)="nextPage()">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
-    </div>
+      <ul class="pagination">
+        <li class="page-item">
+          <a class="page-link" aria-label="Previous" (click)="previousPage()">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="page-item"><a class="page-link" (click)="pageOne()">1</a></li>
+        <li class="page-item"><a class="page-link" (click)="pageTwo()">2</a></li>
+        <li class="page-item"><a class="page-link" (click)="pageThree()">3</a></li>
+        <li class="page-item">
+          <a class="page-link" aria-label="Next">
+            <span aria-hidden="true" (click)="nextPage()">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </div>
