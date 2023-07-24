@@ -55,8 +55,8 @@
             </button>
           </div>
         </div>
-        <div class="col-lg-2 sidebar__right" >
-        <app-list-highest></app-list-highest>
+        <div class="col-lg-2 sidebar__right">
+          <app-list-highest></app-list-highest>
         </div>
       </div>
     </div>
@@ -109,9 +109,9 @@
             </div>
             <select class="select__price">
               <option value="">--Chọn mức giá--</option>
-              <option value="1">Nhỏ hơn 100 nghìn</option>
-              <option value="2">Từ 100 nghìn đến 2 triệu</option>
-              <option value="3">Lớn hơn 2 triệu</option>
+              <option value="">Nhỏ hơn 100 nghìn</option>
+              <option value="">Từ 100 nghìn đến 2 triệu</option>
+              <option value="">Lớn hơn 2 triệu</option>
             </select>
           </form>
 
@@ -129,66 +129,67 @@
             <p>Not found!</p>
           </div>
           <div *ngIf="productsMain.length !== 0">
-          <div class="row">
-            <div class="col-lg-3 col-sm-6 col-12 col-md-4 mb-4" *ngFor="let pro of productsMain">
-              <div class="card">
-                <div class="card-body">
-                  <div class="products-single fix">
-                    <div class="box-img-hover">
-                      <div class="type-lb">
-                        <p class="sale">Bán chạy</p>
+            <div class="row">
+              <div class="col-lg-3 col-sm-6 col-12 col-md-4 mb-4" *ngFor="let pro of productsMain">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="products-single fix">
+                      <div class="box-img-hover">
+                        <div class="type-lb">
+                          <p class="sale">Bán chạy</p>
+                        </div>
+                        <img src="assets/images/huyetap.png" class="img-fluid" alt="Image"
+                             style="height: 250px; width: 500px">
+                        <div class="mask-icon">
+                          <ul>
+                            <li><a href="#" data-toggle="tooltip" data-placement="right"
+                                   title="View"><i
+                              class="fas fa-eye"></i></a></li>
+                            <li><a href="#" data-toggle="tooltip" data-placement="right"
+                                   title="Compare"><i
+                              class="fas fa-sync-alt"></i></a></li>
+                            <li><a href="#" data-toggle="tooltip" data-placement="right"
+                                   title="Add to Wishlist"><i
+                              class="far fa-heart"></i></a></li>
+                          </ul>
+                          <a class="cart" href="#">Thêm vào giỏ</a>
+                        </div>
                       </div>
-                      <img src="assets/images/huyetap.png" class="img-fluid" alt="Image"
-                           style="height: 250px; width: 500px">
-                      <div class="mask-icon">
-                        <ul>
-                          <li><a href="#" data-toggle="tooltip" data-placement="right"
-                                 title="View"><i
-                            class="fas fa-eye"></i></a></li>
-                          <li><a href="#" data-toggle="tooltip" data-placement="right"
-                                 title="Compare"><i
-                            class="fas fa-sync-alt"></i></a></li>
-                          <li><a href="#" data-toggle="tooltip" data-placement="right"
-                                 title="Add to Wishlist"><i
-                            class="far fa-heart"></i></a></li>
-                        </ul>
-                        <a class="cart" href="#">Thêm vào giỏ</a>
+                      <div class="why-text">
+                        <h4>{{pro.product_Name}}</h4>
+                        <h5>{{pro.product_Price}}&#x20AB;</h5>
                       </div>
-                    </div>
-                    <div class="why-text">
-                      <h4>{{pro.product_Name}}</h4>
-                      <h5>{{pro.product_Price}}&#x20AB;</h5>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
 
+        </div>
       </div>
     </div>
-  </div>
 
-  <!--  phantrang-->
-  <div>
-    <nav aria-label="Page navigation example" style=" display: flex;
+    <!--  phantrang-->
+    <div>
+      <nav aria-label="Page navigation example" style=" display: flex;
     justify-content: center;">
-      <ul class="pagination">
-        <li class="page-item">
-          <a class="page-link" aria-label="Previous" (click)="previousPage()">
-            <span aria-hidden="true">&laquo;</span>
-          </a>
-        </li>
-        <li class="page-item"><a class="page-link" (click)="pageOne()">1</a></li>
-        <li class="page-item"><a class="page-link" (click)="pageTwo()">2</a></li>
-        <li class="page-item"><a class="page-link" (click)="pageThree()">3</a></li>
-        <li class="page-item">
-          <a class="page-link" aria-label="Next">
-            <span aria-hidden="true" (click)="nextPage()">&raquo;</span>
-          </a>
-        </li>
-      </ul>
-    </nav>
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link btn" aria-label="Previous" (click)="previousPage()">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item"><a class="page-link btn" (click)="pageOne()">1</a></li>
+          <li class="page-item"><a class="page-link btn" (click)="pageTwo()">2</a></li>
+          <li class="page-item"><a class="page-link btn" (click)="pageThree()">3</a></li>
+          <li class="page-item">
+            <a class="page-link btn" aria-label="Next">
+              <span aria-hidden="true" (click)="nextPage()">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
   </div>
 </div>

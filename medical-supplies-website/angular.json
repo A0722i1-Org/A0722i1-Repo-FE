@@ -25,8 +25,7 @@
             ],
             "styles": [
               "src/styles.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+              "node_modules/bootstrap/dist/css/bootstrap.min.css"
             ],
             "scripts": [
               "node_modules/bootstrap/dist/js/bootstrap.min.js",
@@ -132,6 +131,6 @@
   },
   "defaultProject": "medical-supplies-website",
   "cli": {
-    "analytics": "4e13a44d-8e62-4a22-8488-9fce29355ee2"
+    "analytics": "b5756652-7937-40a4-a2e6-26a260b0d9f1"
   }
 }
