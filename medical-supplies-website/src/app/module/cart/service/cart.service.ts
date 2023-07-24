@@ -4,6 +4,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {CartWithDetail} from '../model/cart-with-detail';
 import {Observable} from 'rxjs';
 import {TokenStorageService} from '../../security/service/token-storage.service';
+import {CartDetail} from '../model/CartDetail';
 
 @Injectable({
   providedIn: 'root'
@@ -32,5 +33,11 @@ export class CartService {
     const token = this.tokenStorageService.getToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.httpClient.put<CartWithDetail>(`${this._API_URL}/checkout`, cartWithDetail, {headers});
+  }
+
+  addToCart(productId: number): Observable<CartDetail[]> {
+    const token = this.tokenStorageService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.httpClient.get<CartDetail[]>(`${this._API_URL}/add/${productId}`, {headers});
   }
 }
