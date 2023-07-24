@@ -18,6 +18,8 @@ export class CartListComponent implements OnInit {
   details?: CartDetail[];
   total = 0;
   shippingFee = 0;
+  displayPaypal: string;
+  displayCheckout: string;
 
   constructor(private cartService: CartService,
               private router: Router) {
@@ -25,6 +27,8 @@ export class CartListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCart();
+    this.displayPaypal = 'none';
+    this.displayCheckout = 'inline';
   }
 
   getTotalAmount() {
@@ -132,5 +136,15 @@ export class CartListComponent implements OnInit {
     cartWithDetail.cartDetailList = this.details;
     cartWithDetail.cart = this.cart;
     return cartWithDetail;
+  }
+
+  showPaypalButton() {
+    this.displayPaypal = 'inline';
+    this.displayCheckout = 'none';
+  }
+
+  showCheckoutButton() {
+    this.displayPaypal = 'none';
+    this.displayCheckout = 'inline';
   }
 }

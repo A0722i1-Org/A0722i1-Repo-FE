@@ -81,33 +81,6 @@
         </h5>
       </div>
       <div class="card-body">
-        <!--        <div class="form-group">-->
-        <!--          <label for="name">Họ và tên:</label>-->
-        <!--          <input type="text" class="form-control" id="name" tabindex="1" value="Lê Hồng Nhật">-->
-        <!--          <p class="text-danger">Họ và tên không được để trống.</p>-->
-        <!--        </div>-->
-
-        <!--        <div class="form-group">-->
-
-        <!--          <label for="address">Địa chỉ:</label>-->
-        <!--          <div class="d-flex">-->
-        <!--                        <textarea id="address" rows="2" class="flex-grow-1"-->
-        <!--                                  tabindex="2">Ở đâu còn lâu mới nói</textarea>-->
-        <!--          </div>-->
-        <!--          <p class="text-danger">Địa chỉ không được để trống.</p>-->
-        <!--        </div>-->
-
-        <!--        <div class="form-group">-->
-        <!--          <label for="phone">Số điện thoại:</label>-->
-        <!--          <input type="text" class="form-control" id="phone" tabindex="4" value="0905598909">-->
-        <!--          <p class="text-danger">Số điện thoại không được để trống.</p>-->
-        <!--        </div>-->
-
-        <!--        <div class="form-group">-->
-        <!--          <label for="email">Email:</label>-->
-        <!--          <input type="email" class="form-control" id="email" tabindex="5" value="nhatlg@gmail.com">-->
-        <!--          <p class="text-danger">Vui lòng nhập email để nhận hoá đơn.</p>-->
-        <!--        </div>-->
         <form [formGroup]="rf" *ngIf="rf">
           <div class="form-group mb-3">
             <label>Họ và tên:</label>
@@ -137,23 +110,24 @@
           <label>Hình thức thanh toán:</label>
           <div class="d-flex justify-content-evenly">
             <div>
-              <input type="radio" class="form-radio" name="paymentMethod" id="directPayment"
+              <input type="radio" class="form-radio" (click)="showCheckoutButton()" name="paymentMethod" id="directPayment"
                      value="direct" checked
                      tabindex="6">
               <label for="directPayment">Trực tiếp</label>
             </div>
             <div>
-              <input type="radio" class="form-radio" name="paymentMethod" id="onlinePayment"
+              <input type="radio" class="form-radio" (click)="showPaypalButton()" name="paymentMethod" id="onlinePayment"
                      value="online"
                      tabindex="7">
-              <label for="onlinePayment">Online</label>
+              <label for="onlinePayment">Paypal</label>
             </div>
           </div>
         </div>
       </div>
-      <div class="card-footer text-center">
-        <button class="btn btn-secondary" (click)="save()">Quay lại</button>
-        <button class="btn btn-success" (click)="checkout()">Thanh toán</button>
+      <div class="card-footer text-center d-flex justify-content-evenly">
+        <button class="btn btn-secondary" (click)="save()" [disabled]="rf.invalid">Quay lại</button>
+        <button [style.display]="displayCheckout" class="btn btn-success" (click)="checkout()" [disabled]="rf.invalid">Thanh toán</button>
+        <a [style.display]="displayPaypal" href='https://www.paypal.com/vn/webapps/mpp/paypal-popup'><img src='https://www.paypalobjects.com/webstatic/en_US/i/buttons/pp-acceptance-large.png' alt='Chấp nhận PayPal | Lớn' /></a>
       </div>
       <div id="paypal-buttons"></div>
     </div>
