@@ -15,12 +15,14 @@ export class SupplyService {
 
   getAll(): Observable<any> {
     console.log('check');
-    // const token: string = this.tokenStorageService.getToken();
-    // const headers: HttpHeaders = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get<Supply[]>(this._API_URL);
+    const token: string = this.tokenStorageService.getToken();
+    const headers: HttpHeaders = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<any>(this._API_URL, {headers});
   }
 
   search(keyword: string): Observable<any> {
-    return this.http.get<Supply[]>(`${this._API_URL}${keyword}`);
+    const token: string = this.tokenStorageService.getToken();
+    const headers: HttpHeaders = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.http.get<any>(`${this._API_URL}${keyword}`, {headers});
   }
 }

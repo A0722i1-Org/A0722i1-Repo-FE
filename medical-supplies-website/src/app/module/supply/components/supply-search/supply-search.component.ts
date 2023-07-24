@@ -2,6 +2,7 @@ import {Component, EventEmitter, OnInit, Output} from '@angular/core';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Supply} from '../../model/Supply';
 import {SupplyService} from '../../service/supply.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-supply-search',
@@ -12,8 +13,10 @@ export class SupplySearchComponent implements OnInit {
   supplyForm: FormGroup;
   supplies: Supply[] = [];
   @Output() newItemEvent = new EventEmitter<Supply[]>();
+  page: number;
+  size: number;
 
-  constructor(private supplyService: SupplyService) {
+  constructor(private supplyService: SupplyService, private route: ActivatedRoute) {
     this.supplyForm = new FormGroup({
       productCode: new FormControl(''),
       productName: new FormControl(''),
@@ -21,6 +24,13 @@ export class SupplySearchComponent implements OnInit {
       customerName: new FormControl(''),
       beginDate: new FormControl(''),
       endDate: new FormControl(''),
+    });
+
+    this.route.queryParams.subscribe(param => {
+      this.page = param.page;
+      this.size = param.size;
+      console.log('page: ' + this.page);
+      console.log('size: ' + this.size);
     });
   }
 
@@ -66,6 +76,12 @@ export class SupplySearchComponent implements OnInit {
     console.log(`expireDateEnd: ${endDate}`);
     if (endDate !== '' && endDate != null) {
       keyword += `expireDateEnd=${endDate}`;
+    }
+    if (this.page !== 0 && this.page != null) {
+      keyword += `page=${this.page}`;
+    }
+    if (this.size !== 0 && this.size != null) {
+      keyword += `size=${this.size}`;
     }
     console.log(`keyword: ${keyword}`);
     this.supplyService.search(keyword).subscribe(next => {
