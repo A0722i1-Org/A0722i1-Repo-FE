@@ -17,7 +17,7 @@
     <div class="col-md-6 right-box">
       <form [formGroup]="accountForm" (ngSubmit)="submitAddAccount">
         <div class="mb-3">
-          <label for="username" class="form-label">Tài khoản</label>
+          <label for="username" class="form-label fw-bolder">Tài khoản</label>
           <div class="input-group">
             <span class="input-group-text"><i class="fa-regular fa-user"></i></span>
             <input formControlName="username" type="text" class="form-control" placeholder="Nhập tài khoản"
@@ -35,7 +35,7 @@
         </div>
 
         <div class="mb-3">
-          <label for="encryptPassword" class="form-label">Mật khẩu</label>
+          <label for="encryptPassword" class="form-label fw-bolder">Mật khẩu</label>
           <div class="input-group">
             <span class="input-group-text"><i class="fa-solid fa-key"></i></span>
             <input formControlName="encryptPassword" type="encryptPassword" class="form-control"
@@ -54,7 +54,7 @@
         </div>
 
         <div class="mb-3">
-          <label for="email" class="form-label">Email</label>
+          <label for="email" class="form-label fw-bolder">Email</label>
           <div class="input-group">
             <span class="input-group-text"><i class="fa-regular fa-envelope"></i></span>
             <input formControlName="email" type="text" class="form-control" placeholder="Nhập email" id="email"
@@ -62,27 +62,33 @@
           </div>
           <div *ngIf="accountForm.get('email').invalid && accountForm.get('email').touched">
             <p class="text-danger" *ngIf="accountForm.get('email').errors.required">Vui lòng nhập email</p>
-            <p class="text-danger" *ngIf="accountForm.get('email').errors.pattern">Email không đúng định dạng, vui lòng nhập lại. Ex: tên_email@gmail.com</p>
-            <p class="text-danger" *ngIf="accountForm.get('email').errors.minlength || accountForm.get('email').errors.maxlength">
+            <p class="text-danger" *ngIf="accountForm.get('email').errors.pattern">Email không đúng định dạng, vui lòng
+              nhập lại. Ex: tên_email@gmail.com</p>
+            <p class="text-danger"
+               *ngIf="accountForm.get('email').errors.minlength || accountForm.get('email').errors.maxlength">
               Tên email chỉ được phép chứa từ 6 đến 30 kí tự
             </p>
           </div>
         </div>
-
+ 
         <div class="form-group mb-5">
-          <label for="role" class="form-label">Quyền</label>
-          <select class="form-control" formControlName="role" id="role" name="role">
-            <option>----Chọn quyền----------</option>
+          <label for="role" class="form-label fw-bolder">Quyền</label>
+          <div class="input-group"><span class="input-group-text"><i class="fa-solid fa-users"></i></span>
+            <select class="form-control" formControlName="role" id="role" name="role">
+              <option disabled value="">----Chọn quyền----------</option>
 
-            <option [ngValue]="item" *ngFor="let item of roles">{{item?.roleName}}</option>
-          </select>
+              <option [ngValue]="item" *ngFor="let item of roles">{{item?.roleName}}</option>
+            </select>
+          </div>
           <div *ngIf="accountForm.get('role').invalid && accountForm.get('role').touched" class="text-danger">
             Bắt buộc phải chọn quyền
           </div>
         </div>
 
         <div class="mb-3">
-          <button type="button" class="btn btn-success w-100" [disabled]="!accountForm.valid" (click)="submitAddAccount()">Thêm tài khoản</button>
+          <button type="button" class="btn btn-success w-100" [disabled]="!accountForm.valid"
+                  (click)="submitAddAccount()">Thêm tài khoản
+          </button>
         </div>
 
         <div class="mb-3">
