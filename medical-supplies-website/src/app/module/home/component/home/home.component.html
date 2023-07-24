@@ -173,7 +173,7 @@
                       <div class="type-lb">
                         <p class="sale">Bán chạy</p>
                       </div>
-                      <img src="assets/images/huyetap.png" class="img-fluid" alt="Image"
+                      <img src="{{pro.product_Img}}" class="img-fluid" alt="Image"
                            style="height: 250px; width: 500px">
                       <div class="mask-icon">
                         <ul>
@@ -187,7 +187,7 @@
                                  title="Add to Wishlist"><i
                             class="far fa-heart"></i></a></li>
                         </ul>
-                        <a class="cart" href="#">Thêm vào giỏ</a>
+                        <a class="cart" (click)=addToCart(pro.product_Id)>Thêm vào giỏ</a>
                       </div>
                     </div>
                     <div class="why-text">
