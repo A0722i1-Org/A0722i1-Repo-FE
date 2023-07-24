@@ -84,7 +84,7 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let d of shipmentDetailDto" >
+        <tr *ngFor="let d of shipmentDetailDtos" >
           <td>{{d.productId}}</td>
           <td>{{d.productName}}</td>
           <td style="text-align: center" >{{d.quantity}}</td>
@@ -219,7 +219,7 @@
           <br>
           <div class="section">
             <h3 class="section-title" style="text-align: center">Danh sách vật tư:</h3>
-            <table class="table-responsive" border="1" >
+            <table class="table-responsive item-list"  >
               <tr>
                 <th>Mã vật tư</th>
                 <th>Tên vật tư</th>
@@ -227,7 +227,7 @@
                 <th>Giá thành (VNĐ)</th>
                 <th>Ghi chú</th>
               </tr>
-              <tr  *ngFor="let s of shipmentDetailDto">
+              <tr  *ngFor="let s of shipmentDetailDtos">
                 <td style="display: flex;justify-content: center;align-items: center;">{{s.productId}}</td>
                 <td>{{s.productName}}</td>
                 <td style="display: flex;justify-content: center;align-items: center;">{{s.quantity}}</td>

@@ -31,13 +31,13 @@ export class ShipmentListComponent implements OnInit {
   customerDto: CustomerDto;
   notFound: boolean;
   shipmentTypes: ShipmentType[];
-  shipmentDetailDto: ShipmentDetailDto[] = [];
+  shipmentDetailDtos: ShipmentDetailDto[] = [];
   shipmentDetail: ShipmentDetailDto;
   employees: Employee;
   shipmentForm: FormGroup;
   shipmentDto: ShipmentDto;
   shipment: Shipment;
-  iShipmentDto: IShipmentDto[];
+  iShipmentDtos: IShipmentDto[];
   constructor(private shipmentService: ShipmentService,
               private router: Router) {
     this.shipmentForm = new FormGroup({
@@ -75,7 +75,7 @@ export class ShipmentListComponent implements OnInit {
   /*hiển thị hết mã hóa đơn*/
   findAllShipmentInvoceCode() {
     this.shipmentService.findAllInvoiceCode().subscribe(shipment => {
-      this.iShipmentDto = shipment;
+      this.iShipmentDtos = shipment;
     }) ;
   }
 
@@ -99,7 +99,7 @@ export class ShipmentListComponent implements OnInit {
   }
   /*Hiển thị vật tư tạm*/
   findAllProductShipmentCreate() {
-    this.shipmentDetailDto = this.shipmentService.getShipmentDetailDto();
+    this.shipmentDetailDtos = this.shipmentService.getShipmentDetailDto();
   }
 
   /*Tìm id vật tư list tạm*/
@@ -117,7 +117,7 @@ export class ShipmentListComponent implements OnInit {
       showConfirmButton: false,
       timer: 1500
     });
-    this.shipmentDetailDto = this.shipmentService.getShipmentDetailDto();
+    this.shipmentDetailDtos = this.shipmentService.getShipmentDetailDto();
   }
 
   /*get tên đăng nhập*/
@@ -138,7 +138,7 @@ export class ShipmentListComponent implements OnInit {
         showConfirmButton: false,
         timer: 1500
       });
-    } else if (this.checkInvoiceCode(this.iShipmentDto, this.shipmentDto.invoiceCode) != null) {
+    } else if (this.checkInvoiceCode(this.iShipmentDtos, this.shipmentDto.invoiceCode) != null) {
       Swal.fire({
         position: 'center',
         icon: 'warning',
@@ -149,7 +149,7 @@ export class ShipmentListComponent implements OnInit {
     } else {
       this.shipmentDto.customerId = this.customerDto.customer_Id;
       this.shipmentDto.employeeId = this.employees.employeeId;
-      this.shipmentDto.listShipmentDetailDtos = this.shipmentDetailDto;
+      this.shipmentDto.listShipmentDetailDtos = this.shipmentDetailDtos;
       if (!this.shipmentDto.listShipmentDetailDtos || this.shipmentDto.listShipmentDetailDtos.length === 0) {
         Swal.fire({
           position: 'center',
@@ -195,8 +195,8 @@ export class ShipmentListComponent implements OnInit {
   // Hàm tính tổng tiền
   calculateTotalPrice() {
     let totalPrice = 0;
-    if (this.shipmentDetailDto) {
-      for (const item of this.shipmentDetailDto) {
+    if (this.shipmentDetailDtos) {
+      for (const item of this.shipmentDetailDtos) {
         totalPrice += item.productPrice * item.quantity;
       }
     }

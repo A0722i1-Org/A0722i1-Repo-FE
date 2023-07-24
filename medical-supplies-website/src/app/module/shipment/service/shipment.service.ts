@@ -10,6 +10,7 @@ import {ShipmentDto} from '../model/ShipmentDto';
 import {Employee} from '../../employee/model/Employee';
 import {Shipment} from '../model/Shipment';
 import {IShipmentDto} from '../model/IShipmentDto';
+import Swal from "sweetalert2";
 
 
 @Injectable({
@@ -62,25 +63,44 @@ export class ShipmentService {
   }
   /*Thêm vật tư qua list tạm ShipmentDetailDto[];*/
   addShipmentProductDetailDto(p: ProductDto) {
-    if (!this.shipmentDetailDto) {
-      this.shipmentDetailDto = [];
-    }
-    const existingShipmentItem = this.shipmentDetailDto.find(item => item.productId === p.product_Id);
-    if (existingShipmentItem) {
-      // Nếu sản phẩm đã tồn tại, tăng số lượng và cập nhật ghi chú
-      existingShipmentItem.quantity += p.product_Quantity;
-      existingShipmentItem.note = p.ghiChu;
-    } else {
-      const shipmentItem: ShipmentDetailDto = {
-        productId: p.product_Id,
-        productName: p.product_Name,
-        productPrice: p.product_Price,
-        quantity: p.product_Quantity,
-        note: p.ghiChu
-      };
-      this.shipmentDetailDto.push(shipmentItem);
-      this.selectedProductIds.push(p.product_Id); // Đánh dấu sản phẩm đã được chọn
-    }
+    let productDtos: ProductDto[] = [];
+    this.findAllProduct().subscribe(data => {
+        productDtos = data;
+        if (!this.shipmentDetailDto) {
+        this.shipmentDetailDto = [];
+      }
+        const existingShipmentItem = this.shipmentDetailDto.find(item => item.productId === p.product_Id);
+        if (existingShipmentItem) {
+        // Nếu sản phẩm đã tồn tại, tăng số lượng và cập nhật ghi chú
+        existingShipmentItem.quantity += p.product_Quantity;
+        existingShipmentItem.note = p.note;
+      } else {
+        const shipmentItem: ShipmentDetailDto = {
+          productId: p.product_Id,
+          productName: p.product_Name,
+          productPrice: p.product_Price,
+          quantity: p.product_Quantity,
+          note: p.note
+        };
+        // tslint:disable-next-line:prefer-for-of
+        for (let i = 0; i < productDtos.length; i++) {
+          if (shipmentItem.productId === productDtos[i].product_Id) {
+            if (shipmentItem.quantity > productDtos[i].product_Quantity) {
+              Swal.fire({
+                position: 'center',
+                icon: 'warning',
+                title: 'Số lượng lớn hơn trong kho!',
+                showConfirmButton: false,
+                timer: 1500
+              });
+            } else {
+              this.shipmentDetailDto.push(shipmentItem);
+              this.selectedProductIds.push(p.product_Id); // Đánh dấu sản phẩm đã được chọn
+            }
+          }
+        }
+      }
+     });
   }
   /*Xóa chọn checkbox*/
   removeShipmentProductDetailDto(p: ProductDto) {

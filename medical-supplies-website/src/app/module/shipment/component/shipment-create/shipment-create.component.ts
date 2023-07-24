@@ -11,7 +11,9 @@ import {Router} from '@angular/router';
 })
 export class ShipmentCreateComponent implements OnInit {
   products: Product[];
-  productDto: ProductDto[];
+  productDtos: ProductDto[];
+  p = 1;
+
 
   constructor(public shipmentService: ShipmentService,
               private router: Router) {
@@ -24,13 +26,13 @@ export class ShipmentCreateComponent implements OnInit {
   /* Hiển thị danh sách chọn vật tư*/
   findAllProductShipmentCreate() {
     this.shipmentService.findAllProduct().subscribe(data => {
-      this.productDto = data;
+      this.productDtos = data;
     });
   }
 
   /*Chọn check box để thêm qua list tạm*/
   chonChekBox(p: ProductDto) {
-    if (p.chon) {
+    if (p.select) {
       this.shipmentService.addShipmentProductDetailDto(p);
     } else {
       this.shipmentService.removeShipmentProductDetailDto(p);
@@ -38,7 +40,7 @@ export class ShipmentCreateComponent implements OnInit {
   }
 
   /*Thêm qua list tạm*/
-  create() {
+  create(value: number) {
     const shipmentItems = this.shipmentService.getShipmentDetailDto();
     // Sử dụng danh sách tạm shipmentItems ở đây để thực hiện các thao tác bạn cần với các sản phẩm đã chọn
     console.log(shipmentItems);

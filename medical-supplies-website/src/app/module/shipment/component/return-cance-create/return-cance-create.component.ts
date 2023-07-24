@@ -12,7 +12,8 @@ import Swal from 'sweetalert2';
 })
 export class ReturnCanceCreateComponent implements OnInit {
   products: Product[];
-  productDto: ProductDto[];
+  productDtos: ProductDto[];
+  p = 1;
 
   constructor(public shipmentService: ShipmentService,
               private router: Router) {
@@ -25,13 +26,13 @@ export class ReturnCanceCreateComponent implements OnInit {
   /* Hiển thị danh sách chọn vật tư*/
   findAllProductShipmentCreate() {
     this.shipmentService.findAllProduct().subscribe(data => {
-      this.productDto = data;
+      this.productDtos = data;
     });
   }
 
   /*Chọn check box để thêm qua list tạm*/
   chonChekBox(p: ProductDto) {
-    if (p.chon) {
+    if (p.select) {
       this.shipmentService.addShipmentProductDetailDto(p);
     } else {
       this.shipmentService.removeShipmentProductDetailDto(p);
