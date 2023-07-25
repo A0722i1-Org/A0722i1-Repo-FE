@@ -4,6 +4,12 @@ import {HomeService} from '../../service/home.service';
 import {FormControl, FormGroup} from '@angular/forms';
 import {CategoryHomeService} from '../../service/category-home.service';
 import {CategoryMain} from '../../model/category-main';
+import {CartService} from '../../../cart/service/cart.service';
+import {CartWithDetail} from '../../../cart/model/cart-with-detail';
+import {Observable} from 'rxjs';
+import {Cart} from '../../../cart/model/Cart';
+import {CartDetail} from '../../../cart/model/CartDetail';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -15,10 +21,13 @@ export class HomeComponent implements OnInit {
   currentPage = 1;
   rfSearch: FormGroup;
   categories: CategoryMain[];
+  cart?: Cart;
+  details?: CartDetail[];
 
 
   constructor(private homeService: HomeService,
-              private categoryHomeService: CategoryHomeService) {
+              private categoryHomeService: CategoryHomeService,
+              private cartService: CartService) {
   }
 
   ngOnInit(): void {
@@ -28,6 +37,7 @@ export class HomeComponent implements OnInit {
       productName: new FormControl(''),
       categoryName: new FormControl(''),
     });
+    this.getCart();
   }
 
   getAllProduct() {
@@ -61,8 +71,6 @@ export class HomeComponent implements OnInit {
   }
 
   pageOne() {
-
-
     this.currentPage = 1;
     this.getAllProduct();
   }
@@ -103,4 +111,18 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  getCart() {
+    return this.cartService.getCart().subscribe(next => {
+      this.cart = next.cart;
+      this.details = next.cartDetailList;
+    });
+  }
+
+  addToCart(productId: number) {
+    this.cartService.addToCart(productId).subscribe(next => {
+      Swal.fire('Thành công',
+        'Đã thêm sản phẩm vào giỏ',
+        'success');
+    });
+  }
 }

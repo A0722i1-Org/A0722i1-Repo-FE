@@ -51,8 +51,8 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="#">Quản lý Bán hàng</a></li>
-            <li><a class="dropdown-item" href="#">Quản lý Trả hàng</a></li>
+            <li><a class="dropdown-item" routerLink="/shipments/shipment">Quản lý Bán hàng</a></li>
+            <li><a class="dropdown-item" routerLink="/shipments/return">Quản lý Trả hàng</a></li>
           </ul>
         </li>
 
@@ -65,24 +65,24 @@
         <a *ngIf="!isLoggedIn" type="button" class="btn btn-outline-light mb-3 mb-lg-0 me-2" routerLink="login">
           Đăng nhập
         </a>
-<!--                <a type="button" class="btn btn-outline-warning mb-3 mb-lg-0">Đăng ký</a>-->
+        <!--                <a type="button" class="btn btn-outline-warning mb-3 mb-lg-0">Đăng ký</a>-->
         <div *ngIf="isLoggedIn" class="user-profile">
           <span class="text-light">Xin chào: {{username}}</span>
           <div class="user-profile__avatar-container  ms-3 me-3">
             <i class="fa fa-user-circle fa-2x" aria-hidden="true" style="color: #f0f0f0"></i>
             <div class="user-profile__options">
-              <a href="#" class="dropdown-item">Cá nhân</a>
+              <a href="#" [routerLink]="userDetailUrl" class="dropdown-item">Cá nhân</a>
               <hr class="dropdown-divider">
               <a href="#" class="dropdown-item" (click)="logOut()">Thoát</a>
             </div>
           </div>
         </div>
-        <a class="me-auto cart-icon me-3">
+        <a class="me-auto cart-icon me-3" routerLink="carts">
+          <!-- Tạm thời bỏ chức năng hiển thị số mặt hàng trong giỏ-->
           <i class="fa fa-shopping-cart fa-2x" style="color: #f0f0f0"></i>
-          <span class="cart-item-count">0</span>
+          <span class="cart-item-count">*</span>
         </a>
       </div>
     </div>
   </div>
 </nav>
-
