@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductService} from '../../service/product.service';
 import {ProductInfoService} from '../../service/product-info.service';
-import {ActivatedRoute, ParamMap} from "@angular/router";
-import {ProductInfo} from "../../model/ProductInfo";
-import {FormGroup} from "@angular/forms";
+import {ActivatedRoute, ParamMap} from '@angular/router';
+import {ProductInfo} from '../../model/ProductInfo';
+import {FormControl, FormGroup} from '@angular/forms';
+import {Product} from '../../model/Product';
 
 @Component({
   selector: 'app-product-detail',
@@ -20,7 +21,11 @@ export class ProductDetailComponent implements OnInit {
     '../../../../../assets/images/khautrang4.png'
   ];
   id: number;
+  products: Product[] = [];
   productInfos: ProductInfo[] = [];
+  productViewDetail: Product = {
+    productInfo: {}
+  };
   productDetail: FormGroup;
 
   constructor(private productService: ProductService,
@@ -29,19 +34,29 @@ export class ProductDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAll();
   }
 
   getAll() {
-    this.productInfoService.getAllProductInfo().subscribe((data) => {
-      this.productInfos = data;
-    });
-
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = +paramMap.get('id');
-      this.productService.findByIdProduct(this.id).subscribe((productDetail) => {
-        this.productDetail
-      })
-    })
+      this.productService.findByIdProductDetail(this.id).subscribe((productData) => {
+        this.productViewDetail = productData;
+        this.initProductForm(productData);
+      });
+    });
+    console.log(this.productService.findByIdProductDetail(this.id));
+  }
+
+  private initProductForm(productData: Product) {
+    this.productDetail = new FormGroup({
+      productId: new FormControl(productData.productId),
+      productName: new FormControl(productData.productName),
+      productPrice: new FormControl(productData.productPrice),
+      productQuantity: new FormControl(productData.productQuantity),
+      productImg: new FormControl(productData.productImg),
+      productInfo: new FormControl(productData.productInfo),
+    });
   }
 
   selectImage(image: string) {

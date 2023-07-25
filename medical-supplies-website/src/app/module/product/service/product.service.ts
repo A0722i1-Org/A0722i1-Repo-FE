@@ -16,7 +16,7 @@ export class ProductService {
     return this.httpClient.get<Product[]>(this._API_URL);
   }
 
-  findByIdProduct(id: number): Observable<Product> {
+  findByIdProductDetail(id: number): Observable<Product> {
     return this.httpClient.get<Product>(this._API_URL + '/detail/' + id);
   }
 }
