@@ -10,7 +10,9 @@ import {TokenStorageService} from '../../security/service/token-storage.service'
 export class CustomerService {
   private _API_URL = 'http://localhost:8080/api/v1/customer';
 
+  // tslint:disable-next-line:variable-name
   constructor(private _http: HttpClient,
+              // tslint:disable-next-line:variable-name
               private _tokenStorageService: TokenStorageService) {
   }
 
