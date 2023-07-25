@@ -1,4 +1,4 @@
-<app-supply-search (newItemEvent)="search($event)"></app-supply-search>
+<app-supply-search (newItemEvent)="search($event)" (keywordSearch)="receiveKeyword($event)" (totalPageAfterSearch)="receiveTotalPages($event)"></app-supply-search>
 
 <div class="container my-3 infor-table">
   <div *ngIf="supplies === undefined || supplies?.length === 0">

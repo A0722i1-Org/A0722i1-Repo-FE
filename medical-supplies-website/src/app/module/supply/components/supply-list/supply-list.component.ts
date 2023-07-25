@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 import {Supply} from '../../model/Supply';
 import {SupplyService} from '../../service/supply.service';
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-supply-list',
@@ -26,6 +26,7 @@ export class SupplyListComponent implements OnInit {
       this.supplies = data.content;
       this.totalPage = data.totalPages;
       this.currentPage = data.number;
+      this.totalPages = [];
       for (let j = 0; j < this.totalPage; j++) {
         this.totalPages.push(j);
       }
@@ -50,12 +51,34 @@ export class SupplyListComponent implements OnInit {
 
   search($event: Supply[]) {
     this.supplies = $event;
+    console.log('search: ' + $event);
   }
 
+  receiveKeyword($event: string) {
+    this.keyword = $event;
+    console.log('receive keyword: ' + $event);
+  }
+
+  receiveTotalPages($event: number) {
+    this.totalPage = $event;
+    this.page = 1;
+    this.currentPage = 0;
+    this.totalPages = [];
+    for (let j = 0; j < this.totalPage; j++) {
+      this.totalPages.push(j);
+    }
+  }
 
   nextPage() {
     this.page++;
-    this.keyword = '?';
+    if (this.keyword.includes('page')) {
+      console.log('keyword before remove page: ' + this.keyword);
+      const pageIndex = this.keyword.indexOf('page=');
+      if (pageIndex !== -1) {
+        this.keyword = this.keyword.substring(0, pageIndex);
+      }
+      console.log('keyword after remove page: ' + this.keyword);
+    }
     if (this.page !== 0 && this.page != null) {
       this.keyword += `page=${this.page}`;
     }
@@ -68,7 +91,14 @@ export class SupplyListComponent implements OnInit {
 
   previousPage() {
     this.page--;
-    this.keyword = '?';
+    if (this.keyword.includes('page')) {
+      console.log('keyword before remove page: ' + this.keyword);
+      const pageIndex = this.keyword.indexOf('page=');
+      if (pageIndex !== -1) {
+        this.keyword = this.keyword.substring(0, pageIndex);
+      }
+      console.log('keyword after remove page: ' + this.keyword);
+    }
     if (this.page !== 0 && this.page != null) {
       this.keyword += `page=${this.page}`;
     }
@@ -81,7 +111,14 @@ export class SupplyListComponent implements OnInit {
 
   accessPage(page: number) {
     this.page = page;
-    this.keyword = '?';
+    if (this.keyword.includes('page')) {
+      console.log('keyword before remove page: ' + this.keyword);
+      const pageIndex = this.keyword.indexOf('page=');
+      if (pageIndex !== -1) {
+        this.keyword = this.keyword.substring(0, pageIndex);
+      }
+      console.log('keyword after remove page: ' + this.keyword);
+    }
     if (this.page !== 0 && this.page != null) {
       this.keyword += `page=${this.page}`;
     }

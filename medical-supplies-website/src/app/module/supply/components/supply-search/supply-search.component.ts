@@ -13,10 +13,10 @@ export class SupplySearchComponent implements OnInit {
   supplyForm: FormGroup;
   supplies: Supply[] = [];
   @Output() newItemEvent = new EventEmitter<Supply[]>();
-  page: number;
-  size: number;
+  @Output() keywordSearch = new EventEmitter<string>();
+  @Output() totalPageAfterSearch = new EventEmitter<number>();
 
-  constructor(private supplyService: SupplyService, private route: ActivatedRoute) {
+  constructor(private supplyService: SupplyService) {
     this.supplyForm = new FormGroup({
       productCode: new FormControl(''),
       productName: new FormControl(''),
@@ -24,13 +24,6 @@ export class SupplySearchComponent implements OnInit {
       customerName: new FormControl(''),
       beginDate: new FormControl(''),
       endDate: new FormControl(''),
-    });
-
-    this.route.queryParams.subscribe(param => {
-      this.page = param.page;
-      this.size = param.size;
-      console.log('page: ' + this.page);
-      console.log('size: ' + this.size);
     });
   }
 
@@ -77,21 +70,19 @@ export class SupplySearchComponent implements OnInit {
     if (endDate !== '' && endDate != null) {
       keyword += `expireDateEnd=${endDate}`;
     }
-    if (this.page !== 0 && this.page != null) {
-      keyword += `page=${this.page}`;
-    }
-    if (this.size !== 0 && this.size != null) {
-      keyword += `size=${this.size}`;
-    }
+    keyword += `page=1`;
     console.log(`keyword: ${keyword}`);
     this.supplyService.search(keyword).subscribe(next => {
       console.log(next);
-      this.supplyForm.reset();
+      // this.supplyForm.reset();
       if (next != null) {
         this.newItemEvent.emit(next.content);
+        this.totalPageAfterSearch.emit(next.totalPages);
       } else {
         this.newItemEvent.emit([]);
+        this.totalPageAfterSearch.emit(0);
       }
+      this.keywordSearch.emit(keyword);
     });
   }
 }
