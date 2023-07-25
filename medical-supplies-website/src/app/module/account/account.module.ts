@@ -1,16 +1,13 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { AccountRoutingModule } from './account-routing.module';
-import { AccountLoginComponent } from './component/account-login/account-login.component';
+import {AccountRoutingModule} from './account-routing.module';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientModule} from '@angular/common/http';
 
 
 @NgModule({
-  declarations: [
-    AccountLoginComponent
-  ],
+  declarations: [],
   imports: [
     CommonModule,
     AccountRoutingModule,
@@ -19,4 +16,5 @@ import {HttpClientModule} from '@angular/common/http';
     HttpClientModule
   ]
 })
-export class AccountModule { }
+export class AccountModule {
+}
