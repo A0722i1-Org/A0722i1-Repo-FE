@@ -48,9 +48,8 @@
             </div>
             <div class="col-auto">
               <div class="py-2">
-                <span *ngIf="employeeUserDetail?.gender == 1">Nam</span>
-                <span *ngIf="employeeUserDetail?.gender == 0">Nữ</span>
-                <span *ngIf="employeeUserDetail?.gender == 2">Khác</span>
+                <span *ngIf="employeeUserDetail?.gender">Nam</span>
+                <span *ngIf="!employeeUserDetail?.gender">Nữ</span>
               </div>
             </div>
           </div>
