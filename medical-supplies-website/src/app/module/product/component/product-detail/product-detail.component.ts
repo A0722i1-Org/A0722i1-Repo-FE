@@ -1,10 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ProductService} from '../../service/product.service';
-import {ProductInfoService} from '../../service/product-info.service';
-import {ActivatedRoute, ParamMap} from '@angular/router';
-import {ProductInfo} from '../../model/ProductInfo';
+import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Product} from '../../model/Product';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-product-detail',
@@ -20,17 +19,20 @@ export class ProductDetailComponent implements OnInit {
     '../../../../../assets/images/khautrang3.png',
     '../../../../../assets/images/khautrang4.png'
   ];
+
   id: number;
   products: Product[] = [];
-  productInfos: ProductInfo[] = [];
   productViewDetail: Product = {
     productInfo: {}
   };
   productDetail: FormGroup;
+  quantity = 1;
+
+  @ViewChild('quantityInput', {static: true}) quantityInput: ElementRef<HTMLInputElement>;
 
   constructor(private productService: ProductService,
-              private productInfoService: ProductInfoService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -42,13 +44,15 @@ export class ProductDetailComponent implements OnInit {
       this.id = +paramMap.get('id');
       this.productService.findByIdProductDetail(this.id).subscribe((productData) => {
         this.productViewDetail = productData;
-        this.initProductForm(productData);
+        console.log(this.productViewDetail.productImg);
+        this.quantity = this.productViewDetail.productQuantity || 1;
+        this.quantityInput.nativeElement.value = this.quantity.toString();
+        this.initProductDetailForm(productData);
       });
     });
-    console.log(this.productService.findByIdProductDetail(this.id));
   }
 
-  private initProductForm(productData: Product) {
+  private initProductDetailForm(productData: Product) {
     this.productDetail = new FormGroup({
       productId: new FormControl(productData.productId),
       productName: new FormControl(productData.productName),
@@ -61,5 +65,36 @@ export class ProductDetailComponent implements OnInit {
 
   selectImage(image: string) {
     this.selectedImage = image;
+  }
+
+  increaseQuantity(): void {
+    const maxValue = 100;
+    if (this.quantity < maxValue) {
+      this.quantity++;
+      this.quantityInput.nativeElement.value = this.quantity.toString();
+    }
+  }
+
+  decreaseQuantity(): void {
+    const minValue = 1;
+    if (this.quantity > minValue) {
+      this.quantity--;
+      this.quantityInput.nativeElement.value = this.quantity.toString();
+    }
+  }
+
+  addToCart(): void {
+    const cartItem: Product = {
+      productId: this.productViewDetail.productId,
+      productImg: this.productViewDetail.productImg,
+      productName: this.productViewDetail.productName,
+      productPrice: this.productViewDetail.productPrice,
+      productQuantity: this.quantity,
+    };
+    this.productService.addToCart(cartItem);
+    Swal.fire('Thành công',
+      'Đã thêm sản phẩm vào giỏ hàng',
+      'success');
+    this.router.navigateByUrl('/carts');
   }
 }

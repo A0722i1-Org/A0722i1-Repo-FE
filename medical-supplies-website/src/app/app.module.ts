@@ -22,8 +22,7 @@ import {environment} from '../environments/environment';
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebase)
+    ReactiveFormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
