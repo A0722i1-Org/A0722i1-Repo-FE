@@ -1,6 +1,5 @@
 <div *ngIf="details" class="row">
   <div class="col-md-1 text-center">
-    <img src="https://i-imgur-com.cdn.ampproject.org/i/s/i.imgur.com/jYM7rUx.gif">
   </div>
   <div class="container col-md-6">
     <div class="card">
@@ -81,85 +80,59 @@
         </h5>
       </div>
       <div class="card-body">
-        <!--        <div class="form-group">-->
-        <!--          <label for="name">Họ và tên:</label>-->
-        <!--          <input type="text" class="form-control" id="name" tabindex="1" value="Lê Hồng Nhật">-->
-        <!--          <p class="text-danger">Họ và tên không được để trống.</p>-->
-        <!--        </div>-->
-
-        <!--        <div class="form-group">-->
-
-        <!--          <label for="address">Địa chỉ:</label>-->
-        <!--          <div class="d-flex">-->
-        <!--                        <textarea id="address" rows="2" class="flex-grow-1"-->
-        <!--                                  tabindex="2">Ở đâu còn lâu mới nói</textarea>-->
-        <!--          </div>-->
-        <!--          <p class="text-danger">Địa chỉ không được để trống.</p>-->
-        <!--        </div>-->
-
-        <!--        <div class="form-group">-->
-        <!--          <label for="phone">Số điện thoại:</label>-->
-        <!--          <input type="text" class="form-control" id="phone" tabindex="4" value="0905598909">-->
-        <!--          <p class="text-danger">Số điện thoại không được để trống.</p>-->
-        <!--        </div>-->
-
-        <!--        <div class="form-group">-->
-        <!--          <label for="email">Email:</label>-->
-        <!--          <input type="email" class="form-control" id="email" tabindex="5" value="nhatlg@gmail.com">-->
-        <!--          <p class="text-danger">Vui lòng nhập email để nhận hoá đơn.</p>-->
-        <!--        </div>-->
         <form [formGroup]="rf" *ngIf="rf">
           <div class="form-group mb-3">
             <label>Họ và tên:</label>
             <input type="text" formControlName="receiverName" class="form-control">
           </div>
-          <p class="text-danger" *ngIf="rf.controls.receiverName.touched && rf.controls.receiverName.errors?.required">Tên người nhận không thể để trống</p>
-          <p class="text-danger" *ngIf="rf.controls.receiverName.touched && rf.controls.receiverName.errors?.pattern">Tên không đúng</p>
+          <p class="text-danger" *ngIf="rf.controls.receiverName.touched && rf.controls.receiverName.errors?.required">
+            Tên người nhận không thể để trống</p>
+          <p class="text-danger" *ngIf="rf.controls.receiverName.touched && rf.controls.receiverName.errors?.pattern">
+            Tên không chính xác</p>
           <div class="form-group mb-3">
             <label>Địa chỉ:</label>
             <input type="text" formControlName="receiverAddress" class="form-control">
           </div>
-          <p class="text-danger" *ngIf="rf.controls.receiverAddress.touched && rf.controls.receiverAddress.errors?.required">Địa chỉ không thể để trống</p>
+          <p class="text-danger"
+             *ngIf="rf.controls.receiverAddress.touched && rf.controls.receiverAddress.errors?.required">Địa chỉ không
+            thể để trống</p>
+          <p class="text-danger"
+             *ngIf="rf.controls.receiverAddress.touched && rf.controls.receiverAddress.errors?.pattern">Địa chỉ không
+            chính xác</p>
           <div class="form-group mb-3">
             <label>Số điện thoại:</label>
             <input type="text" formControlName="receiverPhone" class="form-control">
           </div>
-          <p class="text-danger" *ngIf="rf.controls.receiverPhone.touched && rf.controls.receiverPhone.errors?.required">Số điện thoại không thể để trống</p>
-          <p class="text-danger" *ngIf="rf.controls.receiverPhone.touched && rf.controls.receiverPhone.errors?.pattern">Số điện thoại không đúng định dạng</p>
+          <p class="text-danger"
+             *ngIf="rf.controls.receiverPhone.touched && rf.controls.receiverPhone.errors?.required">Số điện thoại không
+            thể để trống</p>
+          <p class="text-danger" *ngIf="rf.controls.receiverPhone.touched && rf.controls.receiverPhone.errors?.pattern">
+            Số điện thoại không đúng định dạng</p>
           <div class="form-group mb-3">
             <label>Địa chỉ:</label>
             <input type="text" formControlName="receiverEmail" class="form-control">
           </div>
-          <p class="text-danger" *ngIf="rf.controls.receiverEmail.touched && rf.controls.receiverEmail.errors?.required">Email không thể để trống</p>
-          <p class="text-danger" *ngIf="rf.controls.receiverEmail.touched && rf.controls.receiverEmail.errors?.email">Email không đúng định dạng</p>
-        </form>
-        <div class="form-group">
-          <label>Hình thức thanh toán:</label>
-          <div class="d-flex justify-content-evenly">
-            <div>
-              <input type="radio" class="form-radio" name="paymentMethod" id="directPayment"
-                     value="direct" checked
-                     tabindex="6">
-              <label for="directPayment">Trực tiếp</label>
-            </div>
-            <div>
-              <input type="radio" class="form-radio" name="paymentMethod" id="onlinePayment"
-                     value="online"
-                     tabindex="7">
-              <label for="onlinePayment">Online</label>
-            </div>
+          <p class="text-danger"
+             *ngIf="rf.controls.receiverEmail.touched && rf.controls.receiverEmail.errors?.required">Email không thể để
+            trống</p>
+          <p class="text-danger" *ngIf="rf.controls.receiverEmail.touched && rf.controls.receiverEmail.errors?.email">
+            Email không đúng định dạng</p>
+          <div class="form-group mb-3">
+            <label for="paymentMethod">Hình thức thanh toán:</label>
+            <select name="paymentMethod" id="paymentMethod" (change)="changeMethod($event)" class="form-control">
+              <option value="direct" selected>Trực tiếp khi nhận hàng</option>
+              <option value="vnpay">Thanh toán qua VNPay</option>
+            </select>
           </div>
-        </div>
+        </form>
       </div>
       <div class="card-footer text-center">
-        <button class="btn btn-secondary" (click)="save()">Quay lại</button>
-        <button class="btn btn-success" (click)="checkout()">Thanh toán</button>
+        <button class="btn btn-secondary" (click)="save()" [disabled]="rf.invalid">Quay lại</button>
+        <button class="btn btn-success" (click)="checkout()" [disabled]="rf.invalid||total==0">Thanh toán</button>
       </div>
-      <div id="paypal-buttons"></div>
     </div>
   </div>
-  <div class="col-md-1">
-    <img src="https://i-imgur-com.cdn.ampproject.org/i/s/i.imgur.com/jYM7rUx.gif">
+  <div class="col-md-1 text-center">
   </div>
 </div>
 <br>
