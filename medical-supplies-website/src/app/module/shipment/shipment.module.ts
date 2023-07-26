@@ -4,13 +4,8 @@ import { CommonModule } from '@angular/common';
 import { ShipmentRoutingModule } from './shipment-routing.module';
 import { ShipmentListComponent } from './component/shipment-list/shipment-list.component';
 import { ShipmentCreateComponent } from './component/shipment-create/shipment-create.component';
-import {HttpClientModule} from '@angular/common/http';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import { ReturnCanceComponent } from './component/return-cance/return-cance.component';
-import { ReturnCanceCreateComponent } from './component/return-cance-create/return-cance-create.component';
-import {NgxPaginationModule} from 'ngx-pagination';
-
-
+import {HttpClientModule} from "@angular/common/http";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -19,9 +14,8 @@ import {NgxPaginationModule} from 'ngx-pagination';
     ShipmentRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
-    FormsModule,
-    NgxPaginationModule
+    FormsModule
   ],
-  declarations: [ShipmentListComponent, ShipmentCreateComponent, ReturnCanceComponent, ReturnCanceCreateComponent]
+  declarations: [ShipmentListComponent, ShipmentCreateComponent]
 })
 export class ShipmentModule { }

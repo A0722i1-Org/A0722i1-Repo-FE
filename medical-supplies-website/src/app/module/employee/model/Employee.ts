@@ -9,6 +9,7 @@ export interface Employee {
   employeeAddress?: string;
   employeeImg?: string;
   salary?: number;
+  phone?: string;
   position?: Position;
   account?: Account;
   enable?: boolean;

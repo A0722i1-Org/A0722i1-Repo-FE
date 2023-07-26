@@ -17,24 +17,10 @@
           <i class="fas fa-user"></i>
           <input type="text" name="user" placeholder="Tài khoản" formControlName="username"/>
         </div>
-        <span class="text-danger"
-              *ngIf="formLogin.controls.username?.touched
-               && formLogin.controls.username?.errors?.required">Bạn cần nhập thông tin này
-        </span>
-        <div class="input-field"
-             *ngIf="!showPassword">
-          <i class="fa fa-eye" (click)="togglePasswordVisibility()"></i>
+        <div class="input-field">
+          <i class="fas fa-lock"></i>
           <input type="password" name="pass" placeholder="Mật khẩu" formControlName="password"/>
         </div>
-        <div class="input-field"
-             *ngIf="showPassword">
-          <i class="fa fa-eye-slash" (click)="togglePasswordVisibility()"></i>
-          <input type="text" name="pass" placeholder="Mật khẩu" formControlName="password"/>
-        </div>
-        <span class="text-danger"
-              *ngIf="formLogin.controls.password?.touched
-               && formLogin.controls.password?.errors?.required">Bạn cần nhập thông tin này
-        </span>
         <div>
           <input class="form-check-input align-middle me-2" type="checkbox" id="disabledFieldsetCheck"
                  formControlName="remember_me">
@@ -43,13 +29,6 @@
           </label>
         </div>
         <input type="submit" value="Đăng nhập" class="btn btn-customize"/>
-        <span *ngIf="message != null" class="text-danger">{{message}}</span>
-        <span class="text-danger"
-              *ngIf="formLogin.controls.username?.errors?.pattern">Tài khoản không đúng định dạng
-        </span>
-        <span class="text-danger"
-              *ngIf="formLogin.controls.password?.errors?.maxlength">Mật khẩu quá dài
-        </span>
       </form>
     </div>
   </div>

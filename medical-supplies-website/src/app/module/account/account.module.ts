@@ -1,20 +1,14 @@
-import {NgModule} from '@angular/core';
-import {CommonModule} from '@angular/common';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
 
-import {AccountRoutingModule} from './account-routing.module';
-import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http';
+import { AccountRoutingModule } from './account-routing.module';
 
 
 @NgModule({
   declarations: [],
   imports: [
     CommonModule,
-    AccountRoutingModule,
-    FormsModule,
-    ReactiveFormsModule,
-    HttpClientModule
+    AccountRoutingModule
   ]
 })
-export class AccountModule {
-}
+export class AccountModule { }
