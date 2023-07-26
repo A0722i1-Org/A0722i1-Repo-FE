@@ -8,8 +8,7 @@ import {ProductMain} from '../model/product-main';
   providedIn: 'root'
 })
 export class HomeService {
-
-  private API_PRO_MAIN = 'http://localhost:8080/api/v1';
+  private API_PRO_MAIN = 'http://localhost:8080/api/v1/home';
 
   constructor(private httpClient: HttpClient) {
   }
