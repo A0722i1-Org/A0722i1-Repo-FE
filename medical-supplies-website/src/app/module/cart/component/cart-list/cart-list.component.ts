@@ -6,6 +6,8 @@ import {CartDetail} from '../../model/CartDetail';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
+import {PaymentService} from '../../service/payment.service';
+
 
 @Component({
   selector: 'app-cart-list',
@@ -18,10 +20,12 @@ export class CartListComponent implements OnInit {
   details?: CartDetail[];
   total = 0;
   shippingFee = 0;
-  displayPaypal: string;
-  displayCheckout: string;
+  paymentMethod = 'direct';
+
+
 
   constructor(private cartService: CartService,
+              private paymentService: PaymentService,
               private router: Router) {
   }
 
@@ -97,8 +101,8 @@ export class CartListComponent implements OnInit {
 
   formBuilder() {
     this.rf = new FormGroup({
-      receiverName: new FormControl(this.cart.receiverName, [Validators.required, Validators.pattern('^([^0-9]*)$')]),
-      receiverAddress: new FormControl(this.cart.receiverAddress, [Validators.required]),
+      receiverName: new FormControl(this.cart.receiverName, [Validators.required, Validators.pattern('^(?:[A-Z][a-zÀ-ỹ]*(?: [A-Z][a-zÀ-ỹ]*)+)$')]),
+      receiverAddress: new FormControl(this.cart.receiverAddress, [Validators.required, Validators.pattern('^[^!@#$%^&*()_+<>?\'\"{}\\`~|/\\\\]+$')]),
       receiverPhone: new FormControl(this.cart.receiverPhone, [Validators.required, Validators.pattern('^0\\d{9,10}')]),
       receiverEmail: new FormControl(this.cart.receiverEmail, [Validators.required, Validators.email])
     });
@@ -117,14 +121,22 @@ export class CartListComponent implements OnInit {
   }
 
   checkout() {
-    this.cartService.checkout(this.prepareCartForSendingToBackend()).subscribe(next =>
-      Swal.fire({
-        title: 'Thành công!',
-        text: 'Đã đặt hàng thành công, quay về trang chính',
-        icon: 'success',
-        confirmButtonText: 'Cool'
-      }));
-    this.router.navigateByUrl('/');
+    if (this.paymentMethod === 'direct') {
+      this.cartService.checkout(this.prepareCartForSendingToBackend()).subscribe(next => {
+        Swal.fire({
+          title: 'Thành công!',
+          text: 'Đã đặt hàng thành công, xin cảm ơn',
+          icon: 'success',
+          confirmButtonText: 'Cool'
+        });
+        this.router.navigateByUrl('/');
+      });
+    } else {
+      this.paymentService.getPaid(this.prepareCartForSendingToBackend()).subscribe(next => {
+        const url = next.url;
+        window.location.href = url;
+      });
+    }
   }
 
   prepareCartForSendingToBackend(): CartWithDetail {
@@ -138,13 +150,7 @@ export class CartListComponent implements OnInit {
     return cartWithDetail;
   }
 
-  showPaypalButton() {
-    this.displayPaypal = 'inline';
-    this.displayCheckout = 'none';
-  }
-
-  showCheckoutButton() {
-    this.displayPaypal = 'none';
-    this.displayCheckout = 'inline';
+  changeMethod(e) {
+    this.paymentMethod = e.target.value;
   }
 }
