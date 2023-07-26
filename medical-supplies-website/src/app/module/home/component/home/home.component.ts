@@ -2,8 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {ProductMain} from '../../model/product-main';
 import {HomeService} from '../../service/home.service';
 import {CartService} from '../../../cart/service/cart.service';
-import {CartWithDetail} from '../../../cart/model/cart-with-detail';
-import {Observable} from 'rxjs';
 import {Cart} from '../../../cart/model/Cart';
 import {CartDetail} from '../../../cart/model/CartDetail';
 import Swal from 'sweetalert2';
@@ -28,7 +26,7 @@ export class HomeComponent implements OnInit {
     this.getCart();
   }
 
-  getAllProduct() {
+  getAllProduct(): any {
     this.homeService.findAll(this.currentPage).subscribe((products) => {
         this.productsMain = products.content;
       },
@@ -71,10 +69,22 @@ export class HomeComponent implements OnInit {
   }
 
   addToCart(productId: number) {
-    this.cartService.addToCart(productId).subscribe(next => {
-      Swal.fire('Thành công',
-        'Đã thêm sản phẩm vào giỏ',
-        'success');
+    let flag = false;
+    this.details.forEach(value => {
+      if (value.product.productId === productId) {
+        flag = true;
+      }
     });
+    if (flag) {
+      Swal.fire('Lưu ý',
+        'Sản phẩm đã có trong giỏ',
+        'info');
+    } else {
+      this.cartService.addToCart(productId).subscribe(next => {
+        Swal.fire('Thành công',
+          'Đã thêm sản phẩm vào giỏ',
+          'success');
+      });
+    }
   }
 }
