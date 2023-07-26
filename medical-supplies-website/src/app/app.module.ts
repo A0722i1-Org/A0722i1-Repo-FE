@@ -1,15 +1,14 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './component/header/header.component';
 import { FooterComponent } from './component/footer/footer.component';
 import {HttpClientModule} from '@angular/common/http';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
-import {environment} from '../environments/environment';
-import {AngularFireModule} from '@angular/fire';
 import {EmployeeModule} from './module/employee/employee.module';
+import {AngularFireModule} from '@angular/fire';
+import {environment} from "../environments/environment";
 
 @NgModule({
   declarations: [
@@ -24,7 +23,7 @@ import {EmployeeModule} from './module/employee/employee.module';
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    EmployeeModule
+    EmployeeModule,
   ],
   providers: [],
   bootstrap: [AppComponent]

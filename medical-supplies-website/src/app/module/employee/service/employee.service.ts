@@ -1,12 +1,10 @@
 import { Employee } from './../model/Employee';
-import { Position } from './../model/Position';
-import {HttpClient, HttpClientModule, HttpHeaders} from '@angular/common/http';
-import { EmptyExpr } from '@angular/compiler';
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
 import {EmployeeUserDetail} from '../model/EmployeeUserDetail';
 import {TokenStorageService} from "../../security/service/token-storage.service";
 import {EmployeeInfo} from "../dto/EmployeeInfo";
+import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -17,6 +15,7 @@ export class EmployeeService {
   constructor(private httpClient: HttpClient,
               private tokenStorageService: TokenStorageService) {
   }
+
 
   getEmployeeWithNameAndDobAndPos(name: string, dateOfBirth: string, positionName: string): Observable<Employee[]> {
     const token = this.tokenStorageService.getToken();
@@ -49,7 +48,9 @@ export class EmployeeService {
     const token = this.tokenStorageService.getToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.httpClient.get<EmployeeUserDetail>(this._API_URL + '/detail', {headers});
+    // tslint:disable-next-line:variable-name
   }
+
   saveEmployee(employeeInfor: EmployeeInfo): Observable<EmployeeInfo> {
     const token = this.tokenStorageService.getToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);

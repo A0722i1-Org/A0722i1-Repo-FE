@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CustomerUserDetailComponent } from './customer-user-detail.component';
+import { ListHighestComponent } from './list-highest.component';
 
-describe('CustomerUserDetailComponent', () => {
-  let component: CustomerUserDetailComponent;
-  let fixture: ComponentFixture<CustomerUserDetailComponent>;
+describe('ListHighestComponent', () => {
+  let component: ListHighestComponent;
+  let fixture: ComponentFixture<ListHighestComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CustomerUserDetailComponent ]
+      declarations: [ ListHighestComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CustomerUserDetailComponent);
+    fixture = TestBed.createComponent(ListHighestComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

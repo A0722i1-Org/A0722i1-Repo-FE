@@ -1,4 +1,5 @@
 export interface EmployeeUserDetail {
+  status: number;
   employeeId?: number;
   employeeCode?: string;
   employeeName?: string;
