@@ -26,7 +26,7 @@
                   <div class="carousel-item" data-bs-interval="3000">
                     <img src="assets/images/Banner_2.png" class="d-block w-80"
                          style="width: 100%; height: 400px">
-                    <!--                                style="width: 100%; height: 500px"-->
+                    <!--                    style="width: 100%; height: 500px"-->
                   </div>
                 </div>
                 <button class="carousel-control-prev" type="button"
@@ -56,123 +56,79 @@
           </div>
         </div>
         <div class="col-lg-2 sidebar__right">
-          <div class="my__card w-100" style="border: none;">
-            <div class="my__card__body">
-              <p class="d-flex justify-content-between">
-                <span><i class="fa-solid fa-crown text-warning"></i> 1</span>
-                <span class="text-dark" style="font-size: 20px;">90.000&#x20AB;</span>
-              </p>
-            </div>
-            <img src="imgs/home/kit-test.jpg" height="120px" class="d-block w-100" alt="">
-
-          </div>
-          <div class="my__card w-100" style="border: none;">
-            <div class="my__card__body">
-              <p class="d-flex justify-content-between">
-                <span><i class="fa-solid fa-crown text-warning"></i> 2</span>
-                <span class="text-dark" style="font-size: 20px;">80.000&#x20AB;</span>
-              </p>
-            </div>
-            <img src="imgs/home/nhiet-am-ke.jpg" height="120px" class="d-block w-100" alt="">
-          </div>
-          <div class="my__card w-100" style="border: none;">
-            <div class="my__card__body">
-              <p class="d-flex justify-content-between">
-                <span><i class="fa-solid fa-crown text-warning"></i> 3</span>
-                <span class="text-dark" style="font-size: 20px;">80.000&#x20AB;</span>
-              </p>
-            </div>
-            <img src="imgs/home/img.png" height="120px" class="d-block w-100" alt="">
-          </div>
+          <app-list-highest></app-list-highest>
         </div>
       </div>
     </div>
   </div>
 
   <!-- ***** Main home start***** -->
-
   <div class="container-fluid">
     <div class="row">
       <div class="col-lg-12">
         <div class="filter">
-          <ul class="category">
-            <li class="category__item active">
-              <!--                                    <span (click)="setValueCategorySearch('')" class="category_text">-->
-              <span class="category_text">
-                                      <i class="fa-solid fa-truck-medical" style="color: #FFD333;"></i>
-                                        <span class="label">Tất cả</span>
+          <li class="category__item active" (click)="getAllProduct()">
+            <span class="category_text">
+              <i class="fa-solid fa-truck-medical" style="color: #FFD333;"></i>
+              <span class="label">Tất cả</span>
 
-                                    </span>
-            </li>
-            <li class="category__item ">
-                                    <span class="category_text">
-                                        <i class="fa-solid fa-mask-face" style="color: #FFD333;"></i>
-                                        <span class="label">Khẩu trang</span>
-                                    </span>
-            </li>
+            </span>
+          </li>
+          <ul class="category" *ngFor="let cate of categories" (click)="searchCategory(cate.categoryId)">
             <li class="category__item">
-                                    <span class="category_text">
-                                        <i class="fa-solid fa-shield-virus" style="color: #FFD333;"></i>
-                                        <span class="label">Bảo hộ</span>
-                                    </span>
-            </li>
-            <li class="category__item">
-                                    <span class="category_text">
-                                        <i class="fa-solid fa-thermometer" style="color: #FFD333;"></i>
-                                        <span class="label">Kit test</span>
-                                    </span>
-            </li>
-            <li class="category__item">
-                                    <span class="category_text">
-                                        <i class="fa-solid fa-notes-medical" style="color: #FFD333;"></i>
-                                       <span class="label">Khác</span>
-                                    </span>
+              <div class="category_text">
+                <i class="fa-solid fa-mask-face" style="color: #FFD333;"></i>
+                <div class="label">{{cate.categoryName}}</div>
+              </div>
             </li>
           </ul>
-          <form action="" class="form__filter d-flex">
+
+          <form action="" class="form__filter d-flex" [formGroup]="rfSearch" (ngSubmit)="search()">
             <div class="search-container">
-              <input type="text" placeholder="Tìm kiếm...">
+              <input type="text" placeholder="Tìm kiếm..." formControlName="productName">
               <button type="submit"><i class="fa fa-search"></i></button>
             </div>
-            <select class="select__price">
-              <option value="">--Chọn mức giá--</option>
-              <option value="">Nhỏ hơn 100 nghìn</option>
-              <option value="">Từ 100 nghìn đến 2 triệu</option>
-              <option value="">Lớn hơn 2 triệu</option>
-            </select>
           </form>
-
         </div>
       </div>
     </div>
   </div>
 
-  <!--<div class="content-found">-->
-  <!--    <div class="container-fluid">-->
-  <!--        <div class="row">-->
-  <!--            <div class="col-lg-12 text-center">-->
-  <!--                <p class="not-found-text">Không có sản phẩm nào!</p>-->
-  <!--                <a class="not-found-image" href="#">-->
-  <!--                    <img src="imgs/home/not_found.webp" alt="" style="width: 800px; height: 100%">-->
-  <!--                </a>-->
-  <!--            </div>-->
-  <!--        </div>-->
-  <!--    </div>-->
-  <!--</div>-->
-
   <div class="content">
     <div class="container-fluid">
       <div class="row">
         <div class="col-lg-12">
-          <div class="row">
-            <div class="col-lg-3 col-sm-6 col-12 col-md-4 mb-4" *ngFor="let pro of productsMain">
-              <div class="card">
-                <div class="card-body">
-                  <div class="products-single fix">
-                    <div class="box-img-hover">
-                      <div class="type-lb">
-                        <p class="sale">Bán chạy</p>
+          <div *ngIf="productsMain === undefined">
+            <p>Không tìm thấy sản phẩm !</p>
+          </div>
+          <div *ngIf="productsMain !== undefined">
+            <div class="row">
+              <div class="col-lg-3 col-sm-6 col-12 col-md-4 mb-4" *ngFor="let pro of productsMain">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="products-single fix">
+                      <div class="box-img-hover">
+                        <div class="type-lb">
+                          <p class="sale">Bán chạy</p>
+                        </div>
+                        <img src="{{pro.product_Img}}" class="img-fluid" alt="Image"
+                             style="height: 250px; width: 500px">
+                        <div class="mask-icon">
+                          <ul>
+                            <li><a href="#" data-toggle="tooltip" data-placement="right"
+                                   title="View"><i
+                              class="fas fa-eye"></i></a></li>
+                            <li><a href="#" data-toggle="tooltip" data-placement="right"
+                                   title="Compare"><i
+                              class="fas fa-sync-alt"></i></a></li>
+                            <li><a href="#" data-toggle="tooltip" data-placement="right"
+                                   title="Add to Wishlist"><i
+                              class="far fa-heart"></i></a></li>
+                          </ul>
+                          <a class="cart" href="#">Thêm vào giỏ</a>
+                        </div>
                       </div>
+
                       <img src="{{pro.product_Img}}" class="img-fluid" alt="Image"
                            style="height: 250px; width: 500px">
                       <div class="mask-icon">
@@ -188,11 +144,10 @@
                             class="far fa-heart"></i></a></li>
                         </ul>
                         <a class="cart" (click)=addToCart(pro.product_Id)>Thêm vào giỏ</a>
+                      <div class="why-text">
+                        <h4>{{pro.product_Name}}</h4>
+                        <h5>{{pro.product_Price}}&#x20AB;</h5>
                       </div>
-                    </div>
-                    <div class="why-text">
-                      <h4>{{pro.product_Name}}</h4>
-                      <h5>{{pro.product_Price}}&#x20AB;</h5>
                     </div>
                   </div>
                 </div>
@@ -200,24 +155,22 @@
             </div>
           </div>
         </div>
-
       </div>
     </div>
-  </div>
 
-<!--  phantrang-->
+    <!--    paging-->
     <div>
       <nav aria-label="Page navigation example" style=" display: flex;
     justify-content: center;">
         <ul class="pagination">
           <li class="page-item">
-            <a class="page-link btn" aria-label="Previous" (click)="previousPage()" >
+            <a class="page-link btn" aria-label="Previous" (click)="previousPage()">
               <span aria-hidden="true">&laquo;</span>
             </a>
           </li>
           <li class="page-item"><a class="page-link btn" (click)="pageOne()">1</a></li>
-          <li class="page-item"><a class="page-link btn" (click)="pageTwo()" >2</a></li>
-          <li class="page-item"><a class="page-link btn" (click)="pageThree()" >3</a></li>
+          <li class="page-item"><a class="page-link btn" (click)="pageTwo()">2</a></li>
+          <li class="page-item"><a class="page-link btn" (click)="pageThree()">3</a></li>
           <li class="page-item">
             <a class="page-link btn" aria-label="Next">
               <span aria-hidden="true" (click)="nextPage()">&raquo;</span>
@@ -226,4 +179,5 @@
         </ul>
       </nav>
     </div>
+  </div>
 </div>

@@ -10,23 +10,7 @@
             <div
               class="mb-3 rounded-circle bg-light border border-2 border-green-blue overflow-hidden d-flex align-items-center justify-content-center"
               style="width: 200px; height: 200px;">
-              <!--                            <img [src]="employeeUserDetail?.employeeImg" style="width: 200px" alt="avatar">-->
-              <svg width="200px" height="200px" viewBox="-9.36 -9.36 42.72 42.72" fill="none"
-                   xmlns="http://www.w3.org/2000/svg">
-                <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
-                <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
-                <g id="SVGRepo_iconCarrier">
-                  <path opacity="0"
-                        d="M17 8C17 10.7614 14.7614 13 12 13C9.23858 13 7 10.7614 7 8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8Z"
-                        fill="#323232"></path>
-                  <path
-                    d="M17 8C17 10.7614 14.7614 13 12 13C9.23858 13 7 10.7614 7 8C7 5.23858 9.23858 3 12 3C14.7614 3 17 5.23858 17 8Z"
-                    stroke="#323232" stroke-width="0.8160000000000001"></path>
-                  <path d="M3 21C3.95728 17.9237 6.41998 17 12 17C17.58 17 20.0427 17.9237 21 21"
-                        stroke="#323232" stroke-width="0.8160000000000001"
-                        stroke-linecap="round"></path>
-                </g>
-              </svg>
+              <img [src]="employeeUserDetail?.employeeImg" style="width: 200px" alt="avatar">
             </div>
             <button
               class="d-none btn btn-update-avatar position-absolute d-inline-flex bg-mint-leaf p-2 rounded-circle border border-green-blue">
@@ -64,9 +48,8 @@
             </div>
             <div class="col-auto">
               <div class="py-2">
-                <span *ngIf="employeeUserDetail?.gender == 1">Nam</span>
-                <span *ngIf="employeeUserDetail?.gender == 0">Nữ</span>
-                <span *ngIf="employeeUserDetail?.gender == 2">Khác</span>
+                <span *ngIf="employeeUserDetail?.gender">Nam</span>
+                <span *ngIf="!employeeUserDetail?.gender">Nữ</span>
               </div>
             </div>
           </div>
