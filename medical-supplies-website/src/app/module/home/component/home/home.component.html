@@ -109,7 +109,7 @@
                     <div class="products-single fix">
                       <div class="box-img-hover">
                         <div class="type-lb">
-                          <p class="sale">Bán chạy</p>
+                          <p class="sale">Sản phẩm uy tín</p>
                         </div>
                         <img src="{{pro.product_Img}}" class="img-fluid" alt="Image"
                              style="height: 250px; width: 500px">
@@ -142,26 +142,12 @@
       </div>
     </div>
 
-    <!--    paging-->
-    <div>
-      <nav aria-label="Page navigation example" style=" display: flex;
-    justify-content: center;">
-        <ul class="pagination">
-          <li class="page-item">
-            <a class="page-link btn" aria-label="Previous" (click)="previousPage()">
-              <span aria-hidden="true">&laquo;</span>
-            </a>
-          </li>
-          <li class="page-item"><a class="page-link btn" (click)="pageOne()">1</a></li>
-          <li class="page-item"><a class="page-link btn" (click)="pageTwo()">2</a></li>
-          <li class="page-item"><a class="page-link btn" (click)="pageThree()">3</a></li>
-          <li class="page-item">
-            <a class="page-link btn" aria-label="Next">
-              <span aria-hidden="true" (click)="nextPage()">&raquo;</span>
-            </a>
-          </li>
-        </ul>
-      </nav>
+    <!-- ***** paging ***** -->
+    <div class="pagination">
+      <a *ngIf="page !== 1" (click)="previousPage()" class="text1">«</a>
+      <a class="paginationItem" [class.active]="page===currentPage" (click)="accessPage(page + 1)"
+         *ngFor="let page of totalPages">{{page + 1}}</a>
+      <a *ngIf="page < totalPage" (click)="nextPage()" class="text1">»</a>
     </div>
   </div>
 </div>

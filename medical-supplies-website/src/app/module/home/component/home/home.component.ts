@@ -10,6 +10,7 @@ import {Observable} from 'rxjs';
 import {Cart} from '../../../cart/model/Cart';
 import {CartDetail} from '../../../cart/model/CartDetail';
 import Swal from 'sweetalert2';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -18,16 +19,31 @@ import Swal from 'sweetalert2';
 })
 export class HomeComponent implements OnInit {
   productsMain: ProductMain[];
-  currentPage = 1;
+  // currentPage = 1;
   rfSearch: FormGroup;
   categories: CategoryMain[];
   cart?: Cart;
   details?: CartDetail[];
+  page = 0;
+  keyword: string;
+  totalPages: number[] = [];
+  totalPage = 0;
+  currentPage = 0;
 
 
   constructor(private homeService: HomeService,
               private categoryHomeService: CategoryHomeService,
-              private cartService: CartService) {
+              private cartService: CartService, private route: ActivatedRoute) {
+    this.route.queryParams.subscribe(param => {
+      this.page = param.page || 1;
+      this.currentPage = param.page || 1;
+      this.keyword = '?';
+      if (this.page !== 0 && this.page != null) {
+        this.keyword += `page=${this.page}`;
+      }
+      console.log('page: ' + this.page);
+      console.log('keyword: ' + this.keyword);
+    });
   }
 
   ngOnInit(): void {
@@ -41,11 +57,15 @@ export class HomeComponent implements OnInit {
   }
 
   getAllProduct() {
-    this.homeService.findAll(this.currentPage).subscribe((products) => {
+    this.homeService.findAll().subscribe((products) => {
         this.productsMain = products.content;
-      },
-      error => {
-        console.error('Error fetching products:', error);
+        this.totalPage = products.totalPages;
+        this.currentPage = products.number;
+        this.totalPages = [];
+        for (let j = 0; j < this.totalPage; j++) {
+          this.totalPages.push(j);
+        }
+        console.log(this.productsMain);
       }
     );
   }
@@ -60,38 +80,13 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  nextPage() {
-    this.currentPage = this.currentPage + 1;
-    this.getAllProduct();
-  }
-
-  previousPage() {
-    this.currentPage = this.currentPage - 1;
-    this.getAllProduct();
-  }
-
-  pageOne() {
-    this.currentPage = 1;
-    this.getAllProduct();
-  }
-
-  pageTwo() {
-    this.currentPage = 2;
-    this.getAllProduct();
-  }
-
-  pageThree() {
-    this.currentPage = 3;
-    this.getAllProduct();
-  }
-
   search() {
-    let keyword = '';
+    let keyword = '?';
     const productName = this.rfSearch.value.productName;
     if (productName !== '' && productName != null) {
       keyword += `productName=${productName}`;
     }
-    this.homeService.searchByName(keyword, this.currentPage).subscribe(next => {
+    this.homeService.searchByName(keyword).subscribe(next => {
       this.rfSearch.reset();
       if (next != null) {
         this.productsMain = next.content;
@@ -102,7 +97,7 @@ export class HomeComponent implements OnInit {
   }
 
   searchCategory(categoryId: number) {
-    this.homeService.searchByCate(categoryId, this.currentPage).subscribe(next => {
+    this.homeService.searchByCate(categoryId).subscribe(next => {
       if (next != null) {
         this.productsMain = next.content;
       } else {
@@ -123,6 +118,81 @@ export class HomeComponent implements OnInit {
       Swal.fire('Thành công',
         'Đã thêm sản phẩm vào giỏ',
         'success');
+    });
+  }
+
+  receiveKeyword($event: string) {
+    this.keyword = $event;
+    console.log('receive keyword: ' + $event);
+  }
+
+  receiveTotalPages($event: number) {
+    this.totalPage = $event;
+    this.page = 1;
+    this.currentPage = 0;
+    this.totalPages = [];
+    for (let j = 0; j < this.totalPage; j++) {
+      this.totalPages.push(j);
+    }
+  }
+
+  nextPage() {
+    this.page++;
+    if (this.keyword.includes('page')) {
+      console.log('keyword before remove page: ' + this.keyword);
+      const pageIndex = this.keyword.indexOf('page=');
+      if (pageIndex !== -1) {
+        this.keyword = this.keyword.substring(0, pageIndex);
+      }
+      console.log('keyword after remove page: ' + this.keyword);
+    }
+    if (this.page !== 0 && this.page != null) {
+      this.keyword += `page=${this.page}`;
+    }
+    console.log('next: ' + this.keyword);
+    this.homeService.searchByName(this.keyword).subscribe(next => {
+      this.productsMain = next.content;
+      this.currentPage = next.number;
+    });
+  }
+
+  previousPage() {
+    this.page--;
+    if (this.keyword.includes('page')) {
+      console.log('keyword before remove page: ' + this.keyword);
+      const pageIndex = this.keyword.indexOf('page=');
+      if (pageIndex !== -1) {
+        this.keyword = this.keyword.substring(0, pageIndex);
+      }
+      console.log('keyword after remove page: ' + this.keyword);
+    }
+    if (this.page !== 0 && this.page != null) {
+      this.keyword += `page=${this.page}`;
+    }
+    console.log('previous: ' + this.keyword);
+    this.homeService.searchByName(this.keyword).subscribe(next => {
+      this.productsMain = next.content;
+      this.currentPage = next.number;
+    });
+  }
+
+  accessPage(page: number) {
+    this.page = page;
+    if (this.keyword.includes('page')) {
+      console.log('keyword before remove page: ' + this.keyword);
+      const pageIndex = this.keyword.indexOf('page=');
+      if (pageIndex !== -1) {
+        this.keyword = this.keyword.substring(0, pageIndex);
+      }
+      console.log('keyword after remove page: ' + this.keyword);
+    }
+    if (this.page !== 0 && this.page != null) {
+      this.keyword += `page=${this.page}`;
+    }
+    console.log(this.keyword);
+    this.homeService.searchByName(this.keyword).subscribe(next => {
+      this.productsMain = next.content;
+      this.currentPage = next.number;
     });
   }
 }
