@@ -112,6 +112,7 @@
             <label>Địa chỉ:</label>
             <input type="text" formControlName="receiverEmail" class="form-control">
           </div>
+
           <p class="text-danger"
              *ngIf="rf.controls.receiverEmail.touched && rf.controls.receiverEmail.errors?.required">Email không thể để
             trống</p>
