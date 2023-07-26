@@ -3,7 +3,7 @@ export interface EmployeeUserDetail {
   employeeCode?: string;
   employeeName?: string;
   phone?: string;
-  gender?: number;
+  gender?: boolean;
   employeeAddress?: string;
   dateOfBirth?: string;
   idCard?: string;

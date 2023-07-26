@@ -112,7 +112,11 @@ export class ListEmployeeComponent implements OnInit {
       cancelButtonText: 'Hủy'
     }).then((result) => {
       if (result.isConfirmed) {
-        this.employeeService.deleteByID(employeeId).subscribe()
+        this.employeeService.deleteByID(employeeId).subscribe(
+          ()=>{
+            this.getAllWithSearch()
+          }
+        )
         Swal.fire({
             title: 'Xóa thành công',
             text: this.employeeNameDelete + ' đã bị xóa khỏi danh sách',
@@ -121,7 +125,7 @@ export class ListEmployeeComponent implements OnInit {
             confirmButtonText: 'Đóng',
           }
         )
-        this.getAllWithSearch()
+
       }
     })
   }
