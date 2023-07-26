@@ -31,8 +31,6 @@ export class CartListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCart();
-    this.displayPaypal = 'none';
-    this.displayCheckout = 'inline';
   }
 
   getTotalAmount() {
