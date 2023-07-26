@@ -1,9 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ProductMain} from '../../model/product-main';
 import {HomeService} from '../../service/home.service';
-import {FormControl, FormGroup} from '@angular/forms';
-import {CategoryHomeService} from '../../service/category-home.service';
-import {CategoryMain} from '../../model/category-main';
 import {CartService} from '../../../cart/service/cart.service';
 import {Cart} from '../../../cart/model/Cart';
 import {CartDetail} from '../../../cart/model/CartDetail';
@@ -17,24 +14,15 @@ import Swal from 'sweetalert2';
 export class HomeComponent implements OnInit {
   productsMain: ProductMain[];
   currentPage = 1;
-  rfSearch: FormGroup;
-  categories: CategoryMain[];
   cart?: Cart;
   details?: CartDetail[];
 
-
   constructor(private homeService: HomeService,
-              private categoryHomeService: CategoryHomeService,
               private cartService: CartService) {
   }
 
   ngOnInit(): void {
     this.getAllProduct();
-    this.getAllCategory();
-    this.rfSearch = new FormGroup({
-      productName: new FormControl(''),
-      categoryName: new FormControl(''),
-    });
     this.getCart();
   }
 
@@ -44,16 +32,6 @@ export class HomeComponent implements OnInit {
       },
       error => {
         console.error('Error fetching products:', error);
-      }
-    );
-  }
-
-  getAllCategory() {
-    this.categoryHomeService.getCategories().subscribe((data) => {
-        this.categories = data;
-      },
-      error => {
-        console.error('Error fetching category:', error);
       }
     );
   }
@@ -81,32 +59,6 @@ export class HomeComponent implements OnInit {
   pageThree() {
     this.currentPage = 3;
     this.getAllProduct();
-  }
-
-  search() {
-    let keyword = '';
-    const productName = this.rfSearch.value.productName;
-    if (productName !== '' && productName != null) {
-      keyword += `productName=${productName}`;
-    }
-    this.homeService.searchByName(keyword, this.currentPage).subscribe(next => {
-      this.rfSearch.reset();
-      if (next != null) {
-        this.productsMain = next.content;
-      } else {
-        this.productsMain = [];
-      }
-    });
-  }
-
-  searchCategory(categoryId: number) {
-    this.homeService.searchByCate(categoryId, this.currentPage).subscribe(next => {
-      if (next != null) {
-        this.productsMain = next.content;
-      } else {
-        this.productsMain = [];
-      }
-    });
   }
 
   getCart() {

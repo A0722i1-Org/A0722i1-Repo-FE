@@ -12,7 +12,7 @@
     </div>
     <div *ngFor="let detail of details" class="card" style="margin: auto">
       <div class="card-body row">
-        <div class="col-md-2 text-center d-flex justify-content-between">
+        <div class="col-md-2 text-center" style="display: inline">
           <input type="checkbox" [(ngModel)]="detail.status" (change)="getTotalAmount()"/>
           <img [src]=detail.product.productImg alt="{{detail.product.productName}}">
         </div>
@@ -22,7 +22,7 @@
         </div>
         <div class="col-md-3 text-center"
              style="gap: 10px; display: flex; flex-direction: column; justify-content: center">
-          <div class="d-flex justify-content-evenly align-items-center">
+          <div>
             <i class="fa fa-minus" aria-hidden="true" (click)="decreaseQuantity(detail.cartDetailId)"></i>
             <span>{{detail.quantity}}</span>
             <i class="fa fa-plus" aria-hidden="true" (click)="increaseQuantity(detail.cartDetailId)"></i>
@@ -35,7 +35,7 @@
     <div class="card">
       <div class="card-body row">
         <div>
-          <button *ngIf="details.length != 0" style="width: inherit" class="btn btn-outline-success" (click)="checkAll()">Chọn tất cả</button>
+          <button *ngIf="details.length != 0" class="btn btn-outline-success" (click)="checkAll()">Chọn tất cả</button>
           <p *ngIf="details.length == 0" class="text-center">Giỏ hàng hiện đang trống</p>
         </div>
       </div>
@@ -112,7 +112,6 @@
             <label>Địa chỉ:</label>
             <input type="text" formControlName="receiverEmail" class="form-control">
           </div>
-
           <p class="text-danger"
              *ngIf="rf.controls.receiverEmail.touched && rf.controls.receiverEmail.errors?.required">Email không thể để
             trống</p>
@@ -127,8 +126,8 @@
           </div>
         </form>
       </div>
-      <div class="card-footer text-center d-flex flex-column-reverse">
-        <button class="btn btn-secondary" style="margin-top: 10px" (click)="save()" [disabled]="rf.invalid">Quay lại</button>
+      <div class="card-footer text-center">
+        <button class="btn btn-secondary" (click)="save()" [disabled]="rf.invalid">Quay lại</button>
         <button class="btn btn-success" (click)="checkout()" [disabled]="rf.invalid||total==0">Thanh toán</button>
       </div>
     </div>
