@@ -1,0 +1,158 @@
+<!--<form [formGroup]="shipmentForm" (ngSubmit)="shipment()">-->
+<div style="max-width: 80%; padding: 50px; margin: auto">
+  <div class="main">
+    <div class="title">
+      <h2 style="color: #00b894">Quản Lý Trả - Hủy Hàng</h2>
+    </div>
+    <div class="staff">
+      <label>Nhân Viên:
+        <span> Phúc</span>
+      </label>
+      <label>Ngày làm Việc:
+        <span>21/02/2010</span>
+      </label>
+    </div>
+    <div class="staff">
+      <label>Hình thức:
+        <select class="id_ncc" >
+          <option *ngFor="let s of shipmentTypes" [ngValue]="s">{{s.shipmentTypeName}}</option>
+        </select>
+      </label>
+    </div>
+    <div class="user_content">
+    </div>
+    <div class="user">
+      <div class="user_title">
+        <h5><i class="fa-sharp fa-solid fa-building"></i> Nhà cung cấp</h5>
+      </div>
+      <div class="user_content">
+        <div class="user_id">
+          <label>Mã NCC:
+            <input type="text" disabled placeholder="{{customer?.customer_Id}}">
+          </label>
+          <label>Địa chỉ:
+            <input type="text"disabled style="margin-left: 14px;" placeholder="{{customer?.customer_Address}}">
+          </label>
+        </div>
+        <div class="user_name" >
+          <label >Tên NCC:
+            <input type="text" disabled style="margin-left: 58px" placeholder="{{customer?.name}}">
+          </label>
+          <label >Số điện thoại:
+            <input type="text" style="margin-left: 22px"  [(ngModel)]="phone" (input)="onPhoneInputChange()" placeholder="Nhập số điện thoại">
+          </label>
+          <p class="text-danger" style="text-align: center">Số điện thoại không được để trống</p>
+          <p *ngIf="notFound" class="text-danger" style="text-align: center">Khách hàng chưa có <a href="#">Thêm ngay</a>.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="list">
+    <div class="list_title">
+      <h5><i class="fa-solid fa-syringe"></i> Vật tư</h5>
+    </div>
+    <h3 style="text-align: center; color: #00b894">Danh sách </h3>
+    <div class="table-responsive" style="max-height: 200px;">
+      <table class="table" border="1">
+        <thead>
+        <tr>
+          <th scope="col" style="background: #00b894; color: white; text-align: left">Mã vật tư</th>
+          <th scope="col" style="background: #00b894; color: white; text-align: left">Tên vật tư</th>
+          <th scope="col" style="background: #00b894; color: white; text-align: center">Số lượng</th>
+          <th scope="col" style="background: #00b894; color: white; text-align: left">Đơn vị</th>
+          <th scope="col" style="background: #00b894; color: white; text-align: center">Tiền nhận lại (VNĐ)</th>
+          <th scope="col" style="background: #00b894; color: white; text-align: left">Lí do</th>
+          <th scope="col" style="background: #00b894; color: white"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>VT01</td>
+          <td>Dung dịch sát khuẩn</td>
+          <td style="text-align: center">5</td>
+          <td>Chai</td>
+          <td style="text-align: center">100.000</td>
+          <td>Vật tư không đúng yêu cầu</td>
+          <td> <button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#modelDelete" >
+            <i class="fa-solid fa-trash"></i>
+          </button></td>
+        </tr>
+        <tr>
+          <td>VT02</td>
+          <td>Bông gòn</td>
+          <td style="text-align: center">5</td>
+          <td>Gói</td>
+          <td style="text-align: center">50.000</td>
+          <td>Vật tư không đúng yêu cầu</td>
+          <td> <button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#modelDelete" >
+            <i class="fa-solid fa-trash"></i>
+          </button></td>
+        </tr>
+        <tr>
+          <td>VT03</td>
+          <td>Kim chích</td>
+          <td style="text-align: center">5</td>
+          <td>Cái</td>
+          <td style="text-align: center">50.000</td>
+          <td>Vật tư không đúng yêu cầu</td>
+          <td> <button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#modelDelete" >
+            <i class="fa-solid fa-trash"></i>
+          </button></td>
+        </tr>
+        <tr>
+          <td>VT04</td>
+          <td>Kéo y tế</td>
+          <td style="text-align: center">5</td>
+          <td>Cái</td>
+          <td style="text-align: center">25.000</td>
+          <td>Vật tư không đúng yêu cầu</td>
+          <td> <button type="button" class="btn btn-danger " data-bs-toggle="modal" data-bs-target="#modelDelete" >
+            <i class="fa-solid fa-trash"></i>
+          </button></td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
+    <h6>Tổng tiền: 225.000 VNĐ</h6>
+  </div>
+  <br>
+  <a type="button" class="btn"  routerLink="create" style="float: right;background: #00b894; color: white">
+    <i class="fa-solid fa-pen-to-square" ></i> Thêm
+  </a>
+  <br>
+  <br>
+  <div class="d-flex justify-content-center gap-2">
+    <button type="button" class="btn" style="background: #00b894; color: white"><i class="fa-solid fa-pen-to-square"></i> Lưu </button>
+    <button type="button" class="btn" style="background: #00b894; color: white"><i class="fa-solid fa-print"></i> In hóa đơn</button>
+    <button type="button" class="btn" style="background: #00b894; color: white"><i class="fa-solid fa-person-walking-arrow-loop-left"></i> Trở về</button>
+  </div>
+</div>
+<!--</form>-->
+
+<!-- Modal delete-->
+<div class="modal fade" id="modelDelete" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modelTitleId" style="color: red">Bạn có muốn xóa vật tư này không?</h4>
+        <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <table>
+          <tr>
+            <td>Mã vật tư: VT01</td>
+          </tr>
+          <tr>
+            <td>Tên vật tư: Dung dịch sát khuẩn</td>
+          </tr>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
+        <button type="button" class="btn btn-primary">Có</button>
+      </div>
+    </div>
+  </div>
+</div>

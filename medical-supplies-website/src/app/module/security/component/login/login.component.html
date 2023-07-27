@@ -1,0 +1,35 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="panel col-sm-12 col-md-6 col-lg-6">
+      <div class="row">
+        <h3>Bạn cần giúp đỡ ?</h3>
+        <p class="">
+          Hãy liên hệ ngay với chúng tôi để được tư vấn miễn phí!
+        </p>
+      </div>
+      <img src="assets/img/login.svg" class="image" alt=""/>
+    </div>
+
+    <div class="form-container col-sm-12 col-md-6 col-lg-6">
+      <form class="mt-5 pt-5" [formGroup]="formLogin" (ngSubmit)="onSubmit()">
+        <h2 class="title">Đăng nhập</h2>
+        <div class="input-field">
+          <i class="fas fa-user"></i>
+          <input type="text" name="user" placeholder="Tài khoản" formControlName="username"/>
+        </div>
+        <div class="input-field">
+          <i class="fas fa-lock"></i>
+          <input type="password" name="pass" placeholder="Mật khẩu" formControlName="password"/>
+        </div>
+        <div>
+          <input class="form-check-input align-middle me-2" type="checkbox" id="disabledFieldsetCheck"
+                 formControlName="remember_me">
+          <label class="form-check-label align-middle" for="disabledFieldsetCheck">
+            Nhớ tài khoản
+          </label>
+        </div>
+        <input type="submit" value="Đăng nhập" class="btn btn-customize"/>
+      </form>
+    </div>
+  </div>
+</div>
