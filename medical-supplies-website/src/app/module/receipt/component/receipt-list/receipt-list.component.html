@@ -59,7 +59,7 @@
           <div class="mb-3">
             <label for="nha-cung-cap" class="form-label">Nhà cung cấp:</label><span class="obligatory">*</span>
             <select  id="nha-cung-cap" name="nha-cung-cap" formControlName="customerId" class="form-select" (change)="onSelectionChange($event)">
-              <option disabled value="">Chọn nha cung cap</option>
+              <option disabled value="">Chọn nhà cung cấp</option>
               <option *ngFor="let s of suppliers" value="{{s?.customer_Id}}" [text]="s.name"></option>
             </select>
             <span class="validate-form" *ngIf="formReceipt.controls.customerId?.touched && formReceipt.controls.customerId?.errors?.required">Không được để trống</span>
