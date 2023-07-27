@@ -1,7 +1,7 @@
 import {Component, DoCheck, OnChanges, OnInit} from '@angular/core';
-import {EmployeeService} from "../service/employee.service";
-import {Employee} from "../model/Employee";
-import {Position} from "../model/Position";
+import {EmployeeService} from '../service/employee.service';
+import {Employee} from '../model/Employee';
+import {Position} from '../model/Position';
 import Swal from 'sweetalert2';
 
 
@@ -14,12 +14,12 @@ export class ListEmployeeComponent implements OnInit {
   employeeNameSearch: string = '';
   dateOfBirth: string = '';
   posName: string = '';
-  positions: Position [] = []
+  positions: Position [] = [];
   employeeNameDelete: string = '';
   employee: Employee;
   isModalOpen = false;
 
-  employees: Employee [] = []
+  employees: Employee [] = [];
 
   constructor(private employeeService: EmployeeService) {
   }
@@ -32,12 +32,12 @@ export class ListEmployeeComponent implements OnInit {
     this.isModalOpen = false;
   }
 
-   getAllWithSearch() {
-     this.employeeService.getEmployeeWithNameAndDobAndPos(this.employeeNameSearch, this.dateOfBirth, this.posName)
+  getAllWithSearch() {
+    this.employeeService.getEmployeeWithNameAndDobAndPos(this.employeeNameSearch, this.dateOfBirth, this.posName)
       .subscribe(next => {
         this.employees = next;
         console.log(this.employees);
-      })
+      });
   }
 
   getAllPosition() {
@@ -45,7 +45,7 @@ export class ListEmployeeComponent implements OnInit {
       this.positions = next;
 
 
-    })
+    });
   }
 
   ngOnInit(): void {
@@ -53,22 +53,22 @@ export class ListEmployeeComponent implements OnInit {
     this.getAllPosition();
   }
 
-  getEmployee(id_employee: Number) {
+  getEmployee(id_employee: number) {
     this.employeeService.getEmployeeById(id_employee).subscribe(next => {
       this.employee = next;
-      this.openEmployeeModal()
-    })
+      this.openEmployeeModal();
+    });
 
   }
 
   search(nameEmployee: string, dateofbirth: string, position: string) {
     const specialCharPattern = /[!@#$%^&*()_+\-=[\]{};':"\\|,.<>/?]+/;
-    this.employeeNameSearch = nameEmployee
-    console.log(nameEmployee)
+    this.employeeNameSearch = nameEmployee;
+    console.log(nameEmployee);
     this.dateOfBirth = dateofbirth;
-    console.log(dateofbirth)
+    console.log(dateofbirth);
     this.posName = position;
-    console.log(position)
+    console.log(position);
 
     if (specialCharPattern.test(this.employeeNameSearch) || this.employeeNameSearch.length > 36) {
       Swal.fire({
@@ -81,7 +81,7 @@ export class ListEmployeeComponent implements OnInit {
       });
     } else {
       this.employeeService.getEmployeeWithNameAndDobAndPos(this.employeeNameSearch, this.dateOfBirth, this.posName).subscribe(next => {
-        if (next.length == 0) {
+        if (next.length === 0) {
           Swal.fire({
             icon: 'error',
             text: 'Không tìm thấy nhân viên ' + this.employeeNameSearch,
@@ -90,20 +90,20 @@ export class ListEmployeeComponent implements OnInit {
             showConfirmButton: false,
             timer: 3000
           });
-        }else {
+        } else {
           this.employees = next;
         }
-      })
+      });
     }
   }
 
   delete(employeeId: number, employeeName: string) {
     this.employeeNameDelete = employeeName;
-    console.log(this.employeeNameDelete)
-    console.log(employeeId)
+    console.log(this.employeeNameDelete);
+    console.log(employeeId);
     Swal.fire({
       title: 'Bạn có chắc không ?',
-      text: "Xóa " + this.employeeNameDelete + " khỏi danh sách ",
+      text: 'Xóa ' + this.employeeNameDelete + ' khỏi danh sách ',
       icon: 'warning',
       showCancelButton: true,
       confirmButtonColor: '#00b894',
@@ -113,10 +113,10 @@ export class ListEmployeeComponent implements OnInit {
     }).then((result) => {
       if (result.isConfirmed) {
         this.employeeService.deleteByID(employeeId).subscribe(
-          ()=>{
-            this.getAllWithSearch()
+          () => {
+            this.getAllWithSearch();
           }
-        )
+        );
         Swal.fire({
             title: 'Xóa thành công',
             text: this.employeeNameDelete + ' đã bị xóa khỏi danh sách',
@@ -124,9 +124,9 @@ export class ListEmployeeComponent implements OnInit {
             confirmButtonColor: '#00b894',
             confirmButtonText: 'Đóng',
           }
-        )
+        );
 
       }
-    })
+    });
   }
 }

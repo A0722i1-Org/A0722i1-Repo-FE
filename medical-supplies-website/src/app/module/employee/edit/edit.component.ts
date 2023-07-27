@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Position} from '../model/Position';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import {EmployeeInfo} from '../dto/EmployeeInfo';
 import {Employee} from '../model/Employee';
 import {EmployeeService} from '../service/employee.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -18,27 +17,10 @@ import {finalize} from 'rxjs/operators';
 })
 export class EditComponent implements OnInit {
 
-
   constructor(private employeeService: EmployeeService, private router: Router,
               private storage: AngularFireStorage, private title: Title, private activatedRoute: ActivatedRoute) {
-    this.activatedRoute.paramMap.subscribe(next => {
-      const id = next.get('id');
-      if (id != null) {
-        this.employeeService.getEmployeeById(parseInt(id)).subscribe(next1 => {
-          this.employeeEdit = next1;
-          console.log(this.employeeEdit);
-          this.imgSrc = next1.employeeImg;
-          this.employeeEdit.dateOfBirth = new DatePipe('en-US').transform(new Date(this.employeeEdit.dateOfBirth), 'yyyy-MM-dd');
-          this.getFormEdit();
-        }, error => {
-          console.log(error);
-        }, () => {
-          this.ngOnInit();
-          this.dob =  new DatePipe('en-US').transform(new Date(this.employeeEdit.dateOfBirth), 'yyyy-MM-dd');
-        });
-      }
-    });
   }
+
   dob: string;
   positions: Position[] = [];
   employeeEditForm: FormGroup;
@@ -51,6 +33,20 @@ export class EditComponent implements OnInit {
   selectedValue: number;
 
   ngOnInit(): void {
+    this.activatedRoute.paramMap.subscribe(next => {
+      const id = next.get('id');
+      if (id != null) {
+        this.employeeService.getEmployeeById(+id).subscribe(next1 => {
+          this.employeeEdit = next1;
+          this.imgSrc = next1.employeeImg;
+          this.employeeEdit.dateOfBirth = new DatePipe('en-US').transform(new Date(this.employeeEdit.dateOfBirth), 'yyyy-MM-dd');
+          this.getFormEdit();
+        }, error => {
+          console.log(error);
+        });
+      }
+    });
+
     this.employeeService.getAllPos().subscribe(next => {
       this.positions = next;
     });
@@ -58,7 +54,6 @@ export class EditComponent implements OnInit {
 
   onItemChange(selectedValue: number) {
     this.selectedValue = selectedValue;
-    console.log(' Value is : ', selectedValue);
     return this.selectedValue;
   }
 
@@ -67,6 +62,13 @@ export class EditComponent implements OnInit {
   }
 
   getFormEdit() {
+    let genderCheck = '';
+    if (this.employeeEdit.gender) {
+      genderCheck = 'true';
+    } else {
+      genderCheck = 'false';
+    }
+
     this.employeeEditForm = new FormGroup({
       employeeCode: new FormControl(this.employeeEdit.employeeCode, [Validators.required]),
       employeeName: new FormControl(this.employeeEdit.employeeName, [Validators.required, Validators.minLength(5),
@@ -74,8 +76,8 @@ export class EditComponent implements OnInit {
       email: new FormControl(this.employeeEdit.email, [Validators.required, Validators.minLength(6),
         Validators.maxLength(30), Validators.pattern('^\\s*[a-zA-Z0-9_.+-]+@gmail.com+\\s*$')]),
       phone: new FormControl(this.employeeEdit.phone, [Validators.required]),
-      employeeAddress: new FormControl(this.employeeEdit.employeeAddress,  [Validators.required, , Validators.maxLength(100)]),
-      gender: new FormControl(this.employeeEdit.gender,  [Validators.required]),
+      employeeAddress: new FormControl(this.employeeEdit.employeeAddress, [Validators.required, , Validators.maxLength(100)]),
+      gender: new FormControl(genderCheck, [Validators.required]),
       idCard: new FormControl(this.employeeEdit.idCard, [Validators.required, Validators.pattern('^\\s*\\d{12}\\s*$')]),
       dateOfBirth: new FormControl(this.employeeEdit.dateOfBirth, [Validators.required, this.isOver23, this.isOver50]),
       employeeImg: new FormControl(this.employeeEdit.employeeImg),
