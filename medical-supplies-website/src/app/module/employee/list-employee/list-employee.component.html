@@ -24,10 +24,10 @@
       <div class="col-md-3" *ngFor="let employee of employees">
         <div class="product-single-card">
           <div class="product-top-area">
-            <div class="product-discount" *ngIf="employee.gender==true" >
+            <div class="product-discount" *ngIf="employee.gender==false" >
               Nữ
             </div>
-            <div class="product-discount" *ngIf="employee.gender==false" >
+            <div class="product-discount" *ngIf="employee.gender==true" >
               Nam
             </div>
             <div class="product-img">
