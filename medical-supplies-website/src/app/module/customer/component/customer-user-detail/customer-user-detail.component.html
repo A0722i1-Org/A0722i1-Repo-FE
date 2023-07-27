@@ -10,8 +10,8 @@
             <div
               class="mb-3 rounded-circle bg-light border border-2 border-green-blue overflow-hidden d-flex align-items-center justify-content-center"
               style="width: 200px; height: 200px;">
-              <img *ngIf="customerUserDetail.customerImg !== ''" [src]="customerUserDetail?.customerImg" style="width: 200px" alt="avatar">
-              <svg *ngIf="customerUserDetail.customerImg === ''" width="200px" height="200px"
+              <img *ngIf="customerUserDetail?.customerImg" [src]="customerUserDetail?.customerImg" style="width: 200px" alt="avatar">
+              <svg *ngIf="!customerUserDetail?.customerImg" width="200px" height="200px"
                    viewBox="-9.36 -9.36 42.72 42.72" fill="none"
                    xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
