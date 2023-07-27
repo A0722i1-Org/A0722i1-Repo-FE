@@ -59,10 +59,10 @@ export class EmployeeService {
     return this.http.post<EmployeeInfo>('http://localhost:8080/api/v1/employee', employeeInfor, {headers});
   }
 
-  updateEmployee(employee: EmployeeInfo, id: number): Observable<any> {
+  updateEmployee(employeeInfo: EmployeeInfo, id: number): Observable<any> {
     const token = this.tokenStorageService.getToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.put<any>('http://localhost:8080/api/v1/employee/' + id, employee, {headers});
+    return this.http.put<EmployeeInfo>('http://localhost:8080/api/v1/employee/' + id, employeeInfo, {headers});
   }
 
   /**

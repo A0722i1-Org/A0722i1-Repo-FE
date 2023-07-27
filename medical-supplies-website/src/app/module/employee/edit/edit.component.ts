@@ -9,6 +9,7 @@ import {AngularFireStorage} from '@angular/fire/storage';
 import {Title} from '@angular/platform-browser';
 import {DatePipe, formatDate} from '@angular/common';
 import {finalize} from 'rxjs/operators';
+import Swal from 'sweetalert2';
 
 
 @Component({
@@ -77,7 +78,7 @@ export class EditComponent implements OnInit {
       employeeAddress: new FormControl(this.employeeEdit.employeeAddress,  [Validators.required, , Validators.maxLength(100)]),
       gender: new FormControl(this.employeeEdit.gender,  [Validators.required]),
       idCard: new FormControl(this.employeeEdit.idCard, [Validators.required, Validators.pattern('^\\s*\\d{12}\\s*$')]),
-      dateOfBirth: new FormControl(this.employeeEdit.dateOfBirth, [Validators.required, this.isOver23, this.isOver50]),
+      dateOfBirth: new FormControl(this.employeeEdit.dateOfBirth, [Validators.required, this.isOver18, this.isOver50]),
       employeeImg: new FormControl(this.employeeEdit.employeeImg),
       position: new FormControl(this.employeeEdit.position),
     });
@@ -112,7 +113,7 @@ export class EditComponent implements OnInit {
     }
   }
 
-  isOver23(control: AbstractControl): any {
+  isOver18(control: AbstractControl): any {
     const dob = new Date(control.value);
     const currentDate = new Date();
     let age = currentDate.getFullYear() - dob.getFullYear();
@@ -126,7 +127,6 @@ export class EditComponent implements OnInit {
   }
 
   updateEmployee() {
-    // if (this.employeeEditForm.valid) {
     if (this.inputImage != null && this.maxSize !== true) {
       const nameImg = formatDate(new Date(), 'dd-MM-yyyy_hh:mm:ss:a_', 'en-US') + this.inputImage.name;
       const fileRef = this.storage.ref(nameImg);
@@ -134,20 +134,46 @@ export class EditComponent implements OnInit {
         finalize(() => {
           fileRef.getDownloadURL().subscribe(url => {
             this.employeeEditForm.patchValue({employeeImg: url});
-            console.log('Change');
-            console.log(this.employeeEditForm.value);
             this.employeeService.updateEmployee(this.employeeEditForm.value, this.employeeEdit.employeeId).subscribe(next => {
+              this.router.navigateByUrl('employees');
+              const Toast = Swal.mixin({
+                toast: true,
+                position: 'top-end',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: (toast) => {
+                  toast.addEventListener('mouseenter', Swal.stopTimer);
+                  toast.addEventListener('mouseleave', Swal.resumeTimer);
+                }
+              });
+              Toast.fire({
+                icon: 'success',
+                title: 'Cập nhật thông tin nhân viên thành công!'
+              });
             });
           });
         })
       ).subscribe();
     } else {
-      console.log('No change');
-      console.log(this.employeeEditForm.value);
-      this.employeeService.updateEmployee(this.employeeEditForm.value, this.employeeEdit.employeeId).subscribe();
+      this.employeeService.updateEmployee(this.employeeEditForm.value, this.employeeEdit.employeeId).subscribe(next => {
+        this.router.navigateByUrl('employees');
+        const Toast = Swal.mixin({
+          toast: true,
+          position: 'top-end',
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener('mouseenter', Swal.stopTimer);
+            toast.addEventListener('mouseleave', Swal.resumeTimer);
+          }
+        });
+        Toast.fire({
+          icon: 'success',
+          title: 'Cập nhật thông tin nhân viên thành công!'
+        });
+      });
     }
-    // } else {
-    //   console.log('Invalid');
-    // }
   }
 }
