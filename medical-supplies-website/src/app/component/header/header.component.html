@@ -33,7 +33,7 @@
              aria-expanded="false">Quản lý
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Quản lý Vật tư</a></li>
+            <li><a class="dropdown-item" href="/supplies">Quản lý Vật tư</a></li>
             <li><a class="dropdown-item" href="#">Quản lý Khách hàng</a></li>
             <li>
               <hr class="dropdown-divider">
@@ -51,8 +51,8 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" routerLink="/shipments/shipment">Quản lý Bán hàng</a></li>
-            <li><a class="dropdown-item" routerLink="/shipments/return">Quản lý Trả hàng</a></li>
+            <li><a class="dropdown-item" href="#">Quản lý Bán hàng</a></li>
+            <li><a class="dropdown-item" href="#">Quản lý Trả hàng</a></li>
           </ul>
         </li>
 
@@ -65,7 +65,7 @@
         <a *ngIf="!isLoggedIn" type="button" class="btn btn-outline-light mb-3 mb-lg-0 me-2" routerLink="login">
           Đăng nhập
         </a>
-        <!--                <a type="button" class="btn btn-outline-warning mb-3 mb-lg-0">Đăng ký</a>-->
+<!--                <a type="button" class="btn btn-outline-warning mb-3 mb-lg-0">Đăng ký</a>-->
         <div *ngIf="isLoggedIn" class="user-profile">
           <span class="text-light">Xin chào: {{username}}</span>
           <div class="user-profile__avatar-container  ms-3 me-3">
@@ -86,3 +86,4 @@
     </div>
   </div>
 </nav>
+

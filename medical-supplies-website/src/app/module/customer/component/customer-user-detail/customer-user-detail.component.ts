@@ -6,7 +6,6 @@ import {CustomerUserDetail} from '../../model/CustomerUserDetail';
 import {CustomerService} from '../../service/customer.service';
 import Swal from 'sweetalert2';
 import {tap} from 'rxjs/operators';
-import {AngularFireStorage} from '@angular/fire/storage';
 
 @Component({
   selector: 'app-customer-user-detail',
@@ -18,8 +17,7 @@ export class CustomerUserDetailComponent implements OnInit {
   private _mainForm: FormGroup;
 
   constructor(private _customerService: CustomerService,
-              private _router: Router,
-              private _firebaseStorage: AngularFireStorage) {
+              private _router: Router) {
   }
 
   ngOnInit(): void {
@@ -35,15 +33,17 @@ export class CustomerUserDetailComponent implements OnInit {
     this._customerService.getUserDetail().pipe(
       tap(response => {
         if (response.status === 202) {
-          this._handleError('Bạn phải đăng nhập trước khi truy cập vào trang này!', '/login');
+          this.handleError('Bạn phải đăng nhập trước khi truy cập vào trang này!', '/login');
         }
       })
     ).subscribe(response => {
       this.customerUserDetail = response.body;
-      this.customerUserDetail.dateOfBirth = new DatePipe('en-US').transform(new Date(this.customerUserDetail.dateOfBirth), 'yyyy-MM-dd');
+      if (this.customerUserDetail.dateOfBirth) {
+        this.customerUserDetail.dateOfBirth = new DatePipe('en-US').transform(new Date(this.customerUserDetail.dateOfBirth), 'yyyy-MM-dd');
+      }
       this.mainForm.patchValue(this.customerUserDetail);
     }, error => {
-      this._handleError('Bạn không được phép truy cập vào trang web này!');
+      this.handleError('Bạn không được phép truy cập vào trang web này!');
     });
   }
 
@@ -51,8 +51,8 @@ export class CustomerUserDetailComponent implements OnInit {
     this._router.navigateByUrl('/customers/user-detail-update');
   }
 
-  // Error handling
-  private _handleError(message: string, url?: string) {
+  // Handle Error
+  private handleError(message: string, url?: string): void {
     Swal.fire({
       icon: 'error',
       title: 'Lỗi...',
