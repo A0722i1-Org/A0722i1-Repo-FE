@@ -21,8 +21,6 @@ export class CartListComponent implements OnInit {
   total = 0;
   shippingFee = 0;
   paymentMethod = 'direct';
-  private displayPaypal: string;
-  private displayCheckout: string;
 
 
 
