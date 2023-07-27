@@ -1,0 +1,153 @@
+<div class="home">
+  <div class="slide">
+    <div class="container-fluid">
+      <div class="row mt-2">
+        <div class="col-lg-10 slide">
+          <div id="carouselExampleCaptions" class="carousel slide" data-bs-ride="false">
+            <div class="carousel-indicators">
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0"
+                      class="active" aria-current="true" aria-label="Slide 1"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1"
+                      aria-label="Slide 2"></button>
+              <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2"
+                      aria-label="Slide 3"></button>
+            </div>
+            <div class="carousel-inner">
+              <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+                <div class="carousel-inner">
+                  <div class="carousel-item active" data-bs-interval="3000">
+                    <img src="assets/images/banner-1.png" class="d-block w-80"
+                         style="width: 100%; height: 400px">
+                  </div>
+                  <div class="carousel-item" data-bs-interval="3000">
+                    <img src="assets/images/banner-3.png" class="d-block w-80"
+                         style="width: 100%; height: 400px">
+                  </div>
+                  <div class="carousel-item" data-bs-interval="3000">
+                    <img src="assets/images/Banner_2.png" class="d-block w-80"
+                         style="width: 100%; height: 400px">
+                    <!--                    style="width: 100%; height: 500px"-->
+                  </div>
+                </div>
+                <button class="carousel-control-prev" type="button"
+                        data-bs-target="#carouselExampleAutoplaying"
+                        data-bs-slide="prev">
+                  <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button"
+                        data-bs-target="#carouselExampleAutoplaying"
+                        data-bs-slide="next">
+                  <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                  <span class="visually-hidden">Next</span>
+                </button>
+              </div>
+            </div>
+            <button class="carousel-control-prev" type="button"
+                    data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+              <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button"
+                    data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+              <span class="carousel-control-next-icon" aria-hidden="true"></span>
+              <span class="visually-hidden">Next</span>
+            </button>
+          </div>
+        </div>
+        <div class="col-lg-2 sidebar__right">
+          <app-list-highest></app-list-highest>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ***** Main home start***** -->
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="filter">
+          <li class="category__item active" (click)="getAllProduct()">
+            <span class="category_text">
+              <i class="fa-solid fa-truck-medical" style="color: #FFD333;"></i>
+              <span class="label">Tất cả</span>
+
+            </span>
+          </li>
+          <ul class="category" *ngFor="let cate of categories" (click)="searchCategory(cate.categoryId)">
+            <li class="category__item">
+              <div class="category_text">
+                <i class="fa-solid fa-mask-face" style="color: #FFD333;"></i>
+                <div class="label">{{cate.categoryName}}</div>
+              </div>
+            </li>
+          </ul>
+
+          <form action="" class="form__filter d-flex" [formGroup]="rfSearch" (ngSubmit)="search()">
+            <div class="search-container">
+              <input type="text" placeholder="Tìm kiếm..." formControlName="productName">
+              <button type="submit"><i class="fa fa-search"></i></button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-lg-12">
+          <div *ngIf="productsMain === undefined">
+            <p>Không tìm thấy sản phẩm !</p>
+          </div>
+          <div *ngIf="productsMain !== undefined">
+            <div class="row">
+              <div class="col-lg-3 col-sm-6 col-12 col-md-4 mb-4" *ngFor="let pro of productsMain">
+                <div class="card">
+                  <div class="card-body">
+                    <div class="products-single fix">
+                      <div class="box-img-hover">
+                        <div class="type-lb">
+                          <p class="sale">Sản phẩm uy tín</p>
+                        </div>
+                        <img src="{{pro.product_Img}}" class="img-fluid" alt="Image"
+                             style="height: 250px; width: 500px">
+                        <div class="mask-icon">
+                          <ul>
+                            <li><a href="#" data-toggle="tooltip" data-placement="right"
+                                   title="View"><i
+                              class="fas fa-eye"></i></a></li>
+                            <li><a href="#" data-toggle="tooltip" data-placement="right"
+                                   title="Compare"><i
+                              class="fas fa-sync-alt"></i></a></li>
+                            <li><a href="#" data-toggle="tooltip" data-placement="right"
+                                   title="Add to Wishlist"><i
+                              class="far fa-heart"></i></a></li>
+                          </ul>
+                          <a class="cart" (click)="addToCart(pro.product_Id)" c>Thêm vào giỏ</a>
+                        </div>
+                      </div>
+                      <div class="why-text">
+                        <h4>{{pro.product_Name}}</h4>
+                        <h5>{{pro.product_Price}}&#x20AB;</h5>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ***** paging ***** -->
+  <div class="pagination">
+    <a *ngIf="page !== 1" (click)="previousPage()" class="text1">«</a>
+    <a class="paginationItem" [class.active]="page===currentPage" (click)="accessPage(page + 1)"
+       *ngFor="let page of totalPages">{{page + 1}}</a>
+    <a *ngIf="page < totalPage" (click)="nextPage()" class="text1">»</a>
+  </div>
+</div>
