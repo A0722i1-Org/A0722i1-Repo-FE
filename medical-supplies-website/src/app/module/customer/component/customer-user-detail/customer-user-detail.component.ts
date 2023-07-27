@@ -5,8 +5,6 @@ import {DatePipe} from '@angular/common';
 import {CustomerUserDetail} from '../../model/CustomerUserDetail';
 import {CustomerService} from '../../service/customer.service';
 import Swal from 'sweetalert2';
-import {tap} from 'rxjs/operators';
-import {AngularFireStorage} from '@angular/fire/storage';
 
 @Component({
   selector: 'app-customer-user-detail',
@@ -18,8 +16,7 @@ export class CustomerUserDetailComponent implements OnInit {
   private _mainForm: FormGroup;
 
   constructor(private _customerService: CustomerService,
-              private _router: Router,
-              private _firebaseStorage: AngularFireStorage) {
+              private _router: Router) {
   }
 
   ngOnInit(): void {
@@ -32,38 +29,23 @@ export class CustomerUserDetailComponent implements OnInit {
       accountEmail: new FormControl('')
     });
 
-    this._customerService.getUserDetail().pipe(
-      tap(response => {
-        if (response.status === 202) {
-          this._handleError('Bạn phải đăng nhập trước khi truy cập vào trang này!', '/login');
-        }
-      })
-    ).subscribe(response => {
-      this.customerUserDetail = response.body;
+    this._customerService.getUserDetail().subscribe(data => {
+      this.customerUserDetail = data;
       this.customerUserDetail.dateOfBirth = new DatePipe('en-US').transform(new Date(this.customerUserDetail.dateOfBirth), 'yyyy-MM-dd');
       this.mainForm.patchValue(this.customerUserDetail);
     }, error => {
-      this._handleError('Bạn không được phép truy cập vào trang web này!');
+      Swal.fire({
+        icon: 'error',
+        title: 'Lỗi...',
+        text: 'Bạn không có quyền truy cập!',
+        confirmButtonColor: '#55efc4'
+      });
+      this._router.navigateByUrl('/accounts/login');
     });
   }
 
   public showUpdateComponent(): void {
     this._router.navigateByUrl('/customers/user-detail-update');
-  }
-
-  // Error handling
-  private _handleError(message: string, url?: string) {
-    Swal.fire({
-      icon: 'error',
-      title: 'Lỗi...',
-      text: message,
-      confirmButtonColor: '#55efc4'
-    });
-    if (url) {
-      this._router.navigateByUrl(url);
-    } else {
-      this._router.navigateByUrl('/');
-    }
   }
 
   // Getters/Setters Begin.
