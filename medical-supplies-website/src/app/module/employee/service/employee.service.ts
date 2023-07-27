@@ -1,8 +1,8 @@
-import {Employee} from './../model/Employee';
+import { Employee } from './../model/Employee';
 import {Injectable} from '@angular/core';
 import {EmployeeUserDetail} from '../model/EmployeeUserDetail';
-import {TokenStorageService} from '../../security/service/token-storage.service';
-import {EmployeeInfo} from '../dto/EmployeeInfo';
+import {TokenStorageService} from "../../security/service/token-storage.service";
+import {EmployeeInfo} from "../dto/EmployeeInfo";
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
@@ -21,7 +21,7 @@ export class EmployeeService {
     const token = this.tokenStorageService.getToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     // @ts-ignore
-    return this.http.get(this._API_URL + '?name=' + name + '&date=' + dateOfBirth + '&pos=' + positionName, {headers});
+    return this.http.get(this._API_URL + "?name=" + name + "&date=" + dateOfBirth + "&pos=" + positionName, {headers})
   }
 
   public getUserDetail(): Observable<HttpResponse<EmployeeUserDetail>> {
@@ -31,36 +31,35 @@ export class EmployeeService {
   }
 
   // @ts-ignore
-  getEmployeeById(id: number): Observable<Employee> {
+  getEmployeeById(id: Number): Observable<Employee> {
     const token = this.tokenStorageService.getToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get(this._API_URL + '/' + id, {headers});
+    return this.http.get(this._API_URL + "/" + id,{headers})
   }
 
-  deleteByID(id: number): Observable<any> {
+  deleteByID(id: Number): Observable<any> {
     const token = this.tokenStorageService.getToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.delete(this._API_URL + '/delete/' + id, {headers});
+    return this.http.delete(this._API_URL + "/delete/" + id,{headers})
   }
 
   // @ts-ignore
   getAllPos(): Observable<any> {
     const token = this.tokenStorageService.getToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.get('http://localhost:8080/api/v1/position', {headers});
+    return this.http.get("http://localhost:8080/api/v1/position",{headers});
   }
 
   saveEmployee(employeeInfor: EmployeeInfo): Observable<EmployeeInfo> {
     const token = this.tokenStorageService.getToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    console.log(employeeInfor);
-    return this.http.post<EmployeeInfo>('http://localhost:8080/api/v1/employee', employeeInfor, {headers});
+    return this.http.post<EmployeeInfo>('http://localhost:8080/api/v1/employee', employeeInfor,{headers});
   }
 
   updateEmployee(employee: EmployeeInfo, id: number): Observable<any> {
     const token = this.tokenStorageService.getToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.put<any>('http://localhost:8080/api/v1/employee/' + id, employee, {headers});
+    return this.http.put<any>('http://localhost:8080/api/v1/employee/' + id, employee,{headers});
   }
 
 }
