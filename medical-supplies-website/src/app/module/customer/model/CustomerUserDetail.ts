@@ -1,7 +1,7 @@
 export interface CustomerUserDetail {
   customerId?: number;
-  customerCode?: string;
   customerName?: string;
+  customerCode?: string;
   phone?: string;
   gender?: number;
   customerAddress?: string;

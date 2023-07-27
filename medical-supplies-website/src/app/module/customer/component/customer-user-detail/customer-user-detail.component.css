@@ -52,11 +52,5 @@
 }
 
 .min-w-96 {
-  min-width: 113px;
-}
-
-@media screen and (max-width: 398px) {
-  .min-w-100vw {
-    min-width: 100vw;
-  }
+  min-width: 96px;
 }

@@ -21,6 +21,8 @@ export class ListHighestComponent implements OnInit {
   private getHighestProductPrice() {
     this.homeService.getProductHighest().subscribe(
       (result) => {
+        console.log('check');
+        console.log(result);
         this.highestProductPriceList = result;
       },
       (error) => {
