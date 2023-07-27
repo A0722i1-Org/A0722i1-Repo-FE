@@ -4,12 +4,14 @@ import {ListEmployeeComponent} from './list-employee/list-employee.component';
 import {EmployeeUserDetailComponent} from './component/employee-user-detail/employee-user-detail.component';
 import { CreateComponent } from './create/create.component';
 import { EditComponent } from './edit/edit.component';
+import {EmployeeUserUpdateComponent} from './component/employee-user-update/employee-user-update.component';
 
 
 
 
 const routes: Routes = [
   { path: '', component: ListEmployeeComponent},
+  { path: 'user-detail-update', component: EmployeeUserUpdateComponent},
   {path: 'detail', component: EmployeeUserDetailComponent},
   {
     path: 'create', component: CreateComponent
