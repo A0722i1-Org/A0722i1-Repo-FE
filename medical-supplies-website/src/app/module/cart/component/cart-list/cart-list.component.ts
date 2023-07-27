@@ -6,6 +6,7 @@ import {CartDetail} from '../../model/CartDetail';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
+// @ts-ignore
 import {PaymentService} from '../../service/payment.service';
 
 
@@ -27,7 +28,7 @@ export class CartListComponent implements OnInit {
 
 
   constructor(private cartService: CartService,
-              private paymentService: PaymentService,
+              // private paymentService: PaymentService,
               private router: Router) {
   }
 
