@@ -24,10 +24,10 @@
       <div class="col-md-3" *ngFor="let employee of employees">
         <div class="product-single-card">
           <div class="product-top-area">
-            <div class="product-discount" *ngIf="employee.gender==true" >
+            <div class="product-discount" *ngIf="employee.gender==false" >
               Nữ
             </div>
-            <div class="product-discount" *ngIf="employee.gender==false" >
+            <div class="product-discount" *ngIf="employee.gender==true" >
               Nam
             </div>
             <div class="product-img">
@@ -83,8 +83,8 @@
       <div class="object-info" style="margin:0px 100px;">
         <h4 class="object-name">{{employee?.employeeCode}}</h4>
         <p class="object-description">Tên nhân viên: {{employee?.employeeName}}</p>
-        <p *ngIf="employee?.gender==true" class="object-address">Giới tính: Nữ </p>
-        <p *ngIf="employee?.gender==false" class="object-address">Giới tính: Nam </p>
+        <p *ngIf="employee?.gender==false" class="object-address">Giới tính: Nữ </p>
+        <p *ngIf="employee?.gender==true" class="object-address">Giới tính: Nam </p>
         <p class="object-address">Ngày sinh: {{employee?.dateOfBirth|date:'dd/MM/yyyy'}}</p>
         <p class="object-address">Lương: {{employee?.salary|currency}}</p>
         <p class="object-address">Tên tài khoản: {{employee?.account.username}}</p>
