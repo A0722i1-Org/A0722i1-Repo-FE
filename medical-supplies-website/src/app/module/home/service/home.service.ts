@@ -17,7 +17,7 @@ export class HomeService {
     return this.httpClient.get<any>(this.API_PRO_MAIN );
   }
 
-  searchByName(keyword: string): Observable<any> {
+    searchByName(keyword: string): Observable<any> {
     return this.httpClient.get<any[]>(`${this.API_PRO_MAIN}/search-name${keyword}`);
   }
 
