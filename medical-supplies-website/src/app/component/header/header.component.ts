@@ -14,6 +14,7 @@ export class HeaderComponent implements OnInit {
   role = '';
   isLoggedIn = false;
   returnUrl: string;
+  userDetailUrl = '';
 
   constructor(private tokenStorageService: TokenStorageService,
               private shareService: ShareService,
@@ -32,6 +33,7 @@ export class HeaderComponent implements OnInit {
       this.currentUser = this.tokenStorageService.getUser();
       this.role = this.tokenStorageService.getRole();
       this.username = this.tokenStorageService.getUser();
+      this.getUserDetail();
     }
     this.isLoggedIn = this.username != null;
   }
@@ -41,4 +43,11 @@ export class HeaderComponent implements OnInit {
     location.reload();
   }
 
+  getUserDetail(): void {
+    if (this.role === 'ROLE_USER') {
+      this.userDetailUrl = 'customers/detail';
+    } else {
+      this.userDetailUrl = 'employees/detail';
+    }
+  }
 }
