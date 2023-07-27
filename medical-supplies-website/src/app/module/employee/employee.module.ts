@@ -13,12 +13,7 @@ import { EditComponent } from './edit/edit.component';
 
 @NgModule({
   declarations: [EmployeeUserDetailComponent,ListEmployeeComponent,CreateComponent, EditComponent,],
-  exports: [
-    CreateComponent,
-    EditComponent,
-    ListEmployeeComponent,
-    EmployeeUserDetailComponent
-  ],
+  exports: [],
   imports: [
     CommonModule,
     EmployeeRoutingModule,
