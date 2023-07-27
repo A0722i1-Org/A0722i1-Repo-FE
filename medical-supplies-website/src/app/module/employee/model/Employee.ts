@@ -3,7 +3,7 @@ import {Position} from './Position';
 
 export interface Employee {
   employeeId?: number;
-  employeeCode?:string;
+  employeeCode?: string;
   employeeName?: string;
   gender?: boolean;
   dateOfBirth?: string;
@@ -13,7 +13,8 @@ export interface Employee {
   position?: Position;
   account?: Account;
   isEnable?: boolean;
-  email?:string;
-  phone?:string;
-  idCard?:string;
+  email?: string;
+  phone?: string;
+  idCard?: string;
 }
+
