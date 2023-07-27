@@ -34,4 +34,6 @@ export class HomeService {
   getProductHighest(): Observable<any> {
     return this.httpClient.get<any>(this.API_PRO_MAIN + '/highest');
   }
+
+
 }

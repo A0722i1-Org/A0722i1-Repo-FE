@@ -1,6 +1,5 @@
 export interface CustomerUserDetail {
   customerId?: number;
-  customerCode?: string;
   customerName?: string;
   phone?: string;
   gender?: number;

@@ -1,6 +1,5 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-// @ts-ignore
 import {CartWithDetail} from '../model/cart-with-detail';
 import {Observable} from 'rxjs';
 import {TokenStorageService} from '../../security/service/token-storage.service';
