@@ -3,7 +3,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './component/header/header.component';
 import { FooterComponent } from './component/footer/footer.component';
-import {EmployeeModule} from './module/employee/employee.module';
 import {AngularFireModule} from '@angular/fire';
 import {environment} from '../environments/environment';
 import {HttpClientModule} from "@angular/common/http";
@@ -25,7 +24,6 @@ import {AngularFireDatabaseModule} from "@angular/fire/database";
     FormsModule,
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
-    EmployeeModule,
     AngularFireStorageModule,
     AngularFireDatabaseModule,
   ],
