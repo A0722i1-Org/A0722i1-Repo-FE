@@ -24,7 +24,7 @@ export class EditComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe(next => {
       const id = next.get('id');
       if (id != null) {
-        this.employeeService.getEmployeeById(parseInt(id)).subscribe(next1 => {
+        this.employeeService.getEmployeeById(+id).subscribe(next1 => {
           this.employeeEdit = next1;
           console.log(this.employeeEdit);
           this.imgSrc = next1.employeeImg;
