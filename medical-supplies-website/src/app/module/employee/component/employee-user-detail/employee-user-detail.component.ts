@@ -5,6 +5,7 @@ import {Router} from '@angular/router';
 import {EmployeeUserDetail} from '../../model/EmployeeUserDetail';
 import {DatePipe} from '@angular/common';
 import Swal from 'sweetalert2';
+import {tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-employee-user-detail',
@@ -29,19 +30,36 @@ export class EmployeeUserDetailComponent implements OnInit {
       accountEmail: new FormControl('')
     });
 
-    this._employeeService.getUserDetail().subscribe(data => {
-      this.employeeUserDetail = data;
-      this.employeeUserDetail.dateOfBirth = new DatePipe('en-US').transform(new Date(this.employeeUserDetail.dateOfBirth), 'yyyy-MM-dd');
+    this._employeeService.getUserDetail().pipe(
+      tap(response => {
+        if (response.status === 202) {
+          this.handleError('Bạn phải đăng nhập trước khi truy cập vào trang này!', '/login');
+        }
+      })
+    ).subscribe(response => {
+      this.employeeUserDetail = response.body;
+      if (this.employeeUserDetail.dateOfBirth) {
+        this.employeeUserDetail.dateOfBirth = new DatePipe('en-US').transform(new Date(this.employeeUserDetail.dateOfBirth), 'yyyy-MM-dd');
+      }
       this.mainForm.patchValue(this.employeeUserDetail);
     }, error => {
-      Swal.fire({
-        icon: 'error',
-        title: 'Lỗi ' + error.status,
-        text: 'Bạn không có quyền truy cập!',
-        confirmButtonColor: '#55efc4'
-      });
-      this._router.navigateByUrl('/accounts/login');
+      this.handleError('Bạn không được phép truy cập vào trang web này!');
     });
+  }
+
+  // Handle Error
+  private handleError(message: string, url?: string): void {
+    Swal.fire({
+      icon: 'error',
+      title: 'Lỗi...',
+      text: message,
+      confirmButtonColor: '#55efc4'
+    });
+    if (url) {
+      this._router.navigateByUrl(url);
+    } else {
+      this._router.navigateByUrl('/');
+    }
   }
 
   public showUpdateComponent(): void {
