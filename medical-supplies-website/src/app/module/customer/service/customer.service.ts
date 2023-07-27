@@ -1,7 +1,8 @@
-import { Injectable } from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {CustomerUserDetail} from '../model/CustomerUserDetail';
+import {TokenStorageService} from '../../security/service/token-storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +10,13 @@ import {CustomerUserDetail} from '../model/CustomerUserDetail';
 export class CustomerService {
   private _API_URL = 'http://localhost:8080/api/v1/customer';
 
-  constructor(private _http: HttpClient) {
+  constructor(private http: HttpClient,
+              private tokenStorageService: TokenStorageService) {
   }
 
-  public getUserDetail(): Observable<CustomerUserDetail> {
-    const token = localStorage.getItem('token');
+  public getUserDetail(): Observable<HttpResponse<CustomerUserDetail>> {
+    const token = this.tokenStorageService.getToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this._http.get<CustomerUserDetail>(this._API_URL + '/detail', {headers});
+    return this.http.get<CustomerUserDetail>(this._API_URL + '/detail', {headers, observe: 'response'});
   }
 }
