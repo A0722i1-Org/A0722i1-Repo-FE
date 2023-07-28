@@ -43,7 +43,7 @@ export class CustomerUserDetailComponent implements OnInit {
       }
       this.mainForm.patchValue(this.customerUserDetail);
     }, error => {
-      this.handleError('Bạn không được phép truy cập vào trang web này!');
+      this.handleError('Có lỗi xảy ra, vui lòng quay lại sau!');
     });
   }
 

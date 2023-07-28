@@ -43,7 +43,7 @@ export class EmployeeUserDetailComponent implements OnInit {
       }
       this.mainForm.patchValue(this.employeeUserDetail);
     }, error => {
-      this.handleError('Bạn không được phép truy cập vào trang web này!');
+      this.handleError('Có lỗi xảy ra, vui lòng quay lại sau!');
     });
   }
 
