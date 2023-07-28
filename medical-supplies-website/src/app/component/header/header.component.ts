@@ -33,18 +33,22 @@ export class HeaderComponent implements OnInit {
       this.currentUser = this.tokenStorageService.getUser();
       this.role = this.tokenStorageService.getRole();
       this.username = this.tokenStorageService.getUser();
-
-      if (this.role === 'ROLE_USER') {
-        this.userDetailUrl = '/customers/detail';
-      } else {
-        this.userDetailUrl = '/employees/detail';
-      }
+      this.getUserDetail();
     }
     this.isLoggedIn = this.username != null;
+    console.log(this.role)
   }
 
   logOut() {
     this.tokenStorageService.signOut();
     location.reload();
+  }
+
+  getUserDetail(): void {
+    if (this.role === 'ROLE_USER') {
+      this.userDetailUrl = 'customers/detail';
+    } else {
+      this.userDetailUrl = 'employees/detail';
+    }
   }
 }

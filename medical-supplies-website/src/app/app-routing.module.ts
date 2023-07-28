@@ -10,8 +10,8 @@ const routes: Routes = [
   {path: 'accounts', loadChildren: () => import('./module/account/account.module').then(module => module.AccountModule)},
   {path: 'shipments', loadChildren: () => import('./module/shipment/shipment.module').then(module => module.ShipmentModule)},
   {path: 'receipts', loadChildren: () => import('./module/receipt/receipt.module').then(module => module.ReceiptModule)},
-  {path: 'supplies', loadChildren: () => import('./module/supply/supply.module').then(module => module.SupplyModule)},
   {path: 'login', loadChildren: () => import('./module/security/security.module').then(module => module.SecurityModule)},
+  {path: 'supplies', loadChildren: () => import('./module/supply/supply.module').then(module => module.SupplyModule)},
 ];
 
 @NgModule({

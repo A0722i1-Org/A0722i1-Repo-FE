@@ -22,8 +22,6 @@ export class CartListComponent implements OnInit {
   shippingFee = 0;
   paymentMethod = 'direct';
 
-
-
   constructor(private cartService: CartService,
               private paymentService: PaymentService,
               private router: Router) {
@@ -31,8 +29,6 @@ export class CartListComponent implements OnInit {
 
   ngOnInit(): void {
     this.getCart();
-    this.displayPaypal = 'none';
-    this.displayCheckout = 'inline';
   }
 
   getTotalAmount() {
@@ -149,6 +145,7 @@ export class CartListComponent implements OnInit {
     cartWithDetail.cart = this.cart;
     return cartWithDetail;
   }
+
 
   changeMethod(e) {
     this.paymentMethod = e.target.value;

@@ -95,6 +95,14 @@ export class ReceiptListComponent implements OnInit {
           showConfirmButton: false,
           timer: 2000
         });
+      } else  if (+quantity <= 0) {
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Lưu ý số lượng không được bé hơn hoặc bằng 0',
+          showConfirmButton: false,
+          timer: 2000
+        });
       } else if (productDTO != null) {
         Swal.fire({
           title: 'Vật tư này đã được thêm vào danh sách?',

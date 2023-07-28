@@ -1,9 +1,9 @@
 export interface CustomerUserDetail {
   customerId?: number;
-  customerCode?: string;
   customerName?: string;
+  customerCode?: string;
   phone?: string;
-  gender?: number;
+  gender?: boolean;
   customerAddress?: string;
   dateOfBirth?: string;
   idCard?: string;

@@ -32,35 +32,38 @@ export class EmployeeUserDetailComponent implements OnInit {
 
     this._employeeService.getUserDetail().pipe(
       tap(response => {
-        if (response.status === 202 || response.status === 404) {
-          this._handleError('Bạn phải đăng nhập trước khi truy cập vào trang này!', '/login');
+        if (response.status === 202) {
+          this.handleError('Bạn phải đăng nhập trước khi truy cập vào trang này!', '/login');
         }
       })
     ).subscribe(response => {
       this.employeeUserDetail = response.body;
-      this.employeeUserDetail.dateOfBirth = new DatePipe('en-US').transform(new Date(this.employeeUserDetail.dateOfBirth), 'yyyy-MM-dd');
+      if (this.employeeUserDetail.dateOfBirth) {
+        this.employeeUserDetail.dateOfBirth = new DatePipe('en-US').transform(new Date(this.employeeUserDetail.dateOfBirth), 'yyyy-MM-dd');
+      }
       this.mainForm.patchValue(this.employeeUserDetail);
     }, error => {
-      this._handleError('Bạn không được phép truy cập vào trang web này!');
+      this.handleError('Bạn không được phép truy cập vào trang web này!');
     });
   }
 
-  public showUpdateComponent(): void {
-    this._router.navigateByUrl('/employees/user-detail-update');
-  }
-
-  // Error handling
-  private _handleError(message: string, url?: string) {
+  // Handle Error
+  private handleError(message: string, url?: string): void {
     Swal.fire({
       icon: 'error',
       title: 'Lỗi...',
       text: message,
       confirmButtonColor: '#55efc4'
     });
-    if (url === undefined) {
-      url = '/';
+    if (url) {
+      this._router.navigateByUrl(url);
+    } else {
+      this._router.navigateByUrl('/');
     }
-    this._router.navigateByUrl(url);
+  }
+
+  public showUpdateComponent(): void {
+    this._router.navigateByUrl('/employees/user-detail-update');
   }
 
   // Getters/Setters Begin.
