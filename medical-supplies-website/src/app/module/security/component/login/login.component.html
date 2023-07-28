@@ -24,6 +24,9 @@
         <span class="text-danger"
               *ngIf="formLogin.controls.username?.errors?.pattern">Tài khoản không đúng định dạng
         </span>
+        <span class="text-danger"
+              *ngIf="formLogin.controls.password?.errors?.maxlength">Mật khẩu quá dài
+        </span>
         <div class="input-field"
              *ngIf="!showPassword">
           <i class="fa fa-eye" (click)="togglePasswordVisibility()"></i>
@@ -39,6 +42,9 @@
                && formLogin.controls.password?.errors?.required">Bạn cần nhập thông tin này
         </span>
         <span class="text-danger"
+              *ngIf="formLogin.controls.username?.errors?.pattern">Tài khoản không đúng định dạng
+        </span>
+        <span class="text-danger"
               *ngIf="formLogin.controls.password?.errors?.maxlength">Mật khẩu quá dài
         </span>
         <div>
@@ -50,6 +56,12 @@
         </div>
         <input type="submit" value="Đăng nhập" class="btn btn-customize"/>
         <span *ngIf="message != null" class="text-danger">{{message}}</span>
+        <span class="text-danger"
+              *ngIf="formLogin.controls.username?.errors?.pattern">Tài khoản không đúng định dạng
+        </span>
+        <span class="text-danger"
+              *ngIf="formLogin.controls.password?.errors?.maxlength">Mật khẩu quá dài
+        </span>
       </form>
     </div>
   </div>

@@ -9,6 +9,7 @@ import {Cart} from '../../../cart/model/Cart';
 import {CartDetail} from '../../../cart/model/CartDetail';
 import Swal from 'sweetalert2';
 import {ActivatedRoute, Router} from '@angular/router';
+import {TokenStorageService} from '../../../security/service/token-storage.service';
 
 @Component({
   selector: 'app-home',
@@ -27,11 +28,14 @@ export class HomeComponent implements OnInit {
   totalPages: number[] = [];
   totalPage = 0;
   currentPage = 0;
+  role = '';
 
 
   constructor(private homeService: HomeService,
               private categoryHomeService: CategoryHomeService,
-              private cartService: CartService, private route: ActivatedRoute) {
+              private cartService: CartService,
+              private route: ActivatedRoute,
+              private tokenStorageService: TokenStorageService) {
     this.route.queryParams.subscribe(param => {
       this.page = param.page || 1;
       this.currentPage = param.page || 1;
@@ -51,7 +55,9 @@ export class HomeComponent implements OnInit {
       productName: new FormControl(''),
       categoryName: new FormControl(''),
     });
-    this.getCart();
+    if (this.loadRole() === 'ROLE_USER') {
+      this.getCart();
+    }
   }
 
   getAllProduct() {
@@ -204,5 +210,16 @@ export class HomeComponent implements OnInit {
       this.productsMain = next.content;
       this.currentPage = next.number;
     });
+  }
+
+  /*
+  * Author: NhatLH
+  * Created: 2023-07-27
+  * */
+  loadRole(): string {
+    if (this.tokenStorageService.getToken()) {
+      this.role = this.tokenStorageService.getRole();
+    }
+    return this.role;
   }
 }
