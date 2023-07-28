@@ -16,8 +16,8 @@ export class ProductService {
   }
 
   findByIdProductDetail(id: number): Observable<Product> {
-    const token = this.tokenStorageService.getToken();
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    // const token = this.tokenStorageService.getToken();
+    // const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.httpClient.get<Product>(this._API_URL + '/detail/' + id);
   }
 

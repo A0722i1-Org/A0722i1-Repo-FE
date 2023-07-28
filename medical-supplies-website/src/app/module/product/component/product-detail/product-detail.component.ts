@@ -43,8 +43,8 @@ export class ProductDetailComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = +paramMap.get('id');
       this.productService.findByIdProductDetail(this.id).subscribe((productData) => {
+        console.log(productData);
         this.productViewDetail = productData;
-        console.log(this.productViewDetail.productImg);
         this.quantity = this.productViewDetail.productQuantity || 1;
         this.quantityInput.nativeElement.value = this.quantity.toString();
         this.initProductDetailForm(productData);
