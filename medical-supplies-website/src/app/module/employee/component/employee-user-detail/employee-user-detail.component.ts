@@ -33,7 +33,14 @@ export class EmployeeUserDetailComponent implements OnInit {
     this._employeeService.getUserDetail().pipe(
       tap(response => {
         if (response.status === 202) {
-          this.handleError('Bạn phải đăng nhập trước khi truy cập vào trang này!', '/login');
+          Swal.fire({
+            position: 'center',
+            icon: 'info',
+            title: 'Bạn phải đăng nhập để sử dụng chức năng này!',
+            showConfirmButton: false,
+            timer: 9999999
+          });
+          this._router.navigateByUrl('/login');
         }
       })
     ).subscribe(response => {
@@ -43,23 +50,15 @@ export class EmployeeUserDetailComponent implements OnInit {
       }
       this.mainForm.patchValue(this.employeeUserDetail);
     }, error => {
-      this.handleError('Có lỗi xảy ra, vui lòng quay lại sau!');
-    });
-  }
-
-  // Handle Error
-  private handleError(message: string, url?: string): void {
-    Swal.fire({
-      icon: 'error',
-      title: 'Lỗi...',
-      text: message,
-      confirmButtonColor: '#55efc4'
-    });
-    if (url) {
-      this._router.navigateByUrl(url);
-    } else {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Bạn không có quyền truy cập chức năng này',
+        showConfirmButton: false,
+        timer: 9999999
+      });
       this._router.navigateByUrl('/');
-    }
+    });
   }
 
   public showUpdateComponent(): void {
