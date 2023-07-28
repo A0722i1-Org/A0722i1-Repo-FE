@@ -21,10 +21,10 @@
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Quản lý tài khoản</a></li>
             <li><a class="dropdown-item" href="/employees">Quản lý nhân viên</a></li>
+            <li><a class="dropdown-item" href="/supplies">Quản lý Vật tư</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="#">Khác...</a></li>
           </ul>
         </li>
 
@@ -33,12 +33,13 @@
              aria-expanded="false">Quản lý
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="/supplies">Quản lý Vật tư</a></li>
             <li><a class="dropdown-item" href="#">Quản lý Khách hàng</a></li>
+            <li><a class="dropdown-item" href="#">Quản lý Nhập Kho</a></li>
+            <li><a class="dropdown-item" routerLink="shipments/return">Quản lý Trả hàng</a></li>
+
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="#">Khác...</a></li>
           </ul>
         </li>
 
@@ -47,17 +48,11 @@
              aria-expanded="false">Danh mục
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Quản lý Nhập Kho</a></li>
+            <li><a class="dropdown-item" routerLink="shipments/shipment">Quản lý Bán hàng</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" routerLink="shipments/shipment">Quản lý Bán hàng</a></li>
-            <li><a class="dropdown-item" routerLink="shipments/return">Quản lý Trả hàng</a></li>
           </ul>
-        </li>
-
-        <li class="nav-item">
-          <a class="nav-link disabled"><i class="fas fa-question-circle"></i> Trợ giúp</a>
         </li>
       </ul>
 
