@@ -4,14 +4,14 @@
 
 export const environment = {
   production: false,
-   firebaseConfig : {
-    apiKey: 'AIzaSyC87EHXk663BWpCouosU6AUMssXbfcQfaA',
-    authDomain: 'medical-supplies-store-manager.firebaseapp.com',
-    projectId: 'medical-supplies-store-manager',
-    storageBucket: 'medical-supplies-store-manager.appspot.com',
-    messagingSenderId: '801841926951',
-    appId: '1:801841926951:web:dcd37ec496963bd47c0f02',
-    measurementId: 'G-LZSM4046T7'
+  firebase: {
+    apiKey: 'AIzaSyC3eVG5Eak4bOIAhl2Odrks6I15lZ6LMDU',
+    authDomain: 'employee-avatar.firebaseapp.com',
+    projectId: 'employee-avatar',
+    storageBucket: 'employee-avatar.appspot.com',
+    messagingSenderId: '795301975474',
+    appId: '1:795301975474:web:4f1abce569e9bf4fefc0ab',
+    measurementId: 'G-053G72FNJL'
   }
 };
 
