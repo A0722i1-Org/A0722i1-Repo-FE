@@ -21,12 +21,6 @@
               *ngIf="formLogin.controls.username?.touched
                && formLogin.controls.username?.errors?.required">Bạn cần nhập thông tin này
         </span>
-        <span class="text-danger"
-              *ngIf="formLogin.controls.username?.errors?.pattern">Tài khoản không đúng định dạng
-        </span>
-        <span class="text-danger"
-              *ngIf="formLogin.controls.password?.errors?.maxlength">Mật khẩu quá dài
-        </span>
         <div class="input-field"
              *ngIf="!showPassword">
           <i class="fa fa-eye" (click)="togglePasswordVisibility()"></i>
@@ -40,12 +34,6 @@
         <span class="text-danger"
               *ngIf="formLogin.controls.password?.touched
                && formLogin.controls.password?.errors?.required">Bạn cần nhập thông tin này
-        </span>
-        <span class="text-danger"
-              *ngIf="formLogin.controls.username?.errors?.pattern">Tài khoản không đúng định dạng
-        </span>
-        <span class="text-danger"
-              *ngIf="formLogin.controls.password?.errors?.maxlength">Mật khẩu quá dài
         </span>
         <div>
           <input class="form-check-input align-middle me-2" type="checkbox" id="disabledFieldsetCheck"
