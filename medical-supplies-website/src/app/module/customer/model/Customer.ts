@@ -4,6 +4,7 @@ import {Cart} from '../../cart/model/Cart';
 
 export interface Customer {
   customerId?: number;
+  customerCode?: string;
   name?: string;
   phone?: string;
   gender?: boolean;
@@ -11,6 +12,7 @@ export interface Customer {
   idCard?: string;
   customerAddress?: string;
   customerImg?: string;
+  email?: string;
   customerType?: CustomerType;
   account?: Account;
   cart?: Cart;

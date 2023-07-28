@@ -111,7 +111,7 @@ export class HomeComponent implements OnInit {
   }
 
   getCart() {
-    return this.cartService.getCart().subscribe(next => {
+    this.cartService.getCart().subscribe(next => {
       this.cart = next.cart;
       this.details = next.cartDetailList;
     });

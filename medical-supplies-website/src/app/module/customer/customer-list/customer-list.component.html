@@ -1,10 +1,8 @@
 <div class="container col-md-12">
-  <h1 style="color:#55efc4;">Danh sách sản phẩm</h1>
+  <h1 style="color:#55efc4;">Danh sách Khách hàng</h1>
   <div style="display: flex; justify-content: center;
   align-items: center; ">
-    <button style="background: #55efc4 ; color: white;border: none; margin-right: 20px; " type="button"
-            class="btn btn-success">Thêm mới sản phẩm
-    </button>
+    <button style="background: #55efc4 ; color: white;border: none; margin-right: 20px; " type="button" class="btn btn-success" routerLink="/customers/create">Thêm mới</button>
   </div>
   <div style="text-align: right">
     <input class="search-input" type="text" [(ngModel)]="searchKeyword" placeholder="Nhập từ khóa tìm kiếm"
@@ -23,7 +21,7 @@
         <th scope="col" style="color: white">Địa Chỉ</th>
         <th scope="col" style="color: white">CCCD</th>
         <th scope="col" style="color: white">Số Điện Thoại</th>
-        <th scope="col" style="color: white">Nhà Cung Cấp</th>
+        <th scope="col" style="color: white">Loại khách hàng</th>
         <th scope="col" style="color: white"></th>
         <th scope="col" style="color: white"></th>
       </tr>
@@ -45,14 +43,14 @@
         </td>
         <td style="text-align: center">
           <button style="background: #55efc4; color: white" type="button" class="btn btn-info"
-                  (click)="getCustomerId(customer.customerId)"
-          ><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          routerLink="edit/{{customer.customerId}}">
+            <i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           </button>
         </td>
       </tr>
       </tbody>
     </table>
-   <p style="text-align: center" *ngIf="msg">Không còn Khách Hàng Nào</p>
+    <p style="text-align: center" *ngIf="msg">Không còn Khách Hàng Nào</p>
   </div>
   <div class="pagination">
     <a *ngIf="page !== 1" (click)="previousPage()" class="text1">«</a>
@@ -81,8 +79,9 @@
         </table>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Trở về</button>
-        <button type="button" class="btn btn-primary" (click)="deleteCustomer()" data-bs-dismiss="modal">Xóa</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ thao tác</button>
+        <button type="button" class="btn btn-primary" (click)="deleteCustomer()" data-bs-dismiss="modal">Xác nhận
+        </button>
       </div>
     </div>
   </div>

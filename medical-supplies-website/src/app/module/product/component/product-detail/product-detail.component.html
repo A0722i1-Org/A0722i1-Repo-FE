@@ -27,7 +27,7 @@
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                   <strong>Giá:</strong>
-                  <span> {{productViewDetail.productPrice | currency: 'VND'}} / Thùng</span>
+                  <span> {{productViewDetail.productPrice | currency: 'VND'}} / đơn vị</span>
                 </li>
                 <!--                <li class="list-group-item">
                                   <strong>Số lượng còn lại:</strong>
@@ -42,7 +42,7 @@
                   <span> {{productViewDetail.productInfo?.placeOfManufacture}}</span>
                 </li>
                 <li class="list-group-item">
-                  <div class="row align-items-center mb-3">
+                  <div *ngIf="['ROLE_USER'].indexOf(role)!==-1" class="row align-items-center mb-3">
                     <div class="col-auto">
                       <strong>Số lượng:</strong>
                     </div>
@@ -62,7 +62,7 @@
                   <br>
                   <div class="row align-items-center justify-content-center">
                     <div class="col-auto">
-                      <button type="button" class="btn btn-outline-success add-to-cart-btn" (click)="addToCart()">
+                      <button *ngIf="['ROLE_USER'].indexOf(role)!==-1" type="button" class="btn btn-outline-success add-to-cart-btn" (click)="addToCart()">
                         <span class="bi bi-cart4 me-2"></span> Thêm vào giỏ hàng
                       </button>
                       <button type="button" class="btn btn-outline-success ms-3" routerLink="/">Trở về</button>
