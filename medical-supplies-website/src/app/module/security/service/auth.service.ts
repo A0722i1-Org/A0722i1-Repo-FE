@@ -27,8 +27,4 @@ export class AuthService {
       password: obj.password
     }, this.httpOptions);
   }
-
-  isAuthenticated(): boolean {
-    return this.isLoggedIn;
-  }
 }
