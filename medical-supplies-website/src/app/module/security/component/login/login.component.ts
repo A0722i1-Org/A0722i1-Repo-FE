@@ -6,7 +6,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ShareService} from '../../service/share.service';
 import {tap} from 'rxjs/operators';
 import Swal from 'sweetalert2';
-import {validate} from 'codelyzer/walkerFactory/walkerFn';
 
 @Component({
   selector: 'app-login',
@@ -31,6 +30,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    // Lấy returnUrl từ query params khi người dùng chuyển hướng từ AuthGuard
+    this.returnUrl = this.activatedRoute.snapshot.queryParams['returnUrl'] || '/';
     this.formLogin = new FormGroup({
         username: new FormControl('', [
           Validators.required,
@@ -74,6 +75,13 @@ export class LoginComponent implements OnInit {
             this.tokenStorageService.saveRoleSession(data.roles[0]);
           }
           this.authService.isLoggedIn = true;
+          Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Đăng nhập thành công',
+            showConfirmButton: false,
+            timer: 99999
+          });
           this.formLogin.reset();
           this.router.navigateByUrl(this.returnUrl);
           this.shareService.sendClickEvent();
