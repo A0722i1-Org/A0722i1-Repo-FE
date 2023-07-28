@@ -6,7 +6,7 @@ export interface EmployeeInfo {
   email?: string;
   phone?: string;
   employeeAddress?: string;
-  gender?: number;
+  gender?: boolean;
   idCard?: string;
   dateOfBirth?: Date;
   employeeImg?: string;
