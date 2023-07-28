@@ -10,7 +10,7 @@
           <div
             class="mb-3 rounded-circle bg-light border border-2 border-green-blue overflow-hidden d-flex align-items-center justify-content-center"
             style="width: 200px; height: 200px;">
-            <img src="{{imgSrc}}" alt="" style="width: 200px">
+            <img  src="{{imgSrc}}" alt="" style="width: 200px">
           </div>
         </div>
         <input class="btn btn-outline-success bg-light-green-blue min-w-120 mb-2" type="file"
@@ -60,7 +60,7 @@
           </div>
           <div class="form-check form-check-inline">
             <input formControlName="gender" class="form-check-input form-check-input-checked d-inline" type="radio"
-                   name="gender" id="female" [value]="false" >
+                   name="gender" id="female" [value]="false">
             <label class="form-check-label d-inline" for="female">Nữ</label>
           </div>
         </div>
@@ -176,7 +176,7 @@
           class="btn-wrap d-flex flex-column flex-md-row flex-lg-row align-items-md-center align-items-lg-center justify-content-md-end justify-content-lg-end">
 
           <app-modal-change-password></app-modal-change-password>
-          <button type="button" class="btn btn-outline-danger bg-light-green-blue min-w-120 mb-2 me-md-4 me-lg-4">Hủy
+          <button type="button" routerLink="/employees/detail" class="btn btn-outline-danger bg-light-green-blue min-w-120 mb-2 me-md-4 me-lg-4">Hủy
             bỏ
           </button>
           <button type="submit" class="btn btn-outline-success bg-light-green-blue min-w-120 mb-2">Lưu</button>
