@@ -7,6 +7,7 @@ import {CustomerType} from '../../model/CustomerType';
 import {formatDate} from '@angular/common';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-customer-create',
@@ -69,7 +70,10 @@ export class CustomerCreateComponent implements OnInit {
       () => {
       },
       () => {
-        // this.router.navigateByUrl('customers/list');
+        Swal.fire('Thành công',
+          'Đã thêm khách hàng thành công',
+          'success');
+        this.router.navigateByUrl('customers/list');
       }
     );
     console.log(this.customerFormCreate.value);
