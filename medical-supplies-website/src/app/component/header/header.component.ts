@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {ShareService} from '../../module/security/service/share.service';
 import {TokenStorageService} from '../../module/security/service/token-storage.service';
 import {Router} from '@angular/router';
+import {EmployeeService} from '../../module/employee/service/employee.service';
+import {CustomerService} from '../../module/customer/service/customer.service';
 
 @Component({
   selector: 'app-header',
@@ -15,10 +17,13 @@ export class HeaderComponent implements OnInit {
   isLoggedIn = false;
   returnUrl: string;
   userDetailUrl = '';
+  avatarSrc = '';
 
   constructor(private tokenStorageService: TokenStorageService,
               private shareService: ShareService,
-              private router: Router) {
+              private router: Router,
+              private employeeService: EmployeeService,
+              private customerService: CustomerService) {
     this.shareService.getClickEvent().subscribe(() => {
       this.loadHeader();
     });
@@ -47,8 +52,14 @@ export class HeaderComponent implements OnInit {
   getUserDetail(): void {
     if (this.role === 'ROLE_USER') {
       this.userDetailUrl = 'customers/detail';
+      this.customerService.getUserDetail().subscribe(response => {
+        this.avatarSrc = response.body.customerImg;
+      });
     } else {
       this.userDetailUrl = 'employees/detail';
+      this.employeeService.getUserDetail().subscribe(response => {
+        this.avatarSrc = response.body.employeeImg;
+      });
     }
   }
 }
