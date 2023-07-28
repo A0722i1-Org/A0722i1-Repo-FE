@@ -9,13 +9,11 @@ const urlLogin: string[] = ['/login'];
 const urlUsers: string[] = ['/carts', '/customers/detail'];
 const urlSales: string[] = [
   '/shipments/shipment',
-  '/shipments/shipment',
-  '/receipts',
   '/employees/detail'
 ];
 const urlAccountants: string[] = [
   '/shipments/shipment',
-  '/shipments/shipment',
+  '/shipments/return',
   '/receipts',
   '/employees/detail',
   '/customer/detail',
@@ -49,9 +47,9 @@ export class AuthGuard implements CanActivate {
         Swal.fire({
           position: 'center',
           icon: 'info',
-          title: 'Đồ ngốc, bạn không có quyền truy cập chức năng này',
+          title: 'Bạn không có quyền truy cập chức năng này',
           showConfirmButton: false,
-          timer: 999
+          timer: 9999999
         });
         return this.router.parseUrl('/');
       }
