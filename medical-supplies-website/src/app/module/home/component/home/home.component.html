@@ -125,12 +125,12 @@
                                    title="Add to Wishlist"><i
                               class="far fa-heart"></i></a></li>
                           </ul>
-                          <a class="cart" (click)="addToCart(pro.product_Id)" c>Thêm vào giỏ</a>
+                          <a class="cart" (click)="addToCart(pro.product_Id)" *ngIf="['ROLE_USER'].indexOf(role)!==-1">Thêm vào giỏ</a>
                         </div>
                       </div>
                       <div class="why-text">
                         <h4>{{pro.product_Name}}</h4>
-                        <h5>{{pro.product_Price}}&#x20AB;</h5>
+                        <h5>{{pro.product_Price|currency:'VND'}}</h5>
                       </div>
                     </div>
                   </div>

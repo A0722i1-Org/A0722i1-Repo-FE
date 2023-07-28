@@ -36,7 +36,7 @@ export class HeaderComponent implements OnInit {
       this.getUserDetail();
     }
     this.isLoggedIn = this.username != null;
-    console.log(this.role)
+    console.log(`Role hien tai la ${this.role}`);
   }
 
   logOut() {
