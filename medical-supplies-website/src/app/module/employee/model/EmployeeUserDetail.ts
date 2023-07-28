@@ -1,9 +1,10 @@
 export interface EmployeeUserDetail {
+  status: number;
   employeeId?: number;
   employeeCode?: string;
   employeeName?: string;
   phone?: string;
-  gender?: number;
+  gender?: boolean;
   employeeAddress?: string;
   dateOfBirth?: string;
   idCard?: string;
