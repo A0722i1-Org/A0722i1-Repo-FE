@@ -33,11 +33,11 @@
             <div class="product-img">
               <div class="first-view">
                 <img [src]="employee?.employeeImg" alt="logo"
-                     class="img-fluid" >
+                     class="img-fluid">
               </div>
               <div class="hover-view">
                 <img [src]="employee?.employeeImg" alt="logo"
-                     class="img-fluid" >
+                     class="img-fluid">
               </div>
             </div>
             <div class="sideicons">
@@ -87,12 +87,12 @@
         <p *ngIf="employee?.gender==true" class="object-address">Giới tính: Nam </p>
         <p class="object-address">Ngày sinh: {{employee?.dateOfBirth|date:'dd/MM/yyyy'}}</p>
         <p class="object-address">Lương: {{employee?.salary|currency}}</p>
-        <p class="object-address">Tên tài khoản: {{employee?.account.username}}</p>
+        <p class="object-address">Tên tài khoản: {{employee?.account?.username}}</p>
         <p class="object-address">Quê quán: {{employee?.employeeAddress}}</p>
         <p class="object-address">Số điện thoại: {{employee?.phone}}</p>
         <p class="object-address">CMND: {{employee?.idCard}}</p>
         <p class="object-address">Email: {{employee?.email}}</p>
-        <p class="object-address">Chức vụ: {{employee?.position.positionName}}</p>
+        <p class="object-address">Chức vụ: {{employee?.position?.positionName}}</p>
       </div>
     </div>
   </div>

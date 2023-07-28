@@ -4,11 +4,13 @@ import {Cart} from '../../cart/model/Cart';
 
 export interface Customer {
   customerId?: number;
+  customerCode?: string;
   name?: string;
   phone?: string;
   gender?: boolean;
   dateOfBirth?: Date;
   idCard?: string;
+  email?: string;
   customerAddress?: string;
   customerImg?: string;
   customerType?: CustomerType;

@@ -14,12 +14,6 @@
                 </div>
               </div>
             </div>
-<!--            <div class="row">-->
-<!--              <div class="col-6 col-md-12">-->
-<!--                <img [src]="image" *ngFor="let image of images" class="img-fluid selectable-image"-->
-<!--                     alt="Hình ảnh" (mousemove)="selectImage(image)">-->
-<!--              </div>-->
-<!--            </div>-->
           </div>
           <div class="col-md-8">
             <div class="card-body">
@@ -29,10 +23,6 @@
                   <strong>Giá:</strong>
                   <span> {{productViewDetail.productPrice | currency: 'VND'}} / Thùng</span>
                 </li>
-                <!--                <li class="list-group-item">
-                                  <strong>Số lượng còn lại:</strong>
-                                  <span> {{ productViewDetail.productQuantity }}</span>
-                                </li>-->
                 <li class="list-group-item">
                   <strong>Thương hiệu:</strong>
                   <span> {{productViewDetail.productInfo?.trademark}}</span>
