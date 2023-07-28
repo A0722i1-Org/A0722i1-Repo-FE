@@ -73,7 +73,7 @@ export class EditComponent implements OnInit {
       employeeName: new FormControl(this.employeeEdit.employeeName, [Validators.required, Validators.minLength(5),
         Validators.maxLength(50), Validators.pattern('^\\s*(?:[A-Zà-ỹ][a-zà-ỹ]*(?: [A-Zà-ỹ][a-zà-ỹ]*)*)\\s*$')]),
       email: new FormControl(this.employeeEdit.email, [Validators.required, Validators.minLength(6),
-        Validators.maxLength(30), Validators.pattern('^\\s*[a-zA-Z0-9_.+-]+@gmail.com+\\s*$')]),
+        Validators.maxLength(50), Validators.pattern('^\\s*[a-zA-Z0-9_.+-]+@gmail.com+\\s*$')]),
       phone: new FormControl(this.employeeEdit.phone, [Validators.required]),
       employeeAddress: new FormControl(this.employeeEdit.employeeAddress,  [Validators.required, , Validators.maxLength(100)]),
       gender: new FormControl(this.employeeEdit.gender,  [Validators.required]),

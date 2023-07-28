@@ -33,8 +33,10 @@ export class AuthGuard implements CanActivate {
   canActivate(
     route: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    if (this.authService.isAuthenticated()) {
+    const token = this.tokenStorageService.getToken();
+    if (token !== null) {
       const userRoles = this.tokenStorageService.getRole();
+      console.log(userRoles);
       if (userRoles === 'ROLE_ADMIN') {
         return true;
       } else if (userRoles === 'ROLE_USER' && urlUsers.indexOf(state.url) !== -1) {
@@ -46,7 +48,7 @@ export class AuthGuard implements CanActivate {
       } else {
         Swal.fire({
           position: 'center',
-          icon: 'info',
+          icon: 'error',
           title: 'Bạn không có quyền truy cập chức năng này',
           showConfirmButton: false,
           timer: 9999999
@@ -54,6 +56,13 @@ export class AuthGuard implements CanActivate {
         return this.router.parseUrl('/');
       }
     }
+    Swal.fire({
+      position: 'center',
+      icon: 'info',
+      title: 'Bạn phải đăng nhập để sử dụng chức năng này!',
+      showConfirmButton: false,
+      timer: 9999999
+    });
     return this.router.createUrlTree(['/login'], {queryParams: {returnUrl: state.url}});
   }
 
