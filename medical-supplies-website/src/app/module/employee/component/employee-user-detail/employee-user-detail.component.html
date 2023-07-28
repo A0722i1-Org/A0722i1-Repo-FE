@@ -10,8 +10,9 @@
             <div
               class="mb-3 rounded-circle bg-light border border-2 border-green-blue overflow-hidden d-flex align-items-center justify-content-center"
               style="width: 200px; height: 200px;">
-              <!--                            <img [src]="employeeUserDetail?.employeeImg" style="width: 200px" alt="avatar">-->
-              <svg width="200px" height="200px" viewBox="-9.36 -9.36 42.72 42.72" fill="none"
+              <img *ngIf="employeeUserDetail?.employeeImg" [src]="employeeUserDetail?.employeeImg" style="width: 200px" alt="avatar">
+              <svg *ngIf="!employeeUserDetail?.employeeImg" width="200px" height="200px"
+                   viewBox="-9.36 -9.36 42.72 42.72" fill="none"
                    xmlns="http://www.w3.org/2000/svg">
                 <g id="SVGRepo_bgCarrier" stroke-width="0"></g>
                 <g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g>
@@ -64,9 +65,8 @@
             </div>
             <div class="col-auto">
               <div class="py-2">
-                <span *ngIf="employeeUserDetail?.gender == 1">Nam</span>
-                <span *ngIf="employeeUserDetail?.gender == 0">Nữ</span>
-                <span *ngIf="employeeUserDetail?.gender == 2">Khác</span>
+                <span *ngIf="employeeUserDetail?.gender">Nam</span>
+                <span *ngIf="!employeeUserDetail?.gender">Nữ</span>
               </div>
             </div>
           </div>
@@ -141,7 +141,9 @@
       <div class="col-12">
         <div
           class="btn-wrap d-flex flex-column flex-md-row flex-lg-row align-items-md-center align-items-lg-center justify-content-md-end justify-content-lg-end">
-          <button class=" btn btn-green-blue bg-light-green-blue min-w-96 mb-2 ">Chỉnh sửa</button>
+          <button type="button" (click)="showUpdateComponent()"
+                  class=" btn btn-green-blue bg-light-green-blue min-w-96 mb-2">Chỉnh sửa
+          </button>
         </div>
       </div>
     </div>

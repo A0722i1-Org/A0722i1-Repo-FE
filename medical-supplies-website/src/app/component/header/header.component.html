@@ -20,7 +20,7 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#">Quản lý tài khoản</a></li>
-            <li><a class="dropdown-item" href="#">Quản lý nhân viên</a></li>
+            <li><a class="dropdown-item" href="/employees">Quản lý nhân viên</a></li>
             <li>
               <hr class="dropdown-divider">
             </li>
@@ -33,7 +33,7 @@
              aria-expanded="false">Quản lý
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Quản lý Vật tư</a></li>
+            <li><a class="dropdown-item" href="/supplies">Quản lý Vật tư</a></li>
             <li><a class="dropdown-item" href="#">Quản lý Khách hàng</a></li>
             <li>
               <hr class="dropdown-divider">
@@ -51,8 +51,8 @@
             <li>
               <hr class="dropdown-divider">
             </li>
-            <li><a class="dropdown-item" href="#">Quản lý Bán hàng</a></li>
-            <li><a class="dropdown-item" href="#">Quản lý Trả hàng</a></li>
+            <li><a class="dropdown-item" routerLink="shipments/shipment">Quản lý Bán hàng</a></li>
+            <li><a class="dropdown-item" routerLink="shipments/return">Quản lý Trả hàng</a></li>
           </ul>
         </li>
 
@@ -71,7 +71,7 @@
           <div class="user-profile__avatar-container  ms-3 me-3">
             <i class="fa fa-user-circle fa-2x" aria-hidden="true" style="color: #f0f0f0"></i>
             <div class="user-profile__options">
-              <a href="#" class="dropdown-item">Cá nhân</a>
+              <a href="#" [routerLink]="userDetailUrl" class="dropdown-item">Cá nhân</a>
               <hr class="dropdown-divider">
               <a href="#" class="dropdown-item" (click)="logOut()">Thoát</a>
             </div>

@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  firebaseConfig : {
+  firebaseConfig: {
     apiKey: 'AIzaSyC3eVG5Eak4bOIAhl2Odrks6I15lZ6LMDU',
     authDomain: 'employee-avatar.firebaseapp.com',
     projectId: 'employee-avatar',
