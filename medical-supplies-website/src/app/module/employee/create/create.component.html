@@ -61,26 +61,24 @@
           <span
             *ngIf="employeeCreateForm.controls.email.hasError('pattern')&&employeeCreateForm.controls.email.dirty&&!employeeCreateForm.controls.email.hasError('minlength')&&!employeeCreateForm.controls.email.hasError('maxlength')">(Email chưa đúng định dạng)</span>
 <!--          <span-->
-<!--            *ngIf="checkEmail==true&&!employeeInfor.controls.email.hasError('required')&&!employeeInfor.controls.email.hasError('minlength')&&!employeeInfor.controls.email.hasError('pattern')&&!employeeInfor.controls.email.hasError('maxlength')">(Email đã được đăng kí)</span>-->
+<!--            *ngIf="checkExistEmail==true&&!employeeCreateForm.controls.email.hasError('required')&&!employeeCreateForm.controls.email.hasError('minlength')&&!employeeCreateForm.controls.email.hasError('pattern')&&!employeeCreateForm.controls.email.hasError('maxlength')">(Email đã được đăng kí)</span>-->
         </div>
 
         <div class="form-group col-md-6">
           <label for="chucVu" class="form-label"  class="form-label">Chức vụ</label><span>*</span>
           <select formControlName = "position" id="chucVu" class="form-select">
-            <option selected value="">Chọn chức vụ</option>
             <option *ngFor="let position of positions" [ngValue]="position">{{position.positionName}}</option>
           </select>
-<!--          <span style="color: red">-->
-<!--                            Chức vụ không được để trống!</span>-->
+          <span *ngIf="employeeCreateForm.controls.position.hasError('required')&&employeeCreateForm.controls.position.dirty">(Vui lòng chọn chức vụ)</span>
         </div>
 
         <div class="form-group col-md-6">
           <label class="form-label" for="sdt">Số điện thoại</label><span>*</span>
           <input type="tel" class="form-control" formControlName = "phone" id="sdt" placeholder="Số điện thoại">
           <span *ngIf="employeeCreateForm.controls.phone.hasError('required')&&employeeCreateForm.controls.phone.dirty">(Vui lòng nhập số điện thoại)</span>
-          <span *ngIf="employeeCreateForm.controls.phone.hasError('pattern')&&employeeCreateForm.controls.phone.dirty">(Chỉ được phép chứa 10 số và bắt đầu 09 hoặc 08)</span>
+          <span *ngIf="employeeCreateForm.controls.phone.hasError('pattern')&&employeeCreateForm.controls.phone.dirty">(Số điện thoại không đúng định dạng)</span>
 <!--          <span-->
-<!--            *ngIf="checkPhone==true&&!employeeInfor.controls.phone.hasError('pattern')&&!employeeInfor.controls.phone.hasError('required')">(Số điện thoại đã được đăng kí)</span>-->
+<!--            *ngIf="checkExistPhone==true&&!employeeCreateForm.controls.phone.hasError('pattern')&&!employeeCreateForm.controls.phone.hasError('required')">(Số điện thoại đã được đăng kí)</span>-->
         </div>
 
         <div class="form-group col-md-6">
@@ -89,13 +87,14 @@
           <span *ngIf="employeeCreateForm.controls.idCard.hasError('required')&&employeeCreateForm.controls.idCard.dirty">(Vui lòng nhập hộ chiếu/CMND)</span>
           <span *ngIf="employeeCreateForm.controls.idCard.hasError('pattern')&&employeeCreateForm.controls.idCard.dirty">(Chỉ được phép chứa 12)</span>
 <!--          <span-->
-<!--            *ngIf="checkIdCard==true&&!employeeInfor.controls.idCard.hasError('required')&&!employeeInfor.controls.idCard.hasError('pattern')">(Hộ chiếu/CMND đã được đăng kí)</span>-->
+<!--            *ngIf="checkExistIdCard==true&&!employeeCreateForm.controls.idCard.hasError('required')&&!employeeCreateForm.controls.idCard.hasError('pattern')">(Hộ chiếu/CMND đã được đăng kí)</span>-->
         </div>
 
         <div class="form-group col-md-6">
           <label class="form-label" for="avatar" class="form-label">Hình đại diện</label><span>*</span>
           <input type="file" class="form-control" id="avatar" accept=".jpg,.jpeg,.png,/image/*" (change)="selectImg($event)">
           <span *ngIf="maxSize==true">(Ảnh phải bé hơn 1MB)</span>
+          <span *ngIf="inquiredImg==true">(Vui lòng chọn ảnh đại diện)</span>
         </div>
 
         <div class="form-group col-md-6">
@@ -107,7 +106,7 @@
 
         <div class="form-group">
           <button routerLink="/employees" class="btn btn-secondary">Hủy</button>
-          <button type="submit" class="btn btn-success mx-2">Thêm</button>
+          <button type="submit" class="btn btn-success mx-2" [disabled]="employeeCreateForm.invalid">Thêm</button>
         </div>
       </form>
     </div>

@@ -32,7 +32,7 @@
           <span
             *ngIf="employeeEditForm.controls.dateOfBirth.hasError('required')&&employeeEditForm.controls.dateOfBirth.dirty">(Vui lòng chọn ngày sinh)</span>
           <span
-            *ngIf="employeeEditForm.controls.dateOfBirth.hasError('isOver23')&&employeeEditForm.controls.dateOfBirth.dirty">(Phải lớn hơn hoặc bằng 23 tuổi)</span>
+            *ngIf="employeeEditForm.controls.dateOfBirth.hasError('isOver23')&&employeeEditForm.controls.dateOfBirth.dirty">(Phải lớn hơn hoặc bằng 18 tuổi)</span>
           <span
             *ngIf="employeeEditForm.controls.dateOfBirth.hasError('isOver50')&&employeeEditForm.controls.dateOfBirth.dirty">(Không được lớn hơn 50 tuổi)</span>
         </div>
@@ -59,7 +59,7 @@
           <input type="email" formControlName = "email" class="form-control" id="email" placeholder="Email">
           <span *ngIf="employeeEditForm.controls.email.hasError('required')&&employeeEditForm.controls.email.dirty">(Vui lòng nhập email)</span>
           <span *ngIf="employeeEditForm.controls.email.hasError('minlength')&&employeeEditForm.controls.email.dirty">(Chứa ít nhất 6 kí tự)</span>
-          <span *ngIf="employeeEditForm.controls.email.hasError('maxlength')&&employeeEditForm.controls.email.dirty">(Chứa tối đa 30 kí tự)</span>
+          <span *ngIf="employeeEditForm.controls.email.hasError('maxlength')&&employeeEditForm.controls.email.dirty">(Chứa tối đa 50 kí tự)</span>
           <span
             *ngIf="employeeEditForm.controls.email.hasError('pattern')&&employeeEditForm.controls.email.dirty&&!employeeEditForm.controls.email.hasError('minlength')&&!employeeEditForm.controls.email.hasError('maxlength')">(Email chưa đúng định dạng)</span>
           <!--          <span-->
@@ -68,7 +68,7 @@
 
         <div class="form-group col-md-6">
           <label for="chucVu" class="form-label"  class="form-label">Chức vụ</label><span>*</span>
-          <select formControlName = "position" id="chucVu" [compareWith]="compareFn" class="form-select">
+          <select formControlName = "position" id="chucVu" class="form-select" [compareWith]="compareFn">
             <option *ngFor="let position of positions" [ngValue]="position">{{position.positionName}}</option>
           </select>
           <!--          <span style="color: red">-->
