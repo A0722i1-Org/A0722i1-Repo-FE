@@ -1,5 +1,5 @@
 <div style="margin: auto; margin-bottom: 254px; max-width: 65%;">
-  <div >
+  <div>
     <h1 style="text-align: center; ; color: #00b894">Vui lòng chọn vật tư</h1>
     <div style="max-height: 200px;">
       <table class="table" border="1">
@@ -16,19 +16,23 @@
         </thead>
         <tbody>
         <tr *ngFor="let p of productDtos | paginate: { itemsPerPage: 5, currentPage: p }; index as i">
-          <td>{{i+1}}</td>
+          <td>{{i + 1}}</td>
           <td>{{p.product_Id}}</td>
           <td>{{p.product_Name}}</td>
           <td><input #quantityMax
-                     type="number" style="width: 70px" [(ngModel)]="p.product_Quantity" ></td>
-          <td>{{p.product_Quantity*p.product_Price}}</td>
-          <td><input type="text" class="form-control" [(ngModel)]="p.note" ></td>
-          <td style="display: flex;justify-content: center;align-items: center;"><input type="checkbox" [(ngModel)]="p.select" (change)="chonChekBox(p)"/></td>
+                     type="number" style="width: 70px" [(ngModel)]="p.product_Quantity"></td>
+          <td>{{p.product_Quantity * p.product_Price|currency:'đ'}}</td>
+          <td><input type="text" class="form-control" [(ngModel)]="p.note"></td>
+          <td style="display: flex;justify-content: center;align-items: center;"><input type="checkbox" [(ngModel)]="p.select"(change)="chonChekBox(p)"/></td>
         </tr>
         </tbody>
       </table>
-      <a type="button" class="btn" style="float: right;background: #00b894; color: white;margin-left: 10px;" routerLink="/shipments/shipment"><i class="fa-solid fa-person-walking-arrow-loop-left"></i> Trở về</a>
-      <button class="btn" style="float: right;background: #00b894; color: white"  (click)="create()" [disabled]="shipmentService.shipmentDetailDto?.length === 0"><i class="fa-solid fa-pen-to-square"></i> Thêm </button>
+      <a type="button" class="btn" style="float: right;background: #00b894; color: white;margin-left: 10px;"
+         routerLink="/shipments/shipment"><i class="fa-solid fa-person-walking-arrow-loop-left"></i> Trở về</a>
+      <button class="btn" style="float: right;background: #00b894; color: white" (click)="create()"
+              [disabled]="shipmentService.shipmentDetailDto?.length === 0"><i class="fa-solid fa-pen-to-square"></i>
+        Thêm
+      </button>
       <br>
       <pagination-controls (pageChange)="p = $event" previousLabel="Trước"
                            nextLabel="Sau" style="text-align: center"></pagination-controls>

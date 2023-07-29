@@ -98,7 +98,7 @@ export class CustomerEditComponent implements OnInit {
                   },
                   () => {
                     // this.toast.success("Chỉnh sửa khách hàng thành công");
-                    this.router.navigateByUrl('customer/list');
+                    this.router.navigateByUrl('/customers');
                   }
                 );
               });

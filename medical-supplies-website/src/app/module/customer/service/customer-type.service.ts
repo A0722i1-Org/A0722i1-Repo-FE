@@ -16,14 +16,12 @@ export class CustomerTypeService {
   getAllCustomerType( ): Observable<CustomerType[]> {
     const token = this.tokenStorageService.getToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.httpClient.get<CustomerType[]>(this._API_URL);
+    return this.httpClient.get<CustomerType[]>(this._API_URL, {headers});
   }
   findByIdCustomerType(id: number): Observable<CustomerType> {
     const token = this.tokenStorageService.getToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    console.log('findByIdCustomerType');
-    console.log(this._API_URL + '/' + id);
-    return this.httpClient.get<CustomerType>(this._API_URL + '/' + id);
+    return this.httpClient.get<CustomerType>(this._API_URL + '/' + id, {headers});
   }
 
 }

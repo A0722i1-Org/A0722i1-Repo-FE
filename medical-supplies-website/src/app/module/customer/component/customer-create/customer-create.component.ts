@@ -17,7 +17,7 @@ import {CustomerTypeService} from '../../service/customer-type.service';
 })
 export class CustomerCreateComponent implements OnInit {
   customerFormCreate: FormGroup;
-  customerTypes: CustomerType [] = [];
+  customerTypes: CustomerType [];
   inputImage: any;
   imgSrc: any;
   maxSize: any;
@@ -29,13 +29,12 @@ export class CustomerCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.customerTypeService.getAllCustomerType().subscribe((data) => {
-      debugger;
+    this.customerTypeService.getAllCustomerType().subscribe(data => {
       this.customerTypes = data;
     });
     this.customerFormCreate = new FormGroup({
       customerId: new FormControl(),
-      customerCode: new FormControl('', [Validators.required, Validators.pattern('^KH-\\d{4}$')]),
+      customerCode: new FormControl('', [Validators.required, Validators.pattern('^KH-\\d{3}$')]),
       name: new FormControl('', [Validators.required, Validators.maxLength(50),
         Validators.minLength(3), Validators.pattern('^(?:[A-Z][a-zÀ-ỹ]*(?: [A-Z][a-zÀ-ỹ]*)+)$')]),
       phone: new FormControl('', [Validators.required, Validators.pattern('^(09|08)\\d{8}$')]),
@@ -52,7 +51,6 @@ export class CustomerCreateComponent implements OnInit {
       cart: new FormControl(),
       enable: new FormControl(),
     });
-    console.log(this.customerFormCreate.value);
   }
 
   createCustomer() {
@@ -75,11 +73,9 @@ export class CustomerCreateComponent implements OnInit {
         Swal.fire('Thành công',
           'Đã thêm khách hàng thành công',
           'success');
-        this.router.navigateByUrl('customers/list');
+        this.router.navigateByUrl('/customers');
       }
     );
-    console.log(this.customerFormCreate.value);
-
   }
 
   selectImg(event: any) {
