@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg fixed-top ">
   <div class="container-fluid">
-    <a class="navbar-brand" href="#">
+    <a class="navbar-brand" href="">
       <img src="assets/images/logo.png" alt="" style="width: 200px; height: 100%">
     </a>
     <button class="navbar-toggler text-light" type="button" data-bs-toggle="collapse"
@@ -12,20 +12,7 @@
     <div class="collapse navbar-collapse ms-2" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
         <li class="nav-item">
-          <a class="nav-link active " aria-current="page" href="#">Trang Chủ</a>
-        </li>
-        <li class="nav-item dropdown" *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1">
-          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-             aria-expanded="false">Hệ thống
-          </a>
-          <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#">Quản lý tài khoản</a></li>
-            <li><a class="dropdown-item" href="/employees">Quản lý nhân viên</a></li>
-            <li><a class="dropdown-item" href="/supplies">Quản lý Vật tư</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-          </ul>
+          <a class="nav-link active " aria-current="page" href="">Trang Chủ</a>
         </li>
 
         <li class="nav-item dropdown" *ngIf="['ROLE_ADMIN', 'ROLE_ACCOUNTANT'].indexOf(role)!==-1">
@@ -33,26 +20,23 @@
              aria-expanded="false">Quản lý
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" href="#" routerLink="customers">Quản lý Khách hàng</a></li>
-            <li><a class="dropdown-item" href="#" routerLink="receipts">Quản lý Nhập Kho</a></li>
-            <li><a class="dropdown-item" routerLink="shipments/return">Quản lý Trả hàng</a></li>
-
-            <li>
-              <hr class="dropdown-divider">
-            </li>
-            <li><a class="dropdown-item" href="#">Khác...</a></li>
+            <li *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1"><a class="dropdown-item" href="/supplies">Quản lý Vật tư</a></li>
+            <li *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1"><a class="dropdown-item" href="/employees">Quản lý nhân viên</a></li>
+            <li *ngIf="['ROLE_ADMIN', 'ROLE_ACCOUNTANT'].indexOf(role)!==-1"><a class="dropdown-item" href="#" routerLink="customers">Quản lý Khách hàng</a></li>
+            <li *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1"><hr class="dropdown-divider"></li>
+            <li *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1"><a class="dropdown-item" href="#">Quản lý tài khoản</a></li>
           </ul>
         </li>
 
         <li class="nav-item dropdown" *ngIf="['ROLE_ADMIN', 'ROLE_ACCOUNTANT', 'ROLE_SALE'].indexOf(role)!==-1">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
-             aria-expanded="false">Danh mục
+             aria-expanded="false">Nghiệp vụ
           </a>
           <ul class="dropdown-menu">
-            <li><a class="dropdown-item" routerLink="shipments/shipment">Quản lý Bán hàng</a></li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+            <li *ngIf="['ROLE_ADMIN', 'ROLE_ACCOUNTANT'].indexOf(role)!==-1"><a class="dropdown-item" href="#" routerLink="receipts">Nhập kho</a></li>
+            <li *ngIf="['ROLE_ADMIN', 'ROLE_ACCOUNTANT'].indexOf(role)!==-1"><a class="dropdown-item" routerLink="shipments/return">Trả - Hủy hàng</a></li>
+            <li *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1"><hr class="dropdown-divider"></li>
+            <li *ngIf="['ROLE_ADMIN', 'ROLE_SALE'].indexOf(role)!==-1"><a class="dropdown-item" routerLink="shipments/shipment">Bán hàng</a></li>
           </ul>
         </li>
       </ul>

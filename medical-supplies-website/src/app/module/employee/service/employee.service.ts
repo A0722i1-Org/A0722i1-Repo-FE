@@ -2,7 +2,7 @@ import {Employee} from './../model/Employee';
 import {Injectable} from '@angular/core';
 import {EmployeeUserDetail} from '../model/EmployeeUserDetail';
 import {TokenStorageService} from '../../security/service/token-storage.service';
-import {EmployeeInfo} from '../dto/EmployeeInfo';
+import {EmployeeInfo} from '../model/EmployeeInfo';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ChangePasswordDto} from '../model/ChangePasswordDto';

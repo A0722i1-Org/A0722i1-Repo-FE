@@ -1,4 +1,4 @@
-import {Position} from '../model/Position';
+import {Position} from './Position';
 
 export interface EmployeeInfo {
   employeeCode?: string;

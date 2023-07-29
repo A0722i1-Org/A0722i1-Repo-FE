@@ -17,16 +17,15 @@
                 <div class="carousel-inner">
                   <div class="carousel-item active" data-bs-interval="3000">
                     <img src="assets/images/banner-1.png" class="d-block w-80"
-                         style="width: 100%; height: 400px">
+                         style="width: 100%; height: 400px" alt="events">
                   </div>
                   <div class="carousel-item" data-bs-interval="3000">
                     <img src="assets/images/banner-3.png" class="d-block w-80"
-                         style="width: 100%; height: 400px">
+                         style="width: 100%; height: 400px" alt="events">
                   </div>
                   <div class="carousel-item" data-bs-interval="3000">
                     <img src="assets/images/Banner_2.png" class="d-block w-80"
-                         style="width: 100%; height: 400px">
-                    <!--                    style="width: 100%; height: 500px"-->
+                         style="width: 100%; height: 400px" alt="events">
                   </div>
                 </div>
                 <button class="carousel-control-prev" type="button"
@@ -67,17 +66,16 @@
     <div class="row">
       <div class="col-lg-12">
         <div class="filter">
-          <li class="category__item active" (click)="getAllProduct()">
+          <div class="category__item active" id="category__item-0" (click)="getAllProduct()">
             <span class="category_text">
               <i class="fa-solid fa-truck-medical" style="color: #FFD333;"></i>
               <span class="label">Tất cả</span>
-
             </span>
-          </li>
+          </div>
           <ul class="category" *ngFor="let cate of categories" (click)="searchCategory(cate.categoryId)">
-            <li class="category__item">
-              <div class="category_text">
-                <i class="fa-solid fa-mask-face" style="color: #FFD333;"></i>
+            <li class="category__item" [id]="'category__item-' + cate.categoryId">
+              <div class="category_text d-flex justify-content-center align-items-center">
+                <i class="fa-solid fa-mask-face me-2" style="color: #FFD333;"></i>
                 <div class="label">{{cate.categoryName}}</div>
               </div>
             </li>
@@ -125,7 +123,8 @@
                                    title="Add to Wishlist"><i
                               class="far fa-heart"></i></a></li>
                           </ul>
-                          <a class="cart" (click)="addToCart(pro.product_Id)" *ngIf="['ROLE_USER'].indexOf(role)!==-1">Thêm vào giỏ</a>
+                          <a class="cart" (click)="addToCart(pro.product_Id)" *ngIf="['ROLE_USER'].indexOf(role)!==-1">Thêm
+                            vào giỏ</a>
                         </div>
                       </div>
                       <div class="why-text">

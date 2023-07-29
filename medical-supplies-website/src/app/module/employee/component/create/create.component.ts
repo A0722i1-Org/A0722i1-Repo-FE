@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import {Position} from '../model/Position';
+import {Component} from '@angular/core';
+import {Position} from '../../model/Position';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import {EmployeeInfo} from '../dto/EmployeeInfo';
+import {EmployeeInfo} from '../../model/EmployeeInfo';
 import {Router} from '@angular/router';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {Title} from '@angular/platform-browser';
-import {formatDate, NgForOf} from '@angular/common';
-import {Employee} from '../model/Employee';
+import {formatDate} from '@angular/common';
+import {Employee} from '../../model/Employee';
 import {finalize} from 'rxjs/operators';
-import {EmployeeService} from '../service/employee.service';
+import {EmployeeService} from '../../service/employee.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -16,7 +16,7 @@ import Swal from 'sweetalert2';
   templateUrl: './create.component.html',
   styleUrls: ['./create.component.css']
 })
-export class CreateComponent implements OnInit {
+export class CreateComponent {
   positions: Position[] = [];
   employeeCreateForm: FormGroup;
   employeeCreate: EmployeeInfo;
@@ -45,29 +45,22 @@ export class CreateComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-  }
-
   setEmployeeCode(): string {
     const amount = this.employees.length + 1;
-    console.log('amount:' + amount);
-    if (amount < 10) {
-      return this.employeeCode = 'NV-0' + amount;
-    } else {
-      return this.employeeCode = 'NV-' + amount;
-    }
+    this.employeeCode = 'NV-' + (amount < 10 ? '0' : '') + amount;
+    return this.employeeCode;
   }
 
   private getFormCreate() {
     this.employeeCreateForm = new FormGroup({
       employeeCode: new FormControl(this.employeeCode),
       employeeName: new FormControl('', [Validators.required, Validators.minLength(5),
-      Validators.maxLength(50), Validators.pattern('^\\s*(?:[A-Zà-ỹ][a-zà-ỹ]*(?: [A-Zà-ỹ][a-zà-ỹ]*)*)\\s*$')]),
+        Validators.maxLength(50), Validators.pattern('^\\s*(?:[A-Zà-ỹ][a-zà-ỹ]*(?: [A-Zà-ỹ][a-zà-ỹ]*)*)\\s*$')]),
       email: new FormControl('', [Validators.required, Validators.minLength(6),
-      Validators.maxLength(50), Validators.pattern('^\\s*[a-zA-Z0-9_.+-]+@gmail.com+\\s*$')]),
+        Validators.maxLength(50), Validators.pattern('^\\s*[a-zA-Z0-9_.+-]+@gmail.com+\\s*$')]),
       phone: new FormControl('', [Validators.required, Validators.pattern('^\\s*(0)\\d{9}\\s*$')]),
-      employeeAddress: new FormControl('',  [Validators.required, Validators.maxLength(100)]),
-      gender: new FormControl('',  [Validators.required]),
+      employeeAddress: new FormControl('', [Validators.required, Validators.maxLength(100)]),
+      gender: new FormControl('', [Validators.required]),
       idCard: new FormControl('', [Validators.required, Validators.pattern('^\\s*\\d{12}\\s*$')]),
       dateOfBirth: new FormControl('', [Validators.required, this.isOver18, this.isOver50]),
       employeeImg: new FormControl(''),
@@ -94,7 +87,7 @@ export class CreateComponent implements OnInit {
             toast: true,
             position: 'top-end',
             showConfirmButton: false,
-            timer: 3000,
+            timer: 1500,
             timerProgressBar: true,
             didOpen: (toast) => {
               toast.addEventListener('mouseenter', Swal.stopTimer);
