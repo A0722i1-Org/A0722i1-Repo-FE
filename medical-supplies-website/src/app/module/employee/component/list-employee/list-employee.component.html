@@ -1,10 +1,12 @@
 <section>
   <div class="container">
-    <form #searchForm="ngForm" (ngSubmit)="search(searchForm.value.nameEmployee,searchForm.value.dateofbirth,searchForm.value.pos)" class="form__filter d-flex">
+    <form #searchForm="ngForm"
+          (ngSubmit)="search(searchForm.value.nameEmployee,searchForm.value.dateofbirth,searchForm.value.pos)"
+          class="form__filter d-flex">
       <div class="search-container">
-        <input name="nameEmployee" [(ngModel)]="employeeNameSearch" [value]=""  type="text" placeholder="Tên Nhân Viên">
+        <input name="nameEmployee" [(ngModel)]="employeeNameSearch" [value]="" type="text" placeholder="Tên Nhân Viên">
         <input [(ngModel)]="dateOfBirth" name="dateofbirth" type="date" placeholder="Ngày sinh">
-        <select  [(ngModel)]="posName" name="pos" class="position">
+        <select [(ngModel)]="posName" name="pos" class="position">
           <option selected value="">
             Chọn chức vụ
           </option>
@@ -13,10 +15,10 @@
         <button style="margin: 0px 4px" type="submit"><i class="fa fa-search"></i></button>
       </div>
       <div class="btn-create">
-      <a routerLink="create" >
-        <i class="fa-solid fa-plus"></i>
-        Thêm mới
-      </a>
+        <a routerLink="create">
+          <i class="fa-solid fa-plus"></i>
+          Thêm mới
+        </a>
       </div>
     </form>
     <div class="error" *ngIf="employees.length==0">Danh sách rỗng !!!</div>
@@ -24,19 +26,23 @@
       <div class="col-md-3" *ngFor="let employee of employees">
         <div class="product-single-card">
           <div class="product-top-area">
-            <div class="product-discount" *ngIf="employee.gender==false" >
+            <div class="product-discount" *ngIf="employee.gender==false">
               Nữ
             </div>
-            <div class="product-discount" *ngIf="employee.gender==true" >
+            <div class="product-discount" *ngIf="employee.gender==true">
               Nam
             </div>
             <div class="product-img">
               <div class="first-view">
-                <img [src]="employee?.employeeImg" alt="logo"
+                <img *ngIf="employee?.employeeImg" [src]="employee?.employeeImg" alt="logo"
+                     class="img-fluid">
+                <img *ngIf="!employee?.employeeImg" src="assets/images/user-default.png" alt="logo"
                      class="img-fluid">
               </div>
               <div class="hover-view">
-                <img [src]="employee?.employeeImg" alt="logo"
+                <img *ngIf="employee?.employeeImg" [src]="employee?.employeeImg" alt="logo"
+                     class="img-fluid">
+                <img *ngIf="!employee?.employeeImg" src="assets/images/user-default.png" alt="logo"
                      class="img-fluid">
               </div>
             </div>
@@ -75,10 +81,13 @@
 </section>
 <div id="modal" [ngClass]="{'modal': true, 'open': isModalOpen}" class="modal">
   <div style="justify-content: center; margin-top: 10%;" class="modal-content">
-    <span id="close-modal-button"  (click)="closeEmployeeModal()" class="close">Thoát</span>
+    <span id="close-modal-button" (click)="closeEmployeeModal()" class="close">Thoát</span>
     <div class="object-details">
-      <img style="width: 100px;height:150px ;margin-left: 30px;"
+      <img *ngIf="employee?.employeeImg" style="width: 100px;height:auto ;margin-left: 30px;"
            [src]="employee?.employeeImg" alt="logo"
+           class="img-fluid">
+      <img *ngIf="!employee?.employeeImg" style="width: 100px;height:auto ;margin-left: 30px;"
+           src="assets/images/user-default.png" alt="logo"
            class="img-fluid">
       <div class="object-info" style="margin:0px 100px;">
         <h4 class="object-name">{{employee?.employeeCode}}</h4>
