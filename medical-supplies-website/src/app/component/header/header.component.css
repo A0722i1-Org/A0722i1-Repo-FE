@@ -9,19 +9,22 @@ nav {
 .navbar {
   background: #00b894;
 }
+
 .nav-link {
   color: #f0f0f0;
 }
+
 .navbar-nav .nav-link.active {
   color: #f0f0f0;
   font-size: 110%;
 }
 
-.nav-link.disabled{
+.nav-link.disabled {
   color: #f0f0f0;
   font-size: 110%;
 }
-.navbar-nav .nav-link.dropdown-toggle{
+
+.navbar-nav .nav-link.dropdown-toggle {
   font-size: 110%;
 }
 
@@ -37,9 +40,10 @@ nav {
   position: relative;
 }
 
-.user-profile__name{
+.user-profile__name {
   color: #f0f0f0;
 }
+
 .user-profile__avatar {
   width: 40px;
   height: 40px;
@@ -100,4 +104,8 @@ nav {
   font-size: 12px;
   border-radius: 50%;
   padding: 2px 6px;
+}
+
+.border-green-blue {
+  border-color: #55efc4 !important;
 }

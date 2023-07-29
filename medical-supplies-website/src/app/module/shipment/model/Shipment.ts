@@ -6,8 +6,8 @@ export interface Shipment {
   shipmentId?: number;
   invoiceCode?: string;
   dateOfCreate?: Date;
-  note?: string;
   shipmentType?: ShipmentType;
   employee?: Employee;
   customer?: Customer;
+  invoiceExists?: boolean;
 }
