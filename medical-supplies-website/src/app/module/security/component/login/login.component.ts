@@ -80,7 +80,7 @@ export class LoginComponent implements OnInit {
             icon: 'success',
             title: 'Đăng nhập thành công',
             showConfirmButton: false,
-            timer: 99999
+            timer: 1500
           });
           this.formLogin.reset();
           this.router.navigateByUrl(this.returnUrl);

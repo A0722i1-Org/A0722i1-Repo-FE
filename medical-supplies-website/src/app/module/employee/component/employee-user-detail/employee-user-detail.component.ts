@@ -38,7 +38,7 @@ export class EmployeeUserDetailComponent implements OnInit {
             icon: 'info',
             title: 'Bạn phải đăng nhập để sử dụng chức năng này!',
             showConfirmButton: false,
-            timer: 9999999
+            timer: 1500
           });
           this._router.navigateByUrl('/login');
         }
@@ -55,7 +55,7 @@ export class EmployeeUserDetailComponent implements OnInit {
         icon: 'error',
         title: 'Bạn không có quyền truy cập chức năng này',
         showConfirmButton: false,
-        timer: 9999999
+        timer: 1500
       });
       this._router.navigateByUrl('/');
     });

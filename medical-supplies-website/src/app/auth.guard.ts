@@ -2,10 +2,8 @@ import {Injectable} from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
 import {Observable} from 'rxjs';
 import {TokenStorageService} from './module/security/service/token-storage.service';
-import {AuthService} from './module/security/service/auth.service';
 import Swal from 'sweetalert2';
 
-const urlLogin: string[] = ['/login'];
 const urlUsers: string[] = ['/carts', '/customers/detail'];
 const urlSales: string[] = [
   '/shipments/shipment',
@@ -26,8 +24,7 @@ const urlAccountants: string[] = [
 export class AuthGuard implements CanActivate {
 
   constructor(private router: Router,
-              private tokenStorageService: TokenStorageService,
-              private authService: AuthService) {
+              private tokenStorageService: TokenStorageService) {
   }
 
   canActivate(
@@ -36,7 +33,6 @@ export class AuthGuard implements CanActivate {
     const token = this.tokenStorageService.getToken();
     if (token !== null) {
       const userRoles = this.tokenStorageService.getRole();
-      console.log(userRoles);
       if (userRoles === 'ROLE_ADMIN') {
         return true;
       } else if (userRoles === 'ROLE_USER' && urlUsers.indexOf(state.url) !== -1) {
@@ -51,7 +47,7 @@ export class AuthGuard implements CanActivate {
           icon: 'error',
           title: 'Bạn không có quyền truy cập chức năng này',
           showConfirmButton: false,
-          timer: 9999999
+          timer: 1500
         });
         return this.router.parseUrl('/');
       }
@@ -61,9 +57,8 @@ export class AuthGuard implements CanActivate {
       icon: 'info',
       title: 'Bạn phải đăng nhập để sử dụng chức năng này!',
       showConfirmButton: false,
-      timer: 9999999
+      timer: 1500
     });
     return this.router.createUrlTree(['/login'], {queryParams: {returnUrl: state.url}});
   }
-
 }
