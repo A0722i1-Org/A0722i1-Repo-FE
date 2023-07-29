@@ -24,7 +24,7 @@
             <li *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1"><a class="dropdown-item" href="/employees">Quản lý nhân viên</a></li>
             <li *ngIf="['ROLE_ADMIN', 'ROLE_ACCOUNTANT'].indexOf(role)!==-1"><a class="dropdown-item" href="#" routerLink="customers">Quản lý Khách hàng</a></li>
             <li *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1"><hr class="dropdown-divider"></li>
-            <li *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1"><a class="dropdown-item" href="#">Quản lý tài khoản</a></li>
+            <li *ngIf="['ROLE_ADMIN'].indexOf(role)!==-1"><a class="dropdown-item" href="/accounts">Quản lý tài khoản</a></li>
           </ul>
         </li>
 
