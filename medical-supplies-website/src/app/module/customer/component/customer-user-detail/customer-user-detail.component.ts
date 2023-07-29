@@ -13,10 +13,14 @@ import {tap} from 'rxjs/operators';
   styleUrls: ['./customer-user-detail.component.css']
 })
 export class CustomerUserDetailComponent implements OnInit {
+  // tslint:disable-next-line:variable-name
   private _customerUserDetail: CustomerUserDetail;
+  // tslint:disable-next-line:variable-name
   private _mainForm: FormGroup;
 
+  // tslint:disable-next-line:variable-name
   constructor(private _customerService: CustomerService,
+              // tslint:disable-next-line:variable-name
               private _router: Router) {
   }
 
