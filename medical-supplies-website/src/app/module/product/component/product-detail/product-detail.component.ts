@@ -4,6 +4,8 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Product} from '../../model/Product';
 import Swal from 'sweetalert2';
+import {TokenStorageService} from '../../../security/service/token-storage.service';
+import {CartService} from '../../../cart/service/cart.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -27,16 +29,20 @@ export class ProductDetailComponent implements OnInit {
   };
   productDetail: FormGroup;
   quantity = 1;
+  role = '';
 
   @ViewChild('quantityInput', {static: true}) quantityInput: ElementRef<HTMLInputElement>;
 
   constructor(private productService: ProductService,
               private activatedRoute: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private tokenStorageService: TokenStorageService,
+              private cartService: CartService) {
   }
 
   ngOnInit(): void {
     this.getAll();
+    this.loadRole();
   }
 
   getAll() {
@@ -83,18 +89,26 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
+  /*
+  * Author: NhatLH
+  * Created: 2023-07-27
+  * */
   addToCart(): void {
-    const cartItem: Product = {
-      productId: this.productViewDetail.productId,
-      productImg: this.productViewDetail.productImg,
-      productName: this.productViewDetail.productName,
-      productPrice: this.productViewDetail.productPrice,
-      productQuantity: this.quantity,
-    };
-    this.productService.addToCart(cartItem);
-    Swal.fire('Thành công',
-      'Đã thêm sản phẩm vào giỏ hàng',
-      'success');
-    this.router.navigateByUrl('/carts');
+    this.cartService.addToCart(this.id).subscribe(next => {
+      Swal.fire('Thành công',
+        'Đã thêm sản phẩm vào giỏ hàng',
+        'success');
+    });
+  }
+
+  /*
+  * Author: NhatLH
+  * Created: 2023-07-27
+  * */
+  loadRole(): string {
+    if (this.tokenStorageService.getToken()) {
+      this.role = this.tokenStorageService.getRole();
+    }
+    return this.role;
   }
 }

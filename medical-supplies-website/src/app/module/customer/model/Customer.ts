@@ -10,9 +10,9 @@ export interface Customer {
   gender?: boolean;
   dateOfBirth?: Date;
   idCard?: string;
-  email?: string;
   customerAddress?: string;
   customerImg?: string;
+  email?: string;
   customerType?: CustomerType;
   account?: Account;
   cart?: Cart;
