@@ -17,7 +17,7 @@
           </div>
           <div class="col-md-8">
             <div class="card-body">
-              <h4 class="text-success mb-3" >{{ productViewDetail.productName }}</h4>
+              <h4 class="text-success mb-3">{{ productViewDetail.productName }}</h4>
               <ul class="list-group list-group-flush">
                 <li class="list-group-item">
                   <strong>Giá:</strong>
@@ -42,7 +42,7 @@
                                 (click)="decreaseQuantity()">-
                         </button>
                         <input type="text" class="form-control quantity-input-field" [value]="quantity" min="1"
-                               max="100" #quantityInput>
+                               [max]="maxQuantity" #quantityInput>
                         <button class="btn btn-outline-secondary increase-btn" type="button"
                                 (click)="increaseQuantity()">+
                         </button>
@@ -52,7 +52,8 @@
                   <br>
                   <div class="row align-items-center justify-content-center">
                     <div class="col-auto">
-                      <button *ngIf="role === 'ROLE_USER'" type="button" class="btn btn-outline-success add-to-cart-btn" (click)="addToCart()">
+                      <button *ngIf="role === 'ROLE_USER'" type="button" class="btn btn-outline-success add-to-cart-btn"
+                              (click)="addToCart()">
                         <span class="bi bi-cart4 me-2"></span> Thêm vào giỏ hàng
                       </button>
                       <button type="button" class="btn btn-outline-success ms-3" routerLink="/">Trở về</button>
@@ -64,10 +65,11 @@
           </div>
         </div>
         <br>
-        <div class="card-footer" style  ="background-color: white">
+        <div class="card-footer" style="background-color: white">
           <ul class="nav nav-pills">
             <li class="nav-item">
-              <button class="btn btn-outline-success disabled" style="opacity: 1 !important;" type="button">Mô tả</button>
+              <button class="btn btn-outline-success disabled" style="opacity: 1 !important;" type="button">Mô tả
+              </button>
             </li>
           </ul>
           <div class="mt-3">
