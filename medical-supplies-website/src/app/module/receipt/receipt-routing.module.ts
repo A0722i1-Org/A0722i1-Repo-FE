@@ -1,10 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import {ReceiptListComponent} from './component/receipt-list/receipt-list.component';
+import {AuthGuard} from '../../auth.guard';
 
 
 const routes: Routes = [
-  {path: '', component: ReceiptListComponent}
+  {path: '',
+    canActivate: [AuthGuard],
+    component: ReceiptListComponent}
 ];
 
 @NgModule({

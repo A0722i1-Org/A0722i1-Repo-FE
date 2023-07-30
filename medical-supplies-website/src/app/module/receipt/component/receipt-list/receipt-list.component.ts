@@ -8,7 +8,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ReceiptDetailDTO} from '../../model/ReceiptDetailDTO';
 import Swal from 'sweetalert2';
 import {Receipt} from '../../model/Receipt';
-import { jsPDF } from 'jspdf';
+import {jsPDF} from 'jspdf';
 import html2canvas from 'html2canvas';
 
 @Component({
@@ -24,16 +24,17 @@ export class ReceiptListComponent implements OnInit {
   receiptTypes: ReceiptType[] = [];
   suppliers: Supplier[] = [];
   todayDate: string;
-  employee: Employee ;
+  employee: Employee;
   address: string;
   productDTOs: ProductDTO[] = [];
   formReceipt: FormGroup;
-  productDTO: ProductDTO ;
+  productDTO: ProductDTO;
   listProduct: ProductDTO[] = [];
   listReceiptDetailDTO: ReceiptDetailDTO[] = [];
   receipt: Receipt;
   receipts: Receipt[];
   totalAmount: number;
+
   constructor(private receiptService: ReceiptService) {
     // Lấy ngày hôm nay
     const today = new Date();
@@ -49,7 +50,6 @@ export class ReceiptListComponent implements OnInit {
   ngOnInit(): void {
     this.receiptService.findAllReceiptType().subscribe(next => {
       this.receiptTypes = next;
-
     });
     this.receiptService.getNameEmployee().subscribe(next => {
       this.employee = next;
@@ -61,8 +61,8 @@ export class ReceiptListComponent implements OnInit {
       // tslint:disable-next-line:radix
       receiptTypeId: new FormControl('', [Validators.required]),
       invoiceCode: new FormControl('', [Validators.required]),
-      dateOfCreate: new FormControl(this.todayDate, ),
-      employeeId: new FormControl('', ),
+      dateOfCreate: new FormControl(this.todayDate,),
+      employeeId: new FormControl('',),
       customerId: new FormControl('', [Validators.required]),
       productId: new FormControl('', [Validators.required]),
       quantity: new FormControl('', [Validators.required, Validators.min(1)]),
@@ -72,109 +72,109 @@ export class ReceiptListComponent implements OnInit {
   onSelectionChange(event: any) {
     const selectedValue = +event.target.value;
     // tslint:disable-next-line:prefer-for-of
-    for (let i = 0 ; i < this.suppliers.length; i ++) {
-    if (selectedValue === this.suppliers[i].customer_Id) {
-          this.address = this.suppliers[i].customer_Address;
-          this.receiptService.getProductByCustomerId(selectedValue).subscribe(next => {
-            this.productDTOs = next;
-            console.log(this.productDTOs);
-          });
-        }
+    for (let i = 0; i < this.suppliers.length; i++) {
+      if (selectedValue === this.suppliers[i].customer_Id) {
+        this.address = this.suppliers[i].customer_Address;
+        this.receiptService.getProductByCustomerId(selectedValue).subscribe(next => {
+          this.productDTOs = next;
+          console.log(this.productDTOs);
+        });
       }
+    }
     this.listProduct = [];
     this.listReceiptDetailDTO = [];
-    }
+  }
 
   addProduct(productId: string, quantity: string) {
-      const productDTO = this.receiptService.checkProduct(this.listProduct, + productId);
-      if (productId === '' || quantity === '' ) {
-        Swal.fire({
-          position: 'center',
-          icon: 'warning',
-          title: 'Bạn cần nhập đủ tên vật tư và số lượng',
-          showConfirmButton: false,
-          timer: 2000
-        });
-      } else  if (+quantity <= 0) {
-        Swal.fire({
-          position: 'center',
-          icon: 'warning',
-          title: 'Lưu ý số lượng không được bé hơn hoặc bằng 0',
-          showConfirmButton: false,
-          timer: 2000
-        });
-      } else if (productDTO != null) {
-        Swal.fire({
-          title: 'Vật tư này đã được thêm vào danh sách?',
-          text: 'Bạn có muốn cập nhật lại số lượng vật tư này không',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Cập nhật'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            productDTO.product_Quantity = +quantity;
-            Swal.fire(
-              'Success!',
-              'Cập nhật vật tư thành công.',
-              'success'
-            );
-          }
-        });
-      } else {
-        this.receiptService.findProductDTOByProductId(+productId).subscribe(next => {
-          next.product_Quantity = + quantity;
-          this.listReceiptDetailDTO.push(new ReceiptDetailDTO(+productId, +quantity));
-          this.listProduct.push(next);
-          console.log(this.listReceiptDetailDTO);
-        });
-      }
+    const productDTO = this.receiptService.checkProduct(this.listProduct, +productId);
+    if (productId === '' || quantity === '') {
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'Bạn cần nhập đủ tên vật tư và số lượng',
+        showConfirmButton: false,
+        timer: 2000
+      });
+    } else if (+quantity <= 0) {
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'Lưu ý số lượng không được bé hơn hoặc bằng 0',
+        showConfirmButton: false,
+        timer: 2000
+      });
+    } else if (productDTO != null) {
+      Swal.fire({
+        title: 'Vật tư này đã được thêm vào danh sách?',
+        text: 'Bạn có muốn cập nhật lại số lượng vật tư này không',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Cập nhật'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          productDTO.product_Quantity = +quantity;
+          Swal.fire(
+            'Success!',
+            'Cập nhật vật tư thành công.',
+            'success'
+          );
+        }
+      });
+    } else {
+      this.receiptService.findProductDTOByProductId(+productId).subscribe(next => {
+        next.product_Quantity = +quantity;
+        this.listReceiptDetailDTO.push(new ReceiptDetailDTO(+productId, +quantity));
+        this.listProduct.push(next);
+        console.log(this.listReceiptDetailDTO);
+      });
+    }
   }
 
   createReceipt() {
-      const receipt = this.formReceipt.value;
-      this.receiptService.findAllReceipt().subscribe(next => {
+    const receipt = this.formReceipt.value;
+    this.receiptService.findAllReceipt().subscribe(next => {
       this.receipts = next;
       if (this.formReceipt.invalid) {
-          Swal.fire({
-            position: 'center',
-            icon: 'warning',
-            title: 'Bạn cần nhập đủ tất cả các thông tin!',
-            showConfirmButton: false,
-            timer: 1500
-          });
-        } else if (this.listProduct.length === 0) {
-          Swal.fire({
-            position: 'center',
-            icon: 'warning',
-            title: 'Danh sách vật tư trống. Xin mời thêm danh sách vật tư!',
-            showConfirmButton: false,
-            timer: 1500
-          });
-        } else if (this.receiptService.checkInvoiceCode(this.receipts, receipt.invoiceCode ) != null) {
-          Swal.fire({
-            position: 'center',
-            icon: 'warning',
-            title: 'Mã hóa đơn đã tồn tại vui lòng kiểm tra lại!',
-            showConfirmButton: false,
-            timer: 1500
-          });
-        } else {
-          receipt.receiptDetailDTOS = [];
-          // tslint:disable-next-line:prefer-for-of
-          for (let i = 0 ; i < this.listReceiptDetailDTO.length ; i++ ) {
-            receipt.receiptDetailDTOS.push(this.listReceiptDetailDTO[i]);
-          }
-          this.receiptService.saveInvoice(receipt).subscribe();
-          Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Lưu hóa đơn thành công',
-            showConfirmButton: false,
-            timer: 1500
-          });
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Bạn cần nhập đủ tất cả các thông tin!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      } else if (this.listProduct.length === 0) {
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Danh sách vật tư trống. Xin mời thêm danh sách vật tư!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      } else if (this.receiptService.checkInvoiceCode(this.receipts, receipt.invoiceCode) != null) {
+        Swal.fire({
+          position: 'center',
+          icon: 'warning',
+          title: 'Mã hóa đơn đã tồn tại vui lòng kiểm tra lại!',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      } else {
+        receipt.receiptDetailDTOS = [];
+        // tslint:disable-next-line:prefer-for-of
+        for (let i = 0; i < this.listReceiptDetailDTO.length; i++) {
+          receipt.receiptDetailDTOS.push(this.listReceiptDetailDTO[i]);
         }
+        this.receiptService.saveInvoice(receipt).subscribe();
+        Swal.fire({
+          position: 'center',
+          icon: 'success',
+          title: 'Lưu hóa đơn thành công',
+          showConfirmButton: false,
+          timer: 1500
+        });
+      }
     });
   }
 
@@ -190,18 +190,19 @@ export class ReceiptListComponent implements OnInit {
   }
 
   selectInvoiceCode(value: string) {
-      this.receiptService.getReceiptByInvoiceCode(value).subscribe(next => {
-        this.receipt = next;
-        this.totalAmount = this.receiptService.totalAmount(this.listProduct);
-      });
+    this.receiptService.getReceiptByInvoiceCode(value).subscribe(next => {
+      this.receipt = next;
+      this.totalAmount = this.receiptService.totalAmount(this.listProduct);
+    });
   }
+
   printPDF() {
     const doc = new jsPDF();
     const pageWidth = doc.internal.pageSize.getWidth();
     const pageHeight = doc.internal.pageSize.getHeight();
 
     // Increase the height of the canvas
-    html2canvas(this.htmlContent.nativeElement, { windowHeight: pageHeight }).then((canvas) => {
+    html2canvas(this.htmlContent.nativeElement, {windowHeight: pageHeight}).then((canvas) => {
       const contentDataURL = canvas.toDataURL('image/png');
       doc.addImage(contentDataURL, 'PNG', 5, 0, pageWidth - 10, 0);
 
@@ -220,6 +221,7 @@ export class ReceiptListComponent implements OnInit {
       doc.save('file.pdf');
     });
   }
+
   // checkInvoiceCode(control: AbstractControl): ValidationErrors | null {
   //   debugger
   //   const invoiceCode = control.value;

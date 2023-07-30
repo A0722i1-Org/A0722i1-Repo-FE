@@ -43,6 +43,7 @@ export class CustomerListComponent implements OnInit {
     this.customerService.getAllCustomerAndSearch(this.keyword).subscribe(customers => {
       if (customers != null) {
         this.customers = customers.content;
+        console.log(customers.content);
         this.totalPage = customers.totalPages;
         this.currentPage = customers.number;
         this.msg = false;
