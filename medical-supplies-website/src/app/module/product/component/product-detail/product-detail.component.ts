@@ -4,6 +4,7 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Product} from '../../model/Product';
 import Swal from 'sweetalert2';
+import {TokenStorageService} from '../../../security/service/token-storage.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -27,16 +28,19 @@ export class ProductDetailComponent implements OnInit {
   };
   productDetail: FormGroup;
   quantity = 1;
+  role: string;
 
   @ViewChild('quantityInput', {static: true}) quantityInput: ElementRef<HTMLInputElement>;
 
   constructor(private productService: ProductService,
               private activatedRoute: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private tokenStorageService: TokenStorageService) {
   }
 
   ngOnInit(): void {
     this.getAll();
+    this.role = this.tokenStorageService.getRole();
   }
 
   getAll() {
