@@ -59,10 +59,10 @@ export class EmployeeService {
     return this.http.get('http://localhost:8080/api/v1/position', {headers});
   }
 
-  saveEmployee(employeeInfor: EmployeeInfo): Observable<EmployeeInfo> {
+  saveEmployee(employeeInfo: EmployeeInfo): Observable<EmployeeInfo> {
     const token = this.tokenStorageService.getToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post<EmployeeInfo>('http://localhost:8080/api/v1/employee', employeeInfor, {headers});
+    return this.http.post<EmployeeInfo>('http://localhost:8080/api/v1/employee', employeeInfo, {headers});
   }
 
   updateEmployee(employeeInfo: EmployeeInfo, id: number): Observable<any> {

@@ -5,6 +5,7 @@ export interface Account {
   username?: string;
   encryptPassword?: string;
   email?: string;
+  roles?: Role[];
   role?: Role;
   isEnable?: boolean;
 }

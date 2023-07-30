@@ -63,7 +63,7 @@
         </div>
 
         <div class="form-group col-md-6">
-          <label for="chucVu" class="form-label"  class="form-label">Chức vụ</label><span>*</span>
+          <label for="chucVu"  class="form-label">Chức vụ</label><span>*</span>
           <select formControlName = "position" id="chucVu" class="form-select">
             <option *ngFor="let position of positions" [ngValue]="position">{{position.positionName}}</option>
           </select>

@@ -7,7 +7,8 @@ import Swal from 'sweetalert2';
 const urlUsers: string[] = ['/carts', '/customers/detail'];
 const urlSales: string[] = [
   '/shipments/shipment',
-  '/employees/detail'
+  '/employees/detail',
+  '/products/detail'
 ];
 const urlAccountants: string[] = [
   '/shipments/shipment',
@@ -15,7 +16,9 @@ const urlAccountants: string[] = [
   '/receipts',
   '/employees/detail',
   '/customer/detail',
-  '/supplies'
+  '/supplies',
+  '/products/detail',
+  '/customers'
 ];
 
 @Injectable({

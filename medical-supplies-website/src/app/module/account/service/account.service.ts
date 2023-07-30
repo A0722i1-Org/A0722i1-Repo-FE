@@ -28,5 +28,4 @@ export class AccountService {
     const url = `${this._API_URL}/roles`;
     return this.httpClient.get<Role[]>(url, {headers});
   }
-
 }

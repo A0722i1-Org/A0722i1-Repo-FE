@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Account} from '../../model/Account';
 import {AccountService} from '../../service/account.service';
 import {Role} from '../../model/Role';
@@ -44,27 +44,27 @@ export class AddAccountComponent implements OnInit {
   }
 
   submitAddAccount(): void {
-    console.log(this.accountForm.value);
     if (this.accountForm.valid) {
       const accountData: Account = {
         username: this.accountForm.get('username').value,
         encryptPassword: this.accountForm.get('encryptPassword').value,
         email: this.accountForm.get('email').value,
-        role: this.accountForm.get('role').value.roleId,
+        role: this.accountForm.get('role').value
       };
       const roleId: number = this.accountForm.get('role').value.roleId;
+
       this.accountService.addAccount(accountData, roleId).subscribe(
         (data) => {
+          localStorage.setItem('tempAccount', JSON.stringify(data));
           this.accountForm.reset();
+          this.router.navigateByUrl('/employees/create');
           // Handle any additional actions or navigation here.
-          Swal.fire({
-            icon: 'success',
-            title: 'Thành công!',
-            text: 'Bạn đã thêm tài khoản cho nhân viên thành công!',
-          });
-          this.router.navigateByUrl('');
-        },
-        (error) => {
+          // Swal.fire({
+          //   icon: 'success',
+          //   title: 'Thành công!',
+          //   text: 'Bạn đã thêm tài khoản cho nhân viên thành công!',
+          // });
+        }, (error) => {
           console.log('Error adding account:', error);
           Swal.fire({
             icon: 'error',
@@ -85,5 +85,4 @@ export class AddAccountComponent implements OnInit {
   resetForm(): void {
     this.accountForm.reset();
   }
-
 }

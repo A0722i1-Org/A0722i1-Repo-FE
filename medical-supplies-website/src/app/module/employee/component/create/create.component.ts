@@ -4,12 +4,12 @@ import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/form
 import {EmployeeInfo} from '../../model/EmployeeInfo';
 import {Router} from '@angular/router';
 import {AngularFireStorage} from '@angular/fire/storage';
-import {Title} from '@angular/platform-browser';
 import {formatDate} from '@angular/common';
 import {Employee} from '../../model/Employee';
 import {finalize} from 'rxjs/operators';
 import {EmployeeService} from '../../service/employee.service';
 import Swal from 'sweetalert2';
+import {Account} from '../../../account/model/Account';
 
 @Component({
   selector: 'app-create',
@@ -19,29 +19,46 @@ import Swal from 'sweetalert2';
 export class CreateComponent {
   positions: Position[] = [];
   employeeCreateForm: FormGroup;
-  employeeCreate: EmployeeInfo;
+  employeeCreate: EmployeeInfo = {};
   inputImage: any = null;
   maxSize = false;
   employees: Employee[] = [];
   employeeCode: string;
   imgSrc: string;
   inquiredImg = false;
+  account: Account = null;
 
-  constructor(private employeeService: EmployeeService, private router: Router,
-              private storage: AngularFireStorage, private title: Title) {
+  constructor(private employeeService: EmployeeService,
+              private router: Router,
+              private storage: AngularFireStorage) {
+    const tempAccount = localStorage.getItem('tempAccount');
+    if (tempAccount === null) {
+      Swal.fire({
+        icon: 'error',
+        title: 'Lỗi...',
+        text: 'Phải tạo tài khoản mới trước khi thêm nhân viên.',
+        showConfirmButton: false,
+        timer: 1500
+      });
+      this.router.navigateByUrl('/accounts/create');
+    }
+
+    this.account = JSON.parse(tempAccount);
     this.employeeService.getAllPos().subscribe(next => {
       this.positions = next;
-      this.employeeService.getAllEmployee().subscribe(next1 => {
-        this.employees = next1;
-        this.setEmployeeCode();
-      }, error => {
-        console.log(error);
-      }, () => {
-        this.getFormCreate();
-      });
+      this.setPosition();
     }, error => {
       console.log(error);
     }, () => {
+    });
+
+    this.employeeService.getAllEmployee().subscribe(next1 => {
+      this.employees = next1;
+      this.setEmployeeCode();
+    }, error => {
+      console.log(error);
+    }, () => {
+      this.getFormCreate();
     });
   }
 
@@ -51,12 +68,21 @@ export class CreateComponent {
     return this.employeeCode;
   }
 
+  setPosition() {
+    if (this.account.roles[0].roleName === 'ROLE_SALE') {
+      this.employeeCreate.position = this.positions.find(position => position.positionId === 1);
+    } else if (this.account.roles[0].roleName === 'ROLE_ACCOUNTANT') {
+      this.employeeCreate.position = this.positions.find(position => position.positionId === 2);
+    }
+    return this.employeeCreate.position;
+  }
+
   private getFormCreate() {
     this.employeeCreateForm = new FormGroup({
       employeeCode: new FormControl(this.employeeCode),
       employeeName: new FormControl('', [Validators.required, Validators.minLength(5),
         Validators.maxLength(50), Validators.pattern('^\\s*(?:[A-Zà-ỹ][a-zà-ỹ]*(?: [A-Zà-ỹ][a-zà-ỹ]*)*)\\s*$')]),
-      email: new FormControl('', [Validators.required, Validators.minLength(6),
+      email: new FormControl(this.account.email, [Validators.required, Validators.minLength(6),
         Validators.maxLength(50), Validators.pattern('^\\s*[a-zA-Z0-9_.+-]+@gmail.com+\\s*$')]),
       phone: new FormControl('', [Validators.required, Validators.pattern('^\\s*(0)\\d{9}\\s*$')]),
       employeeAddress: new FormControl('', [Validators.required, Validators.maxLength(100)]),
@@ -64,7 +90,7 @@ export class CreateComponent {
       idCard: new FormControl('', [Validators.required, Validators.pattern('^\\s*\\d{12}\\s*$')]),
       dateOfBirth: new FormControl('', [Validators.required, this.isOver18, this.isOver50]),
       employeeImg: new FormControl(''),
-      position: new FormControl('', [Validators.required]),
+      position: new FormControl(this.employeeCreate.position, [Validators.required]),
     });
   }
 
@@ -77,27 +103,32 @@ export class CreateComponent {
           finalize(() => {
             fileRef.getDownloadURL().subscribe(url => {
               this.employeeCreateForm.patchValue({employeeImg: url});
-              this.employeeService.saveEmployee(this.employeeCreateForm.value).subscribe(next => {
+              this.employeeCreate = this.employeeCreateForm.value;
+              this.employeeCreate.account = this.account;
+              this.employeeService.saveEmployee(this.employeeCreate).subscribe(next => {
+                this.router.navigateByUrl('/employees');
+                const Toast = Swal.mixin({
+                  toast: true,
+                  position: 'top-end',
+                  showConfirmButton: false,
+                  timer: 1500,
+                  timerProgressBar: true,
+                  didOpen: (toast) => {
+                    toast.addEventListener('mouseenter', Swal.stopTimer);
+                    toast.addEventListener('mouseleave', Swal.resumeTimer);
+                  }
+                });
+                Toast.fire({
+                  icon: 'success',
+                  title: 'Thêm nhân viên thành công! Vui lòng kiểm tra trong danh sách'
+                });
+                localStorage.removeItem('tempAccount');
               });
             });
           })
         ).subscribe(next => {
-          this.router.navigateByUrl('employees');
-          const Toast = Swal.mixin({
-            toast: true,
-            position: 'top-end',
-            showConfirmButton: false,
-            timer: 1500,
-            timerProgressBar: true,
-            didOpen: (toast) => {
-              toast.addEventListener('mouseenter', Swal.stopTimer);
-              toast.addEventListener('mouseleave', Swal.resumeTimer);
-            }
-          });
-          Toast.fire({
-            icon: 'success',
-            title: 'Thêm nhân viên thành công! Vui lòng kiểm tra trong danh sách'
-          });
+        }, error => {
+        }, () => {
         });
       } else {
         this.inquiredImg = true;
