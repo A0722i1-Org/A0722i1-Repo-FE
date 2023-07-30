@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-
+import {CustomerTypeService} from '../../service/customer-type.service';
 import {CustomerService} from '../../service/customer.service';
 import {Router} from '@angular/router';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
@@ -7,8 +7,7 @@ import {CustomerType} from '../../model/CustomerType';
 import {formatDate} from '@angular/common';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
-import Swal from 'sweetalert2';
-import {CustomerTypeService} from '../../service/customer-type.service';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-customer-create',
@@ -17,8 +16,8 @@ import {CustomerTypeService} from '../../service/customer-type.service';
 })
 export class CustomerCreateComponent implements OnInit {
   customerFormCreate: FormGroup;
-  customerTypes: CustomerType [];
-  inputImage: any;
+  customerTypes: CustomerType [] = [];
+   inputImage: any;
   imgSrc: any;
   maxSize: any;
 
@@ -29,12 +28,12 @@ export class CustomerCreateComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.customerTypeService.getAllCustomerType().subscribe(data => {
+    this.customerTypeService.getAllCustomerType().subscribe((data) => {
       this.customerTypes = data;
     });
     this.customerFormCreate = new FormGroup({
       customerId: new FormControl(),
-      customerCode: new FormControl('', [Validators.required, Validators.pattern('^KH-\\d{3}$')]),
+      customerCode : new FormControl('', [Validators.required, Validators.pattern('^KH-\\d{4}$')]),
       name: new FormControl('', [Validators.required, Validators.maxLength(50),
         Validators.minLength(3), Validators.pattern('^(?:[A-Z][a-zÀ-ỹ]*(?: [A-Z][a-zÀ-ỹ]*)+)$')]),
       phone: new FormControl('', [Validators.required, Validators.pattern('^(09|08)\\d{8}$')]),
@@ -42,7 +41,7 @@ export class CustomerCreateComponent implements OnInit {
       dateOfBirth: new FormControl('', Validators.required),
       idCard: new FormControl('', [Validators.required, Validators.pattern('^\\d{12}$')]),
       email: new FormControl('', [Validators.required, Validators.minLength(6),
-        Validators.maxLength(30), Validators.pattern('^[a-zA-Z0-9_.+-]+@gmail.com+$')]),
+        Validators.maxLength(30),  Validators.pattern('^[a-zA-Z0-9_.+-]+@gmail.com+$')]),
       customerAddress: new FormControl('', [Validators.required, Validators.maxLength(100),
         Validators.minLength(10), Validators.pattern('^[^!@#$%^&*()_+<>?\'\"{}\\`~|/\\\\]+$')]),
       customerImg: new FormControl('', Validators.required),
@@ -51,6 +50,7 @@ export class CustomerCreateComponent implements OnInit {
       cart: new FormControl(),
       enable: new FormControl(),
     });
+    console.log(this.customerFormCreate.value);
   }
 
   createCustomer() {
@@ -73,9 +73,11 @@ export class CustomerCreateComponent implements OnInit {
         Swal.fire('Thành công',
           'Đã thêm khách hàng thành công',
           'success');
-        this.router.navigateByUrl('/customers');
+        this.router.navigateByUrl('customers/list');
       }
     );
+    console.log(this.customerFormCreate.value);
+
   }
 
   selectImg(event: any) {

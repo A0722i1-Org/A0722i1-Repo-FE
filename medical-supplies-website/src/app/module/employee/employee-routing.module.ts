@@ -5,6 +5,7 @@ import {EmployeeUserDetailComponent} from './component/employee-user-detail/empl
 import { CreateComponent } from './component/create/create.component';
 import { EditComponent } from './component/edit/edit.component';
 import {EmployeeUserUpdateComponent} from './component/employee-user-update/employee-user-update.component';
+import {ModalChangePasswordComponent} from './component/modal-change-password/modal-change-password.component';
 
 
 
@@ -12,6 +13,7 @@ import {EmployeeUserUpdateComponent} from './component/employee-user-update/empl
 const routes: Routes = [
   { path: '', component: ListEmployeeComponent},
   { path: 'user-detail-update', component: EmployeeUserUpdateComponent},
+  { path: 'user-change-password', component: ModalChangePasswordComponent},
   {path: 'detail', component: EmployeeUserDetailComponent},
   {
     path: 'create', component: CreateComponent

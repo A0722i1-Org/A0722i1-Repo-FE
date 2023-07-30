@@ -6,7 +6,7 @@ import {CustomerService} from '../../service/customer.service';
 import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {finalize} from 'rxjs/operators';
 import {formatDate} from '@angular/common';
-import {AngularFireStorage} from '@angular/fire/storage';
+import {AngularFireStorage} from "@angular/fire/storage";
 
 @Component({
   selector: 'app-customer-edit',
@@ -98,7 +98,7 @@ export class CustomerEditComponent implements OnInit {
                   },
                   () => {
                     // this.toast.success("Chỉnh sửa khách hàng thành công");
-                    this.router.navigateByUrl('/customers');
+                    this.router.navigateByUrl('customer/list');
                   }
                 );
               });
