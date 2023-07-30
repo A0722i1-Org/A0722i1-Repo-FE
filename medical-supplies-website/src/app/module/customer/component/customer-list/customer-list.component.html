@@ -1,9 +1,9 @@
 <div class="container col-md-12">
-  <h1 style="color:#55efc4;">Danh sách khách hàng</h1>
+  <h1 style="color:#55efc4;">Danh sách Khách hàng</h1>
   <div style="display: flex; justify-content: center;
   align-items: center; ">
     <button style="background: #55efc4 ; color: white;border: none; margin-right: 20px; " type="button"
-            class="btn btn-success" (click)="createCustomer()">Thêm mới khách hàng
+            class="btn btn-success" (click)="createCustomer()">Thêm mới
     </button>
   </div>
   <div style="text-align: right">
@@ -24,7 +24,7 @@
         <th scope="col" style="color: white">Địa Chỉ</th>
         <th scope="col" style="color: white">CCCD</th>
         <th scope="col" style="color: white">Số Điện Thoại</th>
-        <th scope="col" style="color: white">Nhà Cung Cấp</th>
+        <th scope="col" style="color: white">Loại khách hàng</th>
         <th scope="col" style="color: white"></th>
         <th scope="col" style="color: white"></th>
       </tr>
@@ -74,8 +74,9 @@
         <p>Bạn Có Muốn Xóa Khách hàng <span class="fw-bold">{{customer?.name}}</span> không?</p>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Trở về</button>
-        <button type="button" class="btn btn-primary" (click)="deleteCustomer()" data-bs-dismiss="modal">Xóa</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Huỷ thao tác</button>
+        <button type="button" class="btn btn-primary" (click)="deleteCustomer()" data-bs-dismiss="modal">Xác nhận
+        </button>
       </div>
     </div>
   </div>

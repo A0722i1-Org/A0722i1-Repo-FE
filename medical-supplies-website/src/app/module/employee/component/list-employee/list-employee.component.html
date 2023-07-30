@@ -95,7 +95,7 @@
         <p *ngIf="employee?.gender==false" class="object-address">Giới tính: Nữ </p>
         <p *ngIf="employee?.gender==true" class="object-address">Giới tính: Nam </p>
         <p class="object-address">Ngày sinh: {{employee?.dateOfBirth|date:'dd/MM/yyyy'}}</p>
-        <p class="object-address">Lương: {{employee?.salary|currency}}</p>
+        <p class="object-address">Lương: {{employee?.salary|currency:'VND'}}</p>
         <p class="object-address">Tên tài khoản: {{employee?.account?.username}}</p>
         <p class="object-address">Quê quán: {{employee?.employeeAddress}}</p>
         <p class="object-address">Số điện thoại: {{employee?.phone}}</p>
