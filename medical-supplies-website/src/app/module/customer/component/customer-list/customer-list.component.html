@@ -37,7 +37,7 @@
         <td>{{customer?.customerAddress}}</td>
         <td>{{customer?.idCard}}</td>
         <td>{{customer?.phone}}</td>
-        <td>{{customer?.customerType.customerTypeName}}</td>
+        <td>{{customer?.customerType?.customerTypeName}}</td>
         <td class="d-flex align-items-center justify-content-center">
           <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modelId"
                   (click)="getCustomerId(customer.customerId)">
