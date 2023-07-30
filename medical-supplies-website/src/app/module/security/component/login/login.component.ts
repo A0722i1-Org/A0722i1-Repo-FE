@@ -1,12 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthService} from '../../service/auth.service';
 import {TokenStorageService} from '../../service/token-storage.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {ShareService} from '../../service/share.service';
 import {tap} from 'rxjs/operators';
-import Swal from 'sweetalert2';
-import {validate} from 'codelyzer/walkerFactory/walkerFn';
 
 @Component({
   selector: 'app-login',
