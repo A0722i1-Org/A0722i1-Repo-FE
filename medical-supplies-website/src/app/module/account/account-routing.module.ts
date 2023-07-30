@@ -4,7 +4,7 @@ import {AddAccountComponent} from './component/add-account/add-account.component
 
 
 const routes: Routes = [
-  {path: '', component: AddAccountComponent}
+  {path: 'create', component: AddAccountComponent}
 ];
 
 @NgModule({

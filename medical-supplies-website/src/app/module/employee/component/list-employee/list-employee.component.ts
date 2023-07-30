@@ -43,8 +43,6 @@ export class ListEmployeeComponent implements OnInit {
   getAllPosition() {
     this.employeeService.getAllPos().subscribe(next => {
       this.positions = next;
-
-
     });
   }
 
@@ -57,9 +55,6 @@ export class ListEmployeeComponent implements OnInit {
   getEmployee(id_employee: number) {
     this.employeeService.getEmployeeById(id_employee).subscribe(next => {
       this.employee = next;
-      this.employee.position = next.position
-      this.employee.account =next.account
-      this.employee.salary = next.salary
       this.openEmployeeModal();
     });
 

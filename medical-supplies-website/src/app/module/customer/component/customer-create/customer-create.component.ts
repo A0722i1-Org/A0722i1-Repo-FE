@@ -73,7 +73,7 @@ export class CustomerCreateComponent implements OnInit {
         Swal.fire('Thành công',
           'Đã thêm khách hàng thành công',
           'success');
-        this.router.navigateByUrl('customers/list');
+        this.router.navigateByUrl('customers');
       }
     );
     console.log(this.customerFormCreate.value);
