@@ -4,7 +4,6 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Product} from '../../model/Product';
 import Swal from 'sweetalert2';
-import {TokenStorageService} from '../../../security/service/token-storage.service';
 
 @Component({
   selector: 'app-product-detail',
@@ -14,36 +13,39 @@ import {TokenStorageService} from '../../../security/service/token-storage.servi
 export class ProductDetailComponent implements OnInit {
 
   selectedImage: string;
+  images: string[] = [
+    '../../../../../assets/images/khautrang.png',
+    '../../../../../assets/images/khautrang2.png',
+    '../../../../../assets/images/khautrang3.png',
+    '../../../../../assets/images/khautrang4.png'
+  ];
+
   id: number;
   products: Product[] = [];
   productViewDetail: Product = {
     productInfo: {}
   };
   productDetail: FormGroup;
-  quantity = 0;
-  role: string;
-  maxQuantity = 0;
+  quantity = 1;
 
   @ViewChild('quantityInput', {static: true}) quantityInput: ElementRef<HTMLInputElement>;
 
   constructor(private productService: ProductService,
               private activatedRoute: ActivatedRoute,
-              private router: Router,
-              private tokenStorageService: TokenStorageService) {
+              private router: Router) {
   }
 
   ngOnInit(): void {
     this.getAll();
-    this.role = this.tokenStorageService.getRole();
   }
 
   getAll() {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = +paramMap.get('id');
       this.productService.findByIdProductDetail(this.id).subscribe((productData) => {
+        console.log(productData);
         this.productViewDetail = productData;
-        this.quantity = this.productViewDetail.productQuantity;
-        this.maxQuantity = this.productViewDetail.productQuantity;
+        this.quantity = this.productViewDetail.productQuantity || 1;
         this.quantityInput.nativeElement.value = this.quantity.toString();
         this.initProductDetailForm(productData);
       });
@@ -66,7 +68,8 @@ export class ProductDetailComponent implements OnInit {
   }
 
   increaseQuantity(): void {
-    if (this.quantity < this.maxQuantity) {
+    const maxValue = 100;
+    if (this.quantity < maxValue) {
       this.quantity++;
       this.quantityInput.nativeElement.value = this.quantity.toString();
     }

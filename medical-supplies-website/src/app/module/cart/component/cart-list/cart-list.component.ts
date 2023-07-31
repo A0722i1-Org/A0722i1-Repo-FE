@@ -107,15 +107,14 @@ export class CartListComponent implements OnInit {
 
   save() {
     this.uncheckAll();
-    this.cartService.updateCart(this.prepareCartForSendingToBackend()).subscribe(next => {
+    this.cartService.updateCart(this.prepareCartForSendingToBackend()).subscribe(next =>
       Swal.fire({
         title: 'Đã huỷ!',
         text: 'Đã huỷ thao tác, quay về trang chính',
         icon: 'info',
         confirmButtonText: 'Cool'
-      });
-      this.router.navigateByUrl('/');
-    });
+      }));
+    this.router.navigateByUrl('/');
   }
 
   checkout() {
