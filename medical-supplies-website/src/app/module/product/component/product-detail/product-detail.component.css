@@ -72,12 +72,11 @@
 .quantity-input {
   display: flex;
   align-items: center;
-  width: 130px;
 }
 
 .quantity-input-field {
   text-align: center;
-  width: 50px;
+  width: 150px;
 }
 
 .decrease-btn,

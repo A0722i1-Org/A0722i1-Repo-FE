@@ -4,7 +4,7 @@ import {Observable} from 'rxjs';
 import {TokenStorageService} from './module/security/service/token-storage.service';
 import Swal from 'sweetalert2';
 
-const urlUsers: string[] = ['/carts', '/customers/detail'];
+const urlUsers: string[] = ['/carts', '/customers/detail', '/products/detail'];
 const urlSales: string[] = [
   '/shipments/shipment',
   '/employees/detail',
@@ -36,7 +36,7 @@ export class AuthGuard implements CanActivate {
     const token = this.tokenStorageService.getToken();
     if (token !== null) {
       const userRoles = this.tokenStorageService.getRole();
-      if (userRoles === 'ROLE_ADMIN') {
+      if (userRoles === 'ROLE_ADMIN' && !state.url.includes('/carts')) {
         return true;
       } else if (userRoles === 'ROLE_USER' && urlUsers.indexOf(state.url) !== -1) {
         return true;
