@@ -9,6 +9,9 @@ import {CreateComponent} from './create/create.component';
 import {EditComponent} from './edit/edit.component';
 import {ModalChangePasswordComponent} from './component/modal-change-password/modal-change-password.component';
 import {EmployeeUserUpdateComponent} from './component/employee-user-update/employee-user-update.component';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import localeVND from '@angular/common/locales/vi';
 
 
 @NgModule({
@@ -25,4 +28,7 @@ import {EmployeeUserUpdateComponent} from './component/employee-user-update/empl
 })
 
 export class EmployeeModule {
+  constructor() {
+    registerLocaleData(localeVND, 'vi');
+  }
 }

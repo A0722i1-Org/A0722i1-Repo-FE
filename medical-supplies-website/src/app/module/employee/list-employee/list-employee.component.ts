@@ -5,6 +5,7 @@ import {Position} from '../model/Position';
 import Swal from 'sweetalert2';
 
 
+
 @Component({
   selector: 'app-list-employee',
   templateUrl: './list-employee.component.html',
