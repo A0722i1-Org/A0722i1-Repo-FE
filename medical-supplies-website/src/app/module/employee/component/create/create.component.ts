@@ -44,6 +44,7 @@ export class CreateComponent {
     }
 
     this.account = JSON.parse(tempAccount);
+    console.log(this.account);
     this.employeeService.getAllPos().subscribe(next => {
       this.positions = next;
       this.setPosition();
@@ -74,7 +75,12 @@ export class CreateComponent {
     } else if (this.account.roles[0].roleName === 'ROLE_ACCOUNTANT') {
       this.employeeCreate.position = this.positions.find(position => position.positionId === 2);
     }
+    console.log(this.employeeCreate.position);
     return this.employeeCreate.position;
+  }
+
+  compareFn(c1: any, c2: any): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
   }
 
   private getFormCreate() {

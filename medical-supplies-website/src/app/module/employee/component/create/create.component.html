@@ -64,7 +64,7 @@
 
         <div class="form-group col-md-6">
           <label for="chucVu"  class="form-label">Chức vụ</label><span>*</span>
-          <select formControlName = "position" id="chucVu" class="form-select">
+          <select formControlName = "position" id="chucVu" class="form-select" [compareWith]="compareFn">
             <option *ngFor="let position of positions" [ngValue]="position">{{position.positionName}}</option>
           </select>
           <span *ngIf="employeeCreateForm.controls.position.hasError('required')&&employeeCreateForm.controls.position.dirty">(Vui lòng chọn chức vụ)</span>
