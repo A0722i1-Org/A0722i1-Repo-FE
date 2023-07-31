@@ -21,7 +21,7 @@
           <td>{{p.product_Name}}</td>
           <td><input #quantityMax
                      type="number" style="width: 70px" [(ngModel)]="p.product_Quantity" ></td>
-          <td>{{p.product_Quantity*p.product_Price}}</td>
+          <td>{{p.product_Quantity*p.product_Price | currency: "đ"}}</td>
           <td><input type="text" class="form-control" [(ngModel)]="p.note" ></td>
           <td style="display: flex;justify-content: center;align-items: center;"><input type="checkbox" [(ngModel)]="p.select" (change)="chonChekBox(p)"/></td>
         </tr>
