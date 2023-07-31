@@ -1,9 +1,9 @@
 <div class="container col-md-12">
-  <h1 style="color:#55efc4;">Danh sách sản phẩm</h1>
+  <h1 style="color:#55efc4;">Danh sách khách hàng</h1>
   <div style="display: flex; justify-content: center;
   align-items: center; ">
     <button style="background: #55efc4 ; color: white;border: none; margin-right: 20px; " type="button"
-            class="btn btn-success">Thêm mới sản phẩm
+            class="btn btn-success" (click)="createCustomer()">Thêm mới
     </button>
   </div>
   <div style="text-align: right">
@@ -15,6 +15,7 @@
   <div>
     <br>
     <table class="table table-bordered">
+      <caption class="d-none">Danh sách khách hàng</caption>
       <thead>
       <tr>
         <th scope="col" style="color: white">Mã KH</th>
@@ -23,7 +24,7 @@
         <th scope="col" style="color: white">Địa Chỉ</th>
         <th scope="col" style="color: white">CCCD</th>
         <th scope="col" style="color: white">Số Điện Thoại</th>
-        <th scope="col" style="color: white">Nhà Cung Cấp</th>
+        <th scope="col" style="color: white">Loại khách hàng</th>
         <th scope="col" style="color: white"></th>
         <th scope="col" style="color: white"></th>
       </tr>
@@ -37,7 +38,7 @@
         <td>{{customer?.idCard}}</td>
         <td>{{customer?.phone}}</td>
         <td>{{customer?.customerType.customerTypeName}}</td>
-        <td style="display: flex;justify-content: center; /* Căn giữa theo chiều ngang */ align-items: center; ">
+        <td class="d-flex align-items-center justify-content-center">
           <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modelId"
                   (click)="getCustomerId(customer.customerId)">
             <i class="fa fa-trash-o" aria-hidden="true"></i>
@@ -45,14 +46,14 @@
         </td>
         <td style="text-align: center">
           <button style="background: #55efc4; color: white" type="button" class="btn btn-info"
-                  (click)="getCustomerId(customer.customerId)"
+                  (click)="editCustomer(customer.customerId)"
           ><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
           </button>
         </td>
       </tr>
       </tbody>
     </table>
-   <p style="text-align: center" *ngIf="msg">Không còn Khách Hàng Nào</p>
+    <p style="text-align: center" *ngIf="msg">Không còn Khách Hàng Nào</p>
   </div>
   <div class="pagination">
     <a *ngIf="page !== 1" (click)="previousPage()" class="text1">«</a>
@@ -60,9 +61,6 @@
        *ngFor="let page of totalPages">{{page + 1}}</a>
     <a *ngIf="page < totalPage" (click)="nextPage()" class="text1">»</a>
   </div>
-  <p style="text-align: right">
-    <button class="btn btn-secondary">Trở Về</button>
-  </p>
 </div>
 
 
@@ -73,12 +71,7 @@
         <h4 class="modal-title" id="modelTitleId" style="color: red; text-align: center">Xác nhận xóa</h4>
       </div>
       <div class="modal-body">
-        <h5>Bạn Có Muốn Xóa Khách hàng này không</h5>
-        <table class="table">
-          <td>Tên Khách Hàng</td>
-          <td></td>
-          <td>{{customer?.name}}</td>
-        </table>
+        <p>Bạn Có Muốn Xóa Khách hàng <span class="fw-bold">{{customer?.name}}</span> không?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Trở về</button>

@@ -13,10 +13,14 @@ import {tap} from 'rxjs/operators';
   styleUrls: ['./customer-user-detail.component.css']
 })
 export class CustomerUserDetailComponent implements OnInit {
+  // tslint:disable-next-line:variable-name
   private _customerUserDetail: CustomerUserDetail;
+  // tslint:disable-next-line:variable-name
   private _mainForm: FormGroup;
 
+  // tslint:disable-next-line:variable-name
   constructor(private _customerService: CustomerService,
+              // tslint:disable-next-line:variable-name
               private _router: Router) {
   }
 
@@ -33,7 +37,14 @@ export class CustomerUserDetailComponent implements OnInit {
     this._customerService.getUserDetail().pipe(
       tap(response => {
         if (response.status === 202) {
-          this.handleError('Bạn phải đăng nhập trước khi truy cập vào trang này!', '/login');
+          Swal.fire({
+            position: 'center',
+            icon: 'info',
+            title: 'Bạn phải đăng nhập để sử dụng chức năng này!',
+            showConfirmButton: false,
+            timer: 1500
+          });
+          this._router.navigateByUrl('/login');
         }
       })
     ).subscribe(response => {
@@ -43,27 +54,15 @@ export class CustomerUserDetailComponent implements OnInit {
       }
       this.mainForm.patchValue(this.customerUserDetail);
     }, error => {
-      this.handleError('Bạn không được phép truy cập vào trang web này!');
-    });
-  }
-
-  public showUpdateComponent(): void {
-    this._router.navigateByUrl('/customers/user-detail-update');
-  }
-
-  // Handle Error
-  private handleError(message: string, url?: string): void {
-    Swal.fire({
-      icon: 'error',
-      title: 'Lỗi...',
-      text: message,
-      confirmButtonColor: '#55efc4'
-    });
-    if (url) {
-      this._router.navigateByUrl(url);
-    } else {
+      Swal.fire({
+        position: 'center',
+        icon: 'error',
+        title: 'Bạn không có quyền truy cập chức năng này',
+        showConfirmButton: false,
+        timer: 1500
+      });
       this._router.navigateByUrl('/');
-    }
+    });
   }
 
   // Getters/Setters Begin.

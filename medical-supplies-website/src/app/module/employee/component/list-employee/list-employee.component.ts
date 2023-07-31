@@ -1,7 +1,7 @@
-import {Component, DoCheck, OnChanges, OnInit} from '@angular/core';
-import {EmployeeService} from '../service/employee.service';
-import {Employee} from '../model/Employee';
-import {Position} from '../model/Position';
+import {Component, OnInit} from '@angular/core';
+import {EmployeeService} from '../../service/employee.service';
+import {Employee} from '../../model/Employee';
+import {Position} from '../../model/Position';
 import Swal from 'sweetalert2';
 
 
@@ -43,8 +43,6 @@ export class ListEmployeeComponent implements OnInit {
   getAllPosition() {
     this.employeeService.getAllPos().subscribe(next => {
       this.positions = next;
-
-
     });
   }
 

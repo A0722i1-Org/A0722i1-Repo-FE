@@ -8,7 +8,8 @@ import {CartService} from '../../../cart/service/cart.service';
 import {Cart} from '../../../cart/model/Cart';
 import {CartDetail} from '../../../cart/model/CartDetail';
 import Swal from 'sweetalert2';
-import {ActivatedRoute, Router} from '@angular/router';
+import {ActivatedRoute} from '@angular/router';
+import {TokenStorageService} from '../../../security/service/token-storage.service';
 
 @Component({
   selector: 'app-home',
@@ -17,7 +18,6 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class HomeComponent implements OnInit {
   productsMain: ProductMain[];
-  // currentPage = 1;
   rfSearch: FormGroup;
   categories: CategoryMain[];
   cart?: Cart;
@@ -27,11 +27,14 @@ export class HomeComponent implements OnInit {
   totalPages: number[] = [];
   totalPage = 0;
   currentPage = 0;
+  role = '';
 
 
   constructor(private homeService: HomeService,
               private categoryHomeService: CategoryHomeService,
-              private cartService: CartService, private route: ActivatedRoute) {
+              private cartService: CartService,
+              private route: ActivatedRoute,
+              private tokenStorageService: TokenStorageService) {
     this.route.queryParams.subscribe(param => {
       this.page = param.page || 1;
       this.currentPage = param.page || 1;
@@ -51,21 +54,22 @@ export class HomeComponent implements OnInit {
       productName: new FormControl(''),
       categoryName: new FormControl(''),
     });
-    this.getCart();
+    if (this.loadRole() === 'ROLE_USER') {
+      this.getCart();
+    }
   }
 
   getAllProduct() {
     this.homeService.findAll().subscribe((products) => {
-        this.productsMain = products.content;
-        this.totalPage = products.totalPages;
-        this.currentPage = products.number;
-        this.totalPages = [];
-        for (let j = 0; j < this.totalPage; j++) {
-          this.totalPages.push(j);
-        }
-        console.log(this.productsMain);
+      this.productsMain = products.content;
+      this.totalPage = products.totalPages;
+      this.currentPage = products.number;
+      this.totalPages = [];
+      for (let j = 0; j < this.totalPage; j++) {
+        this.totalPages.push(j);
       }
-    );
+      this.activeCategories(0);
+    });
   }
 
   getAllCategory() {
@@ -79,6 +83,7 @@ export class HomeComponent implements OnInit {
   }
 
   search() {
+    this.activeCategories(0);
     let keyword = '?';
     const productName = this.rfSearch.value.productName;
     if (productName !== '' && productName != null) {
@@ -95,6 +100,7 @@ export class HomeComponent implements OnInit {
   }
 
   searchCategory(categoryId: number) {
+    this.activeCategories(categoryId);
     this.homeService.searchByCate(categoryId).subscribe(next => {
       if (next != null) {
         this.productsMain = next.content;
@@ -169,17 +175,14 @@ export class HomeComponent implements OnInit {
   previousPage() {
     this.page--;
     if (this.keyword.includes('page')) {
-      console.log('keyword before remove page: ' + this.keyword);
       const pageIndex = this.keyword.indexOf('page=');
       if (pageIndex !== -1) {
         this.keyword = this.keyword.substring(0, pageIndex);
       }
-      console.log('keyword after remove page: ' + this.keyword);
     }
     if (this.page !== 0 && this.page != null) {
       this.keyword += `page=${this.page}`;
     }
-    console.log('previous: ' + this.keyword);
     this.homeService.searchByName(this.keyword).subscribe(next => {
       this.productsMain = next.content;
       this.currentPage = next.number;
@@ -204,5 +207,29 @@ export class HomeComponent implements OnInit {
       this.productsMain = next.content;
       this.currentPage = next.number;
     });
+  }
+
+  /*
+  * Author: NhatLH
+  * Created: 2023-07-27
+  * */
+  loadRole(): string {
+    if (this.tokenStorageService.getToken()) {
+      this.role = this.tokenStorageService.getRole();
+    }
+    return this.role;
+  }
+
+  activeCategories(categoryId: number) {
+    const categoryElements = document.getElementsByClassName('category__item');
+    const categories = Array.from(categoryElements);
+    if (categories.length > 0) {
+      for (const element of categories) {
+        if (element.className.includes('active')) {
+          element.classList.remove('active');
+        }
+      }
+    }
+    document.getElementById(`category__item-${categoryId}`).classList.add('active');
   }
 }

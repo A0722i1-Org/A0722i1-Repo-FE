@@ -5,7 +5,7 @@ import { CustomerCreateComponent } from './component/customer-create/customer-cr
 import { CustomerEditComponent } from './component/customer-edit/customer-edit.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { CustomerUserDetailComponent } from './component/customer-user-detail/customer-user-detail.component';
-import {CustomerListComponent} from "./customer-list/customer-list.component";
+import { CustomerListComponent } from './component/customer-list/customer-list.component';
 
 
 @NgModule({

@@ -4,7 +4,7 @@ import {Customer} from '../model/Customer';
 import {Observable} from 'rxjs';
 import {CustomerUserDetail} from '../model/CustomerUserDetail';
 import {TokenStorageService} from '../../security/service/token-storage.service';
-import {CustomerType} from "../model/CustomerType";
+import {CustomerType} from '../model/CustomerType';
 
 
 @Injectable({

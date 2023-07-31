@@ -1,4 +1,5 @@
-import {Position} from '../model/Position';
+import {Position} from './Position';
+import {Account} from '../../account/model/Account';
 
 export interface EmployeeInfo {
   employeeCode?: string;
@@ -10,5 +11,6 @@ export interface EmployeeInfo {
   idCard?: string;
   dateOfBirth?: Date;
   employeeImg?: string;
-  position?: Position;
+  position?: Position | string;
+  account?: Account;
 }

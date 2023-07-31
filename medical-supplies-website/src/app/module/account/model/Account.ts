@@ -6,5 +6,6 @@ export interface Account {
   encryptPassword?: string;
   email?: string;
   roles?: Role[];
-  enable?: boolean;
+  role?: Role;
+  isEnable?: boolean;
 }

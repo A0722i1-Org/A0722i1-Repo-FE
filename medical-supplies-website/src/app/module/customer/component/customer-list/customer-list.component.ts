@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {Customer} from '../model/Customer';
-import {CustomerType} from '../model/CustomerType';
-import {CustomerService} from '../service/customer.service';
+import {Customer} from '../../model/Customer';
+import {CustomerType} from '../../model/CustomerType';
+import {CustomerService} from '../../service/customer.service';
 import Swal from 'sweetalert2';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 
 @Component({
@@ -28,7 +28,7 @@ export class CustomerListComponent implements OnInit {
     this.getAllCustomerType();
   }
 
-  constructor(private customerService: CustomerService, private route: ActivatedRoute) {
+  constructor(private customerService: CustomerService, private route: ActivatedRoute, private router: Router) {
     this.route.queryParams.subscribe(param => {
       this.page = param.page || 1;
       this.currentPage = param.page || 1;
@@ -176,4 +176,11 @@ export class CustomerListComponent implements OnInit {
     });
   }
 
+  createCustomer() {
+    this.router.navigateByUrl('/customers/create');
+  }
+
+  editCustomer(customerId: number) {
+    this.router.navigateByUrl(`/customers/edit/${customerId}`);
+  }
 }

@@ -1,23 +1,38 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {ListEmployeeComponent} from './list-employee/list-employee.component';
+import {ListEmployeeComponent} from './component/list-employee/list-employee.component';
 import {EmployeeUserDetailComponent} from './component/employee-user-detail/employee-user-detail.component';
-import { CreateComponent } from './create/create.component';
-import { EditComponent } from './edit/edit.component';
+import { CreateComponent } from './component/create/create.component';
+import { EditComponent } from './component/edit/edit.component';
 import {EmployeeUserUpdateComponent} from './component/employee-user-update/employee-user-update.component';
+import {ModalChangePasswordComponent} from './component/modal-change-password/modal-change-password.component';
+import {AuthGuard} from "../../auth.guard";
 
 
 
 
 const routes: Routes = [
-  { path: '', component: ListEmployeeComponent},
-  { path: 'user-detail-update', component: EmployeeUserUpdateComponent},
-  {path: 'detail', component: EmployeeUserDetailComponent},
+  { path: '',
+    canActivate: [AuthGuard],
+    component: ListEmployeeComponent},
+  { path: 'user-detail-update',
+    canActivate: [AuthGuard],
+    component: EmployeeUserUpdateComponent},
+  { path: 'user-change-password',
+    canActivate: [AuthGuard],
+    component: ModalChangePasswordComponent},
+  {path: 'detail',
+    canActivate: [AuthGuard],
+    component: EmployeeUserDetailComponent},
   {
-    path: 'create', component: CreateComponent
+    path: 'create',
+    canActivate: [AuthGuard],
+    component: CreateComponent
   },
   {
-    path: 'update/:id', component: EditComponent
+    path: 'update/:id',
+    canActivate: [AuthGuard],
+    component: EditComponent
   }
 ];
 
