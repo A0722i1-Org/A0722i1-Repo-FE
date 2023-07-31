@@ -6,20 +6,33 @@ import { CreateComponent } from './component/create/create.component';
 import { EditComponent } from './component/edit/edit.component';
 import {EmployeeUserUpdateComponent} from './component/employee-user-update/employee-user-update.component';
 import {ModalChangePasswordComponent} from './component/modal-change-password/modal-change-password.component';
+import {AuthGuard} from "../../auth.guard";
 
 
 
 
 const routes: Routes = [
-  { path: '', component: ListEmployeeComponent},
-  { path: 'user-detail-update', component: EmployeeUserUpdateComponent},
-  { path: 'user-change-password', component: ModalChangePasswordComponent},
-  {path: 'detail', component: EmployeeUserDetailComponent},
+  { path: '',
+    canActivate: [AuthGuard],
+    component: ListEmployeeComponent},
+  { path: 'user-detail-update',
+    canActivate: [AuthGuard],
+    component: EmployeeUserUpdateComponent},
+  { path: 'user-change-password',
+    canActivate: [AuthGuard],
+    component: ModalChangePasswordComponent},
+  {path: 'detail',
+    canActivate: [AuthGuard],
+    component: EmployeeUserDetailComponent},
   {
-    path: 'create', component: CreateComponent
+    path: 'create',
+    canActivate: [AuthGuard],
+    component: CreateComponent
   },
   {
-    path: 'update/:id', component: EditComponent
+    path: 'update/:id',
+    canActivate: [AuthGuard],
+    component: EditComponent
   }
 ];
 

@@ -1,4 +1,3 @@
-
 import {Component, OnInit} from '@angular/core';
 import {CartWithDetail} from '../../model/cart-with-detail';
 import {CartService} from '../../service/cart.service';
@@ -47,6 +46,7 @@ export class CartListComponent implements OnInit {
       this.cart = next.cart;
       this.details = next.cartDetailList;
       this.formBuilder();
+      console.log(this.details);
     }, error => alert('Lỗi rồi đó'));
   }
 
