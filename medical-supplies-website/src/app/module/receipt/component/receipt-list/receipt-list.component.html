@@ -99,7 +99,7 @@
             <td>{{p?.product_Id}}</td>
             <td>{{p?.product_Name}}</td>
             <td>{{p?.product_Quantity}}</td>
-            <td>{{p?.product_Price | currency: "VND"}}  </td>
+            <td>{{p?.product_Price | currency: "đ"}}  </td>
             <td>{{p?.expire_Date | date:"MM/dd/yyyy"}}</td>
             <td>
               <button (click)="getProduct(p.product_Id)" type="button" class="btn btn-danger" data-bs-toggle="modal"
@@ -152,7 +152,7 @@
           class="fa-solid fa-print"></i>
           In hóa đơn
         </button>
-        <button type="button" class="btn btn-secondary" style="background-color: #00b894"><i
+        <button type="button" class="btn btn-secondary" style="background-color: #00b894" routerLink=""><i
           class="fa-solid fa-person-walking-arrow-loop-left"></i> Trở về
         </button>
       </div>
@@ -170,7 +170,7 @@
       <div class="modal-body">
         <ul>
           <li>Tên vật tư: {{ productDTO?.product_Name }}</li>
-          <li>Giá vật tư: {{ productDTO?.product_Price | currency: "VND" }}</li>
+          <li>Giá vật tư: {{ productDTO?.product_Price | currency: "đ" }}</li>
           <li>Số lượng: {{ productDTO?.product_Quantity }}</li>
           <li>Hạn sử dụng: {{ productDTO?.expire_Date | date: "MM/dd/yyyy" }}</li>
         </ul>
@@ -218,12 +218,12 @@
                 <td>{{p.product_Id}}</td>
                 <td>{{p.product_Name}}</td>
                 <td>{{p.product_Quantity}}</td>
-                <td>{{p.product_Price | currency: "VND" }}</td>
+                <td>{{p.product_Price | currency: "đ" }}</td>
                 <td>{{p.expire_Date | date: "MM/dd/yyyy" }}</td>
               </tr>
               <tr>
                 <td colspan="3" style="font-weight: bold">Tổng tiền:</td>
-                <td colspan="2">{{totalAmount | currency: "VND" }}</td>
+                <td colspan="2">{{totalAmount | currency: "đ" }}</td>
               </tr>
             </table>
           </div>

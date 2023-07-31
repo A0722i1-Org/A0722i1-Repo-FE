@@ -4,17 +4,27 @@ import {Observable} from 'rxjs';
 import {TokenStorageService} from './module/security/service/token-storage.service';
 import Swal from 'sweetalert2';
 
-const urlUsers: string[] = ['/carts', '/customers/detail', '/products/detail'];
+const urlUsers: string[] = [
+  '/carts',
+  '/customers/detail',
+  '/products/detail'
+];
 const urlSales: string[] = [
   '/shipments/shipment',
+  '/shipments/create',
   '/employees/detail',
+  '/employees/user-detail-update',
+  '/employees/user-change-password',
   '/products/detail'
 ];
 const urlAccountants: string[] = [
   '/shipments/shipment',
   '/shipments/return',
+  '/shipments/return/create',
   '/receipts',
   '/employees/detail',
+  '/employees/user-detail-update',
+  '/employees/user-change-password',
   '/customer/detail',
   '/supplies',
   '/products/detail',
