@@ -379,3 +379,44 @@ a.paginationItem.active {
   background: #00b894 !important;
   opacity: .8;
 }
+
+.product-info {
+  display: flex;
+  flex-direction: column;
+}
+.product-name {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 16px; /* Điều chỉnh kích thước font chữ nếu cần */
+  font-weight: bold; /* Điều chỉnh độ đậm của font chữ nếu cần */
+  margin: 0;
+  padding: 0;
+}
+/*.product-item {*/
+/*  max-width: 300px; !* Điều chỉnh độ rộng tùy ý *!*/
+/*}*/
+.product-price {
+  font-size: 14px; /* Điều chỉnh kích thước font chữ nếu cần */
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+.product-item {
+  max-width: 20%; /* Điều chỉnh độ rộng tùy ý */
+}
+@media screen and (width < 576px) {
+  .product-item {
+    width: 100%; /* Điều chỉnh độ rộng tùy ý */
+  }
+}
+@media screen and (width >= 576px) {
+  .product-item {
+    width: 50%; /* Điều chỉnh độ rộng tùy ý */
+  }
+}
+@media screen and (width >= 992px){
+  .product-item {
+    width: 20%; /* Điều chỉnh độ rộng tùy ý */
+  }
+}
