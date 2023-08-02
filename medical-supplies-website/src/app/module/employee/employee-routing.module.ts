@@ -6,32 +6,36 @@ import { CreateComponent } from './component/create/create.component';
 import { EditComponent } from './component/edit/edit.component';
 import {EmployeeUserUpdateComponent} from './component/employee-user-update/employee-user-update.component';
 import {ModalChangePasswordComponent} from './component/modal-change-password/modal-change-password.component';
-import {AuthGuard} from "../../auth.guard";
-
-
-
+import {AuthGuard} from '../../auth.guard';
+import {RoleGuard} from '../../role.guard';
 
 const routes: Routes = [
   { path: '',
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
+    data: {roles: ['ROLE_ADMIN']},
     component: ListEmployeeComponent},
   { path: 'user-detail-update',
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
+    data: {roles: ['ROLE_ADMIN', 'ROLE_SALE', 'ROLE_ACCOUNTANT']},
     component: EmployeeUserUpdateComponent},
   { path: 'user-change-password',
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
+    data: {roles: ['ROLE_ADMIN', 'ROLE_SALE', 'ROLE_ACCOUNTANT']},
     component: ModalChangePasswordComponent},
   {path: 'detail',
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
+    data: {roles: ['ROLE_ADMIN', 'ROLE_SALE', 'ROLE_ACCOUNTANT']},
     component: EmployeeUserDetailComponent},
   {
     path: 'create',
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
+    data: {roles: ['ROLE_ADMIN']},
     component: CreateComponent
   },
   {
     path: 'update/:id',
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
+    data: {roles: ['ROLE_ADMIN']},
     component: EditComponent
   }
 ];

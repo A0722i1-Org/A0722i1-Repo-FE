@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {Product} from '../model/Product';
 import {TokenStorageService} from '../../security/service/token-storage.service';
+import {ProductCreateFormDTO} from "../model/ProductCreateFormDTO";
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,29 @@ export class ProductService {
 
   clearCart(): void {
     this.products = [];
+  }
+  saveProduct(product: ProductCreateFormDTO): Observable<string> {
+    const token = this.tokenStorageService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    product.expireDate = this.converterDate(product.expireDate.toString());
+    return this.httpClient.post<string>(`${this._API_URL}`, (product), {headers});
+  }
+
+  findById(id: string): Observable<ProductCreateFormDTO> {
+    const token = this.tokenStorageService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.httpClient.get<ProductCreateFormDTO>(`${this._API_URL}/detail1/${id}`, {headers});
+  }
+
+
+  updateProductId(product: ProductCreateFormDTO): Observable<ProductCreateFormDTO> {
+    const token = this.tokenStorageService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.httpClient.patch<ProductCreateFormDTO>(`${this._API_URL}/update`, product, {headers});
+  }
+
+  converterDate(date: string): string {
+    const dateInfo = date.replace('/', '-');
+    return dateInfo.replace('/', '-');
   }
 }

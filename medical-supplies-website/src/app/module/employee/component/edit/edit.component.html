@@ -41,12 +41,12 @@
           <label class="form-label" for="gioiTinh">Giới tính</label><span>*</span><br>
 
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" formControlName = "gender" id="gioiTinhNam" value="true">
+            <input class="form-check-input" type="radio" formControlName = "gender" id="gioiTinhNam" value="true" [checked]="employeeEdit.gender == true">
             <label class="form-check-label" for="gioiTinhNam">Nam</label>
           </div>
 
           <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" formControlName = "gender" id="gioiTinhNu" value="false">
+            <input class="form-check-input" type="radio" formControlName = "gender" id="gioiTinhNu" value="false" [checked]="employeeEdit.gender == false">
             <label class="form-check-label" for="gioiTinhNu">Nữ</label>
           </div>
         </div>

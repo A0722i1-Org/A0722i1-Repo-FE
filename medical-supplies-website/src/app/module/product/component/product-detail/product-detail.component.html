@@ -73,7 +73,7 @@
           <div class="mt-3">
             <p><strong>Giới thiệu:</strong> {{productViewDetail.productInfo?.infoIntroduction}}</p>
             <p><strong>Thông tin kỹ thuật:</strong></p>
-            {{productViewDetail.productInfo?.infoDescription}}
+            <div [innerHtml]="productViewDetail.productInfo?.infoDescription"></div>
           </div>
         </div>
       </form>
