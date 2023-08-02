@@ -13,22 +13,12 @@ import Swal from 'sweetalert2';
 export class ProductDetailComponent implements OnInit {
 
   selectedImage: string;
-  images: string[] = [
-    '../../../../../assets/images/khautrang.png',
-    '../../../../../assets/images/khautrang2.png',
-    '../../../../../assets/images/khautrang3.png',
-    '../../../../../assets/images/khautrang4.png'
-  ];
-
   id: number;
   products: Product[] = [];
   productViewDetail: Product = {
     productInfo: {}
   };
   productDetail: FormGroup;
-  quantity = 1;
-
-  @ViewChild('quantityInput', {static: true}) quantityInput: ElementRef<HTMLInputElement>;
 
   constructor(private productService: ProductService,
               private activatedRoute: ActivatedRoute,
@@ -43,10 +33,7 @@ export class ProductDetailComponent implements OnInit {
     this.activatedRoute.paramMap.subscribe((paramMap: ParamMap) => {
       this.id = +paramMap.get('id');
       this.productService.findByIdProductDetail(this.id).subscribe((productData) => {
-        console.log(productData);
         this.productViewDetail = productData;
-        this.quantity = this.productViewDetail.productQuantity || 1;
-        this.quantityInput.nativeElement.value = this.quantity.toString();
         this.initProductDetailForm(productData);
       });
     });
@@ -67,31 +54,8 @@ export class ProductDetailComponent implements OnInit {
     this.selectedImage = image;
   }
 
-  increaseQuantity(): void {
-    const maxValue = 100;
-    if (this.quantity < maxValue) {
-      this.quantity++;
-      this.quantityInput.nativeElement.value = this.quantity.toString();
-    }
-  }
-
-  decreaseQuantity(): void {
-    const minValue = 1;
-    if (this.quantity > minValue) {
-      this.quantity--;
-      this.quantityInput.nativeElement.value = this.quantity.toString();
-    }
-  }
-
   addToCart(): void {
-    const cartItem: Product = {
-      productId: this.productViewDetail.productId,
-      productImg: this.productViewDetail.productImg,
-      productName: this.productViewDetail.productName,
-      productPrice: this.productViewDetail.productPrice,
-      productQuantity: this.quantity,
-    };
-    this.productService.addToCart(cartItem);
+    this.productService.addToCart(this.id);
     Swal.fire('Thành công',
       'Đã thêm sản phẩm vào giỏ hàng',
       'success');
