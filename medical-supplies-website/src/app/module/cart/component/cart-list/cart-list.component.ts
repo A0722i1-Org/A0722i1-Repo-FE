@@ -46,6 +46,7 @@ export class CartListComponent implements OnInit {
       this.cart = next.cart;
       this.details = next.cartDetailList;
       this.formBuilder();
+      console.log(this.details);
     }, error => alert('Lỗi rồi đó'));
   }
 
