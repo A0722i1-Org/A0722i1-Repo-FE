@@ -56,7 +56,7 @@
   shipmentForm.controls.phone?.errors?.required">Số điện thoại không được để trống</p>
         <p class="text-danger" style="text-align: center" *ngIf="shipmentForm.controls.phone?.touched &&
   shipmentForm.controls.phone?.errors?.pattern">Số điện thoại không đúng định dạng</p>
-        <p *ngIf="notFound" class="text-danger" style="text-align: center">Khách hàng chưa có <a routerLink="customers/create" style="text-decoration: none">Thêm ngay</a></p>
+        <p *ngIf="notFound" class="text-danger" style="text-align: center">Khách hàng chưa có <a routerLink="/customers/create" style="text-decoration: none">Thêm ngay</a></p>
       </div>
     </div>
   </div>
