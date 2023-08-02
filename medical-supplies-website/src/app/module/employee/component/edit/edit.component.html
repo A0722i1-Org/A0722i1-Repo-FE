@@ -18,7 +18,7 @@
           <label class="form-label" for="hoTen">Họ tên</label><span>*</span>
           <input formControlName = "employeeName" type="text" class="form-control" id="hoTen" placeholder="Họ và tên">
           <span *ngIf="employeeEditForm.controls.employeeName.hasError('required')&&employeeEditForm.controls.employeeName.dirty">(Vui lòng nhập họ tên)</span>
-          <span *ngIf="employeeEditForm.controls.employeeName.hasError('minlength')&&employeeEditForm.controls.employeeName.dirty">(Chứa ít nhất 5 kí tự)</span>
+          <span *ngIf="employeeEditForm.controls.employeeName.hasError('minlength')&&employeeEditForm.controls.employeeName.dirty">(Chứa ít nhất 3 kí tự)</span>
           <span *ngIf="employeeEditForm.controls.employeeName.hasError('maxlength')&&employeeEditForm.controls.employeeName.dirty">(Chứa tối đa 50 kí tự)</span>
           <span
             *ngIf="employeeEditForm.controls.employeeName.hasError('pattern')
@@ -32,7 +32,7 @@
           <span
             *ngIf="employeeEditForm.controls.dateOfBirth.hasError('required')&&employeeEditForm.controls.dateOfBirth.dirty">(Vui lòng chọn ngày sinh)</span>
           <span
-            *ngIf="employeeEditForm.controls.dateOfBirth.hasError('isOver23')&&employeeEditForm.controls.dateOfBirth.dirty">(Phải lớn hơn hoặc bằng 18 tuổi)</span>
+            *ngIf="employeeEditForm.controls.dateOfBirth.hasError('isOver18')&&employeeEditForm.controls.dateOfBirth.dirty">(Phải lớn hơn hoặc bằng 18 tuổi)</span>
           <span
             *ngIf="employeeEditForm.controls.dateOfBirth.hasError('isOver50')&&employeeEditForm.controls.dateOfBirth.dirty">(Không được lớn hơn 50 tuổi)</span>
         </div>
