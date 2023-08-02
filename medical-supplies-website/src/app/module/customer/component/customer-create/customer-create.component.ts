@@ -7,7 +7,7 @@ import {CustomerType} from '../../model/CustomerType';
 import {formatDate} from '@angular/common';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-customer-create',
@@ -61,7 +61,20 @@ export class CustomerCreateComponent implements OnInit {
         fileRef.getDownloadURL().subscribe(url => {
           this.customerFormCreate.value.customerImg = url;
           this.customerService.createCustomer(this.customerFormCreate.value).subscribe(next => {
-          });
+              Swal.fire('Thành công',
+                'Đã thêm khách hàng thành công',
+                'success');
+              this.router.navigateByUrl('customers/list');
+            },
+            (error) => {
+              Swal.fire('Lỗi',
+                'Không thêm khách hàng thành công',
+                'success');
+              console.log(error);
+            },
+            () => {
+              }
+            );
         });
       })
     ).subscribe(
@@ -70,10 +83,6 @@ export class CustomerCreateComponent implements OnInit {
       () => {
       },
       () => {
-        Swal.fire('Thành công',
-          'Đã thêm khách hàng thành công',
-          'success');
-        this.router.navigateByUrl('customers/list');
       }
     );
     console.log(this.customerFormCreate.value);

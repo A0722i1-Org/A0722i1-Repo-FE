@@ -98,8 +98,10 @@ export class CartListComponent implements OnInit {
 
   formBuilder() {
     this.rf = new FormGroup({
-      receiverName: new FormControl(this.cart.receiverName, [Validators.required, Validators.pattern('^(?:[A-Z][a-zÀ-ỹ]*(?: [A-Z][a-zÀ-ỹ]*)+)$')]),
-      receiverAddress: new FormControl(this.cart.receiverAddress, [Validators.required, Validators.pattern('^[^!@#$%^&*()_+<>?\'\"{}\\`~|/\\\\]+$')]),
+      receiverName: new FormControl(this.cart.receiverName, [Validators.required,
+        Validators.pattern('^(?:[A-Z][a-zÀ-ỹ]*(?: [A-Z][a-zÀ-ỹ]*)+)$')]),
+      receiverAddress: new FormControl(this.cart.receiverAddress, [Validators.required,
+        Validators.pattern('^[^!@#$%^&*()_+<>?\'\"{}\\`~|/\\\\]+$')]),
       receiverPhone: new FormControl(this.cart.receiverPhone, [Validators.required, Validators.pattern('^0\\d{9,10}')]),
       receiverEmail: new FormControl(this.cart.receiverEmail, [Validators.required, Validators.email])
     });
