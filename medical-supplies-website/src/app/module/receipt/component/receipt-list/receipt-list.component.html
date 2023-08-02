@@ -26,16 +26,19 @@
               <option disabled value="">Chọn loại hàng hóa</option>
               <option *ngFor="let r of receiptTypes" [value]="r.receiptTypeId">{{r.receiptTypeName}}</option>
             </select>
-            <span *ngIf="formReceipt.controls.receiptTypeId?.touched && formReceipt.controls.receiptTypeId?.errors?.required" class="validate-form">Không được để trống</span>
+            <span
+              *ngIf="formReceipt.controls.receiptTypeId?.touched && formReceipt.controls.receiptTypeId?.errors?.required"
+              class="validate-form">Không được để trống</span>
           </div>
         </div>
         <div class="col-md-6">
           <div class="mb-3">
             <label for="ma-hoa-don" class="form-label">Mã hóa đơn:</label><span class="obligatory">*</span>
-              <input #invoiceCode
-              type="text" id="ma-hoa-don" name="ma-hoa-don" class="form-control" formControlName="invoiceCode" placeholder="Mã hóa đơn">
-            <span class="validate-form" *ngIf="formReceipt.controls.invoiceCode?.touched && formReceipt.controls.invoiceCode?.errors?.required">Không được để trống</span>
-<!--            <span class="validate-form" *ngIf="formReceipt.controls.invoiceCode?.touched && formReceipt.controls.invoiceCode?.errors?.invalidScore">Mã hóa đơn đã tồn tại</span>-->
+            <input #invoiceCode
+                   type="text" id="ma-hoa-don" name="ma-hoa-don" class="form-control" formControlName="invoiceCode"
+                   placeholder="Mã hóa đơn">
+            <span class="validate-form"
+                  *ngIf="formReceipt.controls.invoiceCode?.touched && formReceipt.controls.invoiceCode?.errors?.required">Không được để trống</span>
           </div>
         </div>
       </div>
@@ -43,13 +46,15 @@
         <div class="col-md-6">
           <div class="mb-3">
             <label for="ngay-lap" class="form-label">Ngày lập:</label>
-            <input type="date" [value]="todayDate" id="ngay-lap" readonly name="ngay-lap" formControlName="dateOfCreate" class="form-control">
+            <input type="date" [value]="todayDate" id="ngay-lap" readonly name="ngay-lap" formControlName="dateOfCreate"
+                   class="form-control">
           </div>
         </div>
         <div class="col-md-6">
           <div class="mb-3">
             <label for="nguoi-thuc-hien" class="form-label">Người thực hiện:</label>
-            <input type="text" value="{{employee?.employeeName}}" id="nguoi-thuc-hien" formControlName="employeeId" placeholder="Admin" readonly
+            <input type="text" value="{{employee?.employeeName}}" id="nguoi-thuc-hien" formControlName="employeeId"
+                   placeholder="Admin" readonly
                    name="nguoi-thuc-hien" class="form-control">
           </div>
         </div>
@@ -58,11 +63,13 @@
         <div class="col-md-6">
           <div class="mb-3">
             <label for="nha-cung-cap" class="form-label">Nhà cung cấp:</label><span class="obligatory">*</span>
-            <select  id="nha-cung-cap" name="nha-cung-cap" formControlName="customerId" class="form-select" (change)="onSelectionChange($event)">
+            <select id="nha-cung-cap" name="nha-cung-cap" formControlName="customerId" class="form-select"
+                    (change)="onSelectionChange($event)">
               <option disabled value="">Chọn nhà cung cấp</option>
               <option *ngFor="let s of suppliers" value="{{s?.customer_Id}}" [text]="s.name"></option>
             </select>
-            <span class="validate-form" *ngIf="formReceipt.controls.customerId?.touched && formReceipt.controls.customerId?.errors?.required">Không được để trống</span>
+            <span class="validate-form"
+                  *ngIf="formReceipt.controls.customerId?.touched && formReceipt.controls.customerId?.errors?.required">Không được để trống</span>
           </div>
         </div>
         <div class="col-md-6">
@@ -73,83 +80,82 @@
           </div>
         </div>
       </div>
-    <h3>Thông tin vật tư </h3>
-    <div class="table-responsive" style="max-height: 200px;">
-      <table id="vatTuTable" class="table" border="1">
-        <thead style="background-color: #00b894;">
-        <tr>
-          <th style="background-color: #00b894; color: white;" scope="col">Mã vật tư</th>
-          <th style="background-color: #00b894;  color: white;" scope="col">Tên vật tư</th>
-          <th style="background-color: #00b894;  color: white;" scope="col">Số lượng</th>
-          <th style="background-color: #00b894;  color: white;" scope="col">Giá thành</th>
-          <th style="background-color: #00b894;  color: white;" scope="col">Ngày</th>
-          <th style="background-color: #00b894;  color: white;" scope="col">Tác vụ</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let p of listProduct, index as i">
-          <td>{{p?.product_Id}}</td>
-          <td>{{p?.product_Name}}</td>
-          <td>{{p?.product_Quantity}}</td>
-          <td>{{p?.product_Price | currency: "VND"}}  </td>
-          <td>{{p?.expire_Date | date:"MM/dd/yyyy"}}</td>
-          <td>
-            <button (click)="getProduct(p.product_Id)" type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modelDelete"
-                    style="float: right">
-              <i class="fa-solid fa-trash"></i> Xóa
-            </button>
-          </td>
-        </tr>
-        </tbody>
-        <tfoot>
-        <tr>
-          <td></td>
-          <td>
-            <div class="mb-3">
+      <h3>Thông tin vật tư </h3>
+      <div class="table-responsive" style="max-height: 200px;">
+        <table id="vatTuTable" class="table">
+          <caption class="d-none">Danh sách vật tư</caption>
+          <thead style="background-color: #00b894;">
+          <tr>
+            <th style="background-color: #00b894; color: white;" scope="col">Mã vật tư</th>
+            <th style="background-color: #00b894;  color: white;" scope="col">Tên vật tư</th>
+            <th style="background-color: #00b894;  color: white;" scope="col">Số lượng</th>
+            <th style="background-color: #00b894;  color: white;" scope="col">Giá thành</th>
+            <th style="background-color: #00b894;  color: white;" scope="col">Ngày</th>
+            <th style="background-color: #00b894;  color: white;" scope="col">Tác vụ</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let p of listProduct, index as i">
+            <td>{{p?.product_Id}}</td>
+            <td>{{p?.product_Name}}</td>
+            <td>{{p?.product_Quantity}}</td>
+            <td>{{p?.product_Price | currency: "đ"}}  </td>
+            <td>{{p?.expire_Date | date:"MM/dd/yyyy"}}</td>
+            <td>
+              <button (click)="getProduct(p.product_Id)" type="button" class="btn btn-danger" data-bs-toggle="modal"
+                      data-bs-target="#modelDelete"
+                      style="float: right">
+                <i class="fa-solid fa-trash"></i> Xóa
+              </button>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+        <div class="row w-100 pb-1 ps-1">
+          <div class="col-9 row">
+            <div class="col-7">
               <select #productId
-                id="vat-tu" name="vat-tu" class="form-select" formControlName="productId">
-                <option disabled value=""  >Chọn loại vật tư</option>
+                      id="vat-tu" name="vat-tu" class="form-select" formControlName="productId">
+                <option disabled value="">Chọn loại vật tư</option>
                 <option *ngFor="let p of productDTOs" [value]="p?.product_Id">{{p.product_Name}}</option>
               </select>
-              <span *ngIf="formReceipt.controls.productId?.touched && formReceipt.controls.productId?.errors?.required" class="validate-form">Không được để trống</span>
+              <span *ngIf="formReceipt.controls.productId?.touched && formReceipt.controls.productId?.errors?.required"
+                    class="validate-form">Không được để trống</span>
             </div>
-          </td>
-          <td>
-            <div class="col-md-6" style="width: 100%;">
-              <div class="mb-3">
-                <input #quantity
-                  formControlName="quantity" min="0" class="form-control" type="number" placeholder="Số lượng">
-                <span *ngIf="formReceipt.controls.quantity?.touched && formReceipt.controls.quantity?.errors?.required" class="validate-form">Không được để trống</span>
-                <span *ngIf="formReceipt.controls.quantity?.touched && formReceipt.controls.quantity?.errors?.min" class="validate-form">Số lượng phải lơn hơn 0 </span>
-              </div>
+            <div class="col-5">
+              <input #quantity
+                     formControlName="quantity" min="0" class="form-control" type="number" placeholder="Số lượng">
+              <span *ngIf="formReceipt.controls.quantity?.touched && formReceipt.controls.quantity?.errors?.required"
+                    class="validate-form">Không được để trống</span>
+              <span *ngIf="formReceipt.controls.quantity?.touched && formReceipt.controls.quantity?.errors?.min"
+                    class="validate-form">Số lượng phải lơn hơn 0 </span>
             </div>
-          </td>
-          <td></td>
-          <td></td>
-          <td>
-            <button type="button" style="background-color: #00b894 ;" (click)="addProduct(productId.value,quantity.value)" class="btn btn-primary "
-                    style="float: right">
+          </div>
+
+          <div class="col-3">
+            <button type="button" style="background-color: #00b894 ;"
+                    (click)="addProduct(productId.value,quantity.value)" class="btn btn-primary float-end">
               <i class="fa-solid fa-pen-to-square"></i> Thêm vật tư
             </button>
-          </td>
-        </tr>
-        </tfoot>
-      </table>
-    </div>
-    <br>
-    <br>
-    <br>
-    <div class="d-flex justify-content-center gap-2">
-      <button type="submit" class="btn btn-primary" style="background-color: #00b894 ;"><i
-        class="fa-solid fa-pen-to-square"></i> Lưu
-      </button>
-      <button (click)="selectInvoiceCode(invoiceCode.value)" data-bs-toggle="modal" data-bs-target="#modelInvoice" type="button" class="btn btn-success" style="background-color: #00b894 "><i class="fa-solid fa-print"></i>
-        In hóa đơn
-      </button>
-      <button type="button" class="btn btn-secondary" style="background-color: #00b894"><i
-        class="fa-solid fa-person-walking-arrow-loop-left"></i> Trở về
-      </button>
-    </div>
+          </div>
+        </div>
+      </div>
+      <br>
+      <br>
+      <br>
+      <div class="d-flex justify-content-center gap-2">
+        <button type="submit" class="btn btn-primary" style="background-color: #00b894 ;"><i
+          class="fa-solid fa-pen-to-square"></i> Lưu
+        </button>
+        <button (click)="selectInvoiceCode(invoiceCode.value)" data-bs-toggle="modal" data-bs-target="#modelInvoice"
+                type="button" class="btn btn-success" style="background-color: #00b894 "><i
+          class="fa-solid fa-print"></i>
+          In hóa đơn
+        </button>
+        <button type="button" class="btn btn-secondary" style="background-color: #00b894" routerLink=""><i
+          class="fa-solid fa-person-walking-arrow-loop-left"></i> Trở về
+        </button>
+      </div>
     </form>
   </div>
 </div>
@@ -164,26 +170,29 @@
       <div class="modal-body">
         <ul>
           <li>Tên vật tư: {{ productDTO?.product_Name }}</li>
-          <li>Giá vật tư: {{ productDTO?.product_Price | currency: "VND" }}</li>
+          <li>Giá vật tư: {{ productDTO?.product_Price | currency: "đ" }}</li>
           <li>Số lượng: {{ productDTO?.product_Quantity }}</li>
           <li>Hạn sử dụng: {{ productDTO?.expire_Date | date: "MM/dd/yyyy" }}</li>
         </ul>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Không</button>
-        <button (click)="deleteProduct(productDTO?.product_Id)" data-bs-dismiss="modal" type="button" class="btn btn-primary">Xóa vật tư</button>
+        <button (click)="deleteProduct(productDTO?.product_Id)" data-bs-dismiss="modal" type="button"
+                class="btn btn-primary">Xóa vật tư
+        </button>
       </div>
     </div>
   </div>
 </div>
 <!-- Modal luu hoa don-->
-<div class="modal fade" data-bs-config={backdrop:true} id="modelInvoice" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+<div class="modal fade" data-bs-config={backdrop:true} id="modelInvoice" tabindex="-1" role="dialog"
+     aria-labelledby="modelTitleId" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content" style="width: 700px">
       <div class="modal-header">
         <h4 class="modal-title" id="modelTitleId1">Thông báo</h4>
       </div>
-      <div #htmlContent class="modal-body" >
+      <div #htmlContent class="modal-body">
         <div class="invoice">
           <div class="section">
             <h3 style="text-align: center;">Hóa đơn nhập kho vật tư y tế</h3>
@@ -197,6 +206,7 @@
           <div class="section">
             <span class="section-title">Danh sách vật tư:</span>
             <table class="item-list">
+              <caption class="d-none">Danh sách vật tư</caption>
               <tr>
                 <th>Mã vật tư</th>
                 <th>Tên vật tư</th>
@@ -208,29 +218,29 @@
                 <td>{{p.product_Id}}</td>
                 <td>{{p.product_Name}}</td>
                 <td>{{p.product_Quantity}}</td>
-                <td>{{p.product_Price | currency: "VND" }}</td>
+                <td>{{p.product_Price | currency: "đ" }}</td>
                 <td>{{p.expire_Date | date: "MM/dd/yyyy" }}</td>
               </tr>
               <tr>
                 <td colspan="3" style="font-weight: bold">Tổng tiền:</td>
-                <td colspan="2">{{totalAmount | currency: "VND" }}</td>
+                <td colspan="2">{{totalAmount | currency: "đ" }}</td>
               </tr>
             </table>
           </div>
 
-       <div style="display: flex; justify-content: space-between; height: 300px">
-         <!-- Signature field for employee -->
-         <div style="text-align: center;">
-           <span>Chữ Kí Giám Đốc:</span><br>
-           <img width="100px" src="assets/img/chuki.png">
-           <h4>Võ Kim Thành</h4>
-         </div>
+          <div style="display: flex; justify-content: space-between; height: 300px">
+            <!-- Signature field for employee -->
+            <div style="text-align: center;">
+              <span>Chữ Kí Giám Đốc:</span><br>
+              <img width="100px" src="assets/img/chuki.png" alt="director signed">
+              <h4>Võ Kim Thành</h4>
+            </div>
 
-         <!-- Signature field for customer -->
-         <div style="text-align: center;">
-           <span>Chữ Kí Khách Hàng:</span>
-         </div>
-       </div>
+            <!-- Signature field for customer -->
+            <div style="text-align: center;">
+              <span>Chữ Kí Khách Hàng:</span>
+            </div>
+          </div>
 
         </div>
       </div>

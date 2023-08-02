@@ -2,7 +2,7 @@ import {Employee} from './../model/Employee';
 import {Injectable} from '@angular/core';
 import {EmployeeUserDetail} from '../model/EmployeeUserDetail';
 import {TokenStorageService} from '../../security/service/token-storage.service';
-import {EmployeeInfo} from '../dto/EmployeeInfo';
+import {EmployeeInfo} from '../model/EmployeeInfo';
 import {HttpClient, HttpHeaders, HttpResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {ChangePasswordDto} from '../model/ChangePasswordDto';
@@ -59,10 +59,10 @@ export class EmployeeService {
     return this.http.get('http://localhost:8080/api/v1/position', {headers});
   }
 
-  saveEmployee(employeeInfor: EmployeeInfo): Observable<EmployeeInfo> {
+  saveEmployee(employeeInfo: EmployeeInfo): Observable<EmployeeInfo> {
     const token = this.tokenStorageService.getToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.post<EmployeeInfo>('http://localhost:8080/api/v1/employee', employeeInfor, {headers});
+    return this.http.post<EmployeeInfo>('http://localhost:8080/api/v1/employee', employeeInfo, {headers});
   }
 
   updateEmployee(employeeInfo: EmployeeInfo, id: number): Observable<any> {

@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import {Position} from '../model/Position';
+import {Component, OnInit} from '@angular/core';
+import {Position} from '../../model/Position';
 import {AbstractControl, FormControl, FormGroup, Validators} from '@angular/forms';
-import {EmployeeInfo} from '../dto/EmployeeInfo';
-import {Employee} from '../model/Employee';
-import {EmployeeService} from '../service/employee.service';
+import {Employee} from '../../model/Employee';
+import {EmployeeService} from '../../service/employee.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {Title} from '@angular/platform-browser';
@@ -27,7 +26,6 @@ export class EditComponent implements OnInit {
       if (id != null) {
         this.employeeService.getEmployeeById(+id).subscribe(next1 => {
           this.employeeEdit = next1;
-          console.log(this.employeeEdit);
           this.imgSrc = next1.employeeImg;
           this.employeeEdit.dateOfBirth = new DatePipe('en-US').transform(new Date(this.employeeEdit.dateOfBirth), 'yyyy-MM-dd');
           this.getFormEdit();
@@ -35,11 +33,12 @@ export class EditComponent implements OnInit {
           console.log(error);
         }, () => {
           this.ngOnInit();
-          this.dob =  new DatePipe('en-US').transform(new Date(this.employeeEdit.dateOfBirth), 'yyyy-MM-dd');
+          this.dob = new DatePipe('en-US').transform(new Date(this.employeeEdit.dateOfBirth), 'yyyy-MM-dd');
         });
       }
     });
   }
+
   dob: string;
   positions: Position[] = [];
   employeeEditForm: FormGroup;
@@ -75,8 +74,8 @@ export class EditComponent implements OnInit {
       email: new FormControl(this.employeeEdit.email, [Validators.required, Validators.minLength(6),
         Validators.maxLength(50), Validators.pattern('^\\s*[a-zA-Z0-9_.+-]+@gmail.com+\\s*$')]),
       phone: new FormControl(this.employeeEdit.phone, [Validators.required]),
-      employeeAddress: new FormControl(this.employeeEdit.employeeAddress,  [Validators.required, , Validators.maxLength(100)]),
-      gender: new FormControl(this.employeeEdit.gender,  [Validators.required]),
+      employeeAddress: new FormControl(this.employeeEdit.employeeAddress, [Validators.required, Validators.maxLength(100)]),
+      gender: new FormControl(this.employeeEdit.gender ? 'true' : 'false', [Validators.required]),
       idCard: new FormControl(this.employeeEdit.idCard, [Validators.required, Validators.pattern('^\\s*\\d{12}\\s*$')]),
       dateOfBirth: new FormControl(this.employeeEdit.dateOfBirth, [Validators.required, this.isOver18, this.isOver50]),
       employeeImg: new FormControl(this.employeeEdit.employeeImg),

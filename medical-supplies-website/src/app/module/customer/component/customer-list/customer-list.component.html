@@ -1,0 +1,82 @@
+<div class="container col-md-12">
+  <h1 style="color:#55efc4;">Danh sách khách hàng</h1>
+  <div style="display: flex; justify-content: center;
+  align-items: center; ">
+    <button style="background: #55efc4 ; color: white;border: none; margin-right: 20px; " type="button"
+            class="btn btn-success" (click)="createCustomer()">Thêm mới
+    </button>
+  </div>
+  <div style="text-align: right">
+    <input class="search-input" type="text" [(ngModel)]="searchKeyword" placeholder="Nhập từ khóa tìm kiếm"
+           style="border-radius: 70px;border: 2px solid #55efc4 ;">
+    <button class="search-button" (click)="searchCustomer()" style="background-color: #55efc4; border-radius: 30px"><i
+      class="fa-solid fa-magnifying-glass"></i></button>
+  </div>
+  <div>
+    <br>
+    <table class="table table-bordered">
+      <caption class="d-none">Danh sách khách hàng</caption>
+      <thead>
+      <tr>
+        <th scope="col" style="color: white">Mã KH</th>
+        <th scope="col" style="color: white">Tên Khách Hàng</th>
+        <th scope="col" style="color: white">Ngày Sinh</th>
+        <th scope="col" style="color: white">Địa Chỉ</th>
+        <th scope="col" style="color: white">CCCD</th>
+        <th scope="col" style="color: white">Số Điện Thoại</th>
+        <th scope="col" style="color: white">Loại khách hàng</th>
+        <th scope="col" style="color: white"></th>
+        <th scope="col" style="color: white"></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let customer of customers ; index as i">
+        <td>{{customer?.customerCode}}</td>
+        <td>{{customer?.name}}</td>
+        <td>{{customer?.dateOfBirth |  date:'dd/MM/yyyy' }}</td>
+        <td>{{customer?.customerAddress}}</td>
+        <td>{{customer?.idCard}}</td>
+        <td>{{customer?.phone}}</td>
+        <td>{{customer?.customerType.customerTypeName}}</td>
+        <td class="d-flex align-items-center justify-content-center">
+          <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#modelId"
+                  (click)="getCustomerId(customer.customerId)">
+            <i class="fa fa-trash-o" aria-hidden="true"></i>
+          </button>
+        </td>
+        <td style="text-align: center">
+          <button style="background: #55efc4; color: white" type="button" class="btn btn-info"
+                  (click)="editCustomer(customer.customerId)"
+          ><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+          </button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+    <p style="text-align: center" *ngIf="msg">Không còn Khách Hàng Nào</p>
+  </div>
+  <div class="pagination">
+    <a *ngIf="page !== 1" (click)="previousPage()" class="text1">«</a>
+    <a class="paginationItem" [class.active]="page===currentPage" (click)="accessPage(page + 1)"
+       *ngFor="let page of totalPages">{{page + 1}}</a>
+    <a *ngIf="page < totalPage" (click)="nextPage()" class="text1">»</a>
+  </div>
+</div>
+
+
+<div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="modelTitleId" style="color: red; text-align: center">Xác nhận xóa</h4>
+      </div>
+      <div class="modal-body">
+        <p>Bạn Có Muốn Xóa Khách hàng <span class="fw-bold">{{customer?.name}}</span> không?</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Trở về</button>
+        <button type="button" class="btn btn-primary" (click)="deleteCustomer()" data-bs-dismiss="modal">Xóa</button>
+      </div>
+    </div>
+  </div>
+</div>

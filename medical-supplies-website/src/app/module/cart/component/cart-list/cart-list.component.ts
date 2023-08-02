@@ -6,7 +6,6 @@ import {CartDetail} from '../../model/CartDetail';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import Swal from 'sweetalert2';
-// @ts-ignore
 import {PaymentService} from '../../service/payment.service';
 
 
@@ -47,6 +46,7 @@ export class CartListComponent implements OnInit {
       this.cart = next.cart;
       this.details = next.cartDetailList;
       this.formBuilder();
+      console.log(this.details);
     }, error => alert('Lỗi rồi đó'));
   }
 
