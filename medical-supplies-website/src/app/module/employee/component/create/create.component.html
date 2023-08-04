@@ -18,7 +18,7 @@
           <label class="form-label" for="hoTen">Họ tên</label><span>*</span>
           <input formControlName = "employeeName" type="text" class="form-control" id="hoTen" placeholder="Họ và tên">
           <span *ngIf="employeeCreateForm.controls.employeeName.hasError('required')&&employeeCreateForm.controls.employeeName.dirty">(Vui lòng nhập họ tên)</span>
-          <span *ngIf="employeeCreateForm.controls.employeeName.hasError('minlength')&&employeeCreateForm.controls.employeeName.dirty">(Chứa ít nhất 5 kí tự)</span>
+          <span *ngIf="employeeCreateForm.controls.employeeName.hasError('minlength')&&employeeCreateForm.controls.employeeName.dirty">(Chứa ít nhất 3 kí tự)</span>
           <span *ngIf="employeeCreateForm.controls.employeeName.hasError('maxlength')&&employeeCreateForm.controls.employeeName.dirty">(Chứa tối đa 50 kí tự)</span>
           <span
             *ngIf="employeeCreateForm.controls.employeeName.hasError('pattern')

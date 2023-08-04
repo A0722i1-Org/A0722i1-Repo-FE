@@ -83,7 +83,7 @@ export class CreateComponent {
     this.employeeCreateForm = new FormGroup({
       employeeCode: new FormControl(this.employeeCode),
       employeeName: new FormControl('', [Validators.required, Validators.minLength(5),
-        Validators.maxLength(50), Validators.pattern(pattern(this.regexname))]),
+        Validators.maxLength(50), Validators.pattern(this.regexname)]),
       email: new FormControl(this.account.email, [Validators.required, Validators.minLength(6),
         Validators.maxLength(50), Validators.pattern('^\\s*[a-zA-Z0-9_.+-]+@gmail.com+\\s*$')]),
       phone: new FormControl('', [Validators.required, Validators.pattern('^\\s*(0)\\d{9}\\s*$')]),
