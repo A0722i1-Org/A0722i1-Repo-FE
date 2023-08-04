@@ -11,23 +11,26 @@
       </div>
     </div>
     <div *ngFor="let detail of details" class="card" style="margin: auto">
-      <div class="card-body row">
+      <div *ngIf="detail.quantity>0" class="card-body row">
         <div class="col-md-2 text-center d-flex justify-content-between">
           <input type="checkbox" [(ngModel)]="detail.status" (change)="getTotalAmount()"/>
           <img [src]=detail.product.productImg alt="{{detail.product.productName}}">
         </div>
         <div class="col-md-7" style="display: inline">
           <h5 class="card-title">{{detail.product.productName}}</h5>
-          <i class="card-text">{{detail.product.productInfo?.infoDescription|slice:0:100}}</i>
+          <i class="card-text">{{detail.product.productInfo.infoDescription|slice:0:100}}</i>
         </div>
         <div class="col-md-3 text-center"
              style="gap: 10px; display: flex; flex-direction: column; justify-content: center">
           <div class="d-flex justify-content-evenly align-items-center">
-            <i class="fa fa-minus" aria-hidden="true" (click)="decreaseQuantity(detail.cartDetailId)"></i>
+            <i *ngIf="detail.quantity === 1" class="fa fa-trash-o" aria-hidden="true"
+               (click)="decreaseQuantity(detail.cartDetailId)"></i>
+            <i *ngIf="detail.quantity > 1" class="fa fa-minus" aria-hidden="true"
+               (click)="decreaseQuantity(detail.cartDetailId)"></i>
             <span>{{detail.quantity}}</span>
             <i class="fa fa-plus" aria-hidden="true" (click)="increaseQuantity(detail.cartDetailId)"></i>
           </div>
-          <p>{{detail.quantity * detail.product.productPrice | currency: 'VND'}}</p>
+          <p>{{detail.product.productPrice | currency: 'VND'}}</p>
         </div>
       </div>
     </div>
@@ -35,7 +38,9 @@
     <div class="card">
       <div class="card-body row">
         <div>
-          <button *ngIf="details.length != 0" class="btn btn-outline-success text-center" style="width: inherit" (click)="checkAll()">Chọn tất cả</button>
+          <button *ngIf="details.length != 0" class="btn btn-outline-success text-center" style="width: inherit"
+                  (click)="checkAll()">Chọn tất cả
+          </button>
           <p *ngIf="details.length == 0" class="text-center">Giỏ hàng hiện đang trống</p>
         </div>
       </div>
@@ -127,7 +132,8 @@
         </form>
       </div>
       <div class="card-footer text-center d-flex flex-column-reverse">
-        <button class="btn btn-secondary" style="margin-top: 10px" (click)="save()" [disabled]="rf.invalid">Quay lại</button>
+        <button class="btn btn-secondary" style="margin-top: 10px" (click)="save()" [disabled]="rf.invalid">Quay lại
+        </button>
         <button class="btn btn-success" (click)="checkout()" [disabled]="rf.invalid||total==0">Thanh toán</button>
       </div>
     </div>

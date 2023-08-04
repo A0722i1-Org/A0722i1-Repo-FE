@@ -19,4 +19,16 @@ export class PaymentService {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.httpClient.put<PaymentResponse>(`${this._API_URL}`, cartWithDetail, {headers});
   }
+
+  transactionSuccess(txnRef: string): Observable<any> {
+    const token = this.tokenStorageService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.httpClient.get<any>(`${this._API_URL}/transaction/${txnRef}`, {headers});
+  }
+
+  transactionFail(txnRef: string): Observable<any> {
+    const token = this.tokenStorageService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return this.httpClient.get<any>(`${this._API_URL}/fail/${txnRef}`, {headers});
+  }
 }

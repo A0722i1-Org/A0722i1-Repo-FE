@@ -1,3 +1,4 @@
+
 import {Component, OnInit} from '@angular/core';
 import {CartWithDetail} from '../../model/cart-with-detail';
 import {CartService} from '../../service/cart.service';
@@ -46,7 +47,6 @@ export class CartListComponent implements OnInit {
       this.cart = next.cart;
       this.details = next.cartDetailList;
       this.formBuilder();
-      console.log(this.details);
     }, error => alert('Lỗi rồi đó'));
   }
 
@@ -107,14 +107,15 @@ export class CartListComponent implements OnInit {
 
   save() {
     this.uncheckAll();
-    this.cartService.updateCart(this.prepareCartForSendingToBackend()).subscribe(next =>
+    this.cartService.updateCart(this.prepareCartForSendingToBackend()).subscribe(next => {
       Swal.fire({
         title: 'Đã huỷ!',
         text: 'Đã huỷ thao tác, quay về trang chính',
         icon: 'info',
         confirmButtonText: 'Cool'
-      }));
-    this.router.navigateByUrl('/');
+      });
+      this.router.navigateByUrl('/');
+    });
   }
 
   checkout() {

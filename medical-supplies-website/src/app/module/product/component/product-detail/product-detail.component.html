@@ -52,7 +52,7 @@
                   <br>
                   <div class="row align-items-center justify-content-center">
                     <div class="col-auto">
-                      <button type="button" *ngIf="role === 'ROLE_USER'" class="btn btn-outline-success add-to-cart-btn" (click)="addToCart()">
+                      <button type="button" *ngIf="role === 'ROLE_USER'" class="btn btn-outline-success add-to-cart-btn" (click)="addToCart(productViewDetail.productId)">
                         <span class="bi bi-cart4 me-2"></span> Thêm vào giỏ hàng
                       </button>
                       <button type="button" class="btn btn-outline-success ms-3" routerLink="/">Trở về</button>
