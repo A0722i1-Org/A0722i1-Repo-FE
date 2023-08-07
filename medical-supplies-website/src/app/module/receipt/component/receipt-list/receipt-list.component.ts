@@ -34,6 +34,7 @@ export class ReceiptListComponent implements OnInit {
   receipt: Receipt;
   receipts: Receipt[];
   totalAmount: number;
+  isSaved: boolean = false;
   constructor(private receiptService: ReceiptService) {
     // Lấy ngày hôm nay
     const today = new Date();
@@ -86,50 +87,57 @@ export class ReceiptListComponent implements OnInit {
     }
 
   addProduct(productId: string, quantity: string) {
-      const productDTO = this.receiptService.checkProduct(this.listProduct, + productId);
-      if (productId === '' || quantity === '' ) {
-        Swal.fire({
-          position: 'center',
-          icon: 'warning',
-          title: 'Bạn cần nhập đủ tên vật tư và số lượng',
-          showConfirmButton: false,
-          timer: 2000
-        });
-      } else  if (+quantity <= 0) {
-        Swal.fire({
-          position: 'center',
-          icon: 'warning',
-          title: 'Lưu ý số lượng không được bé hơn hoặc bằng 0',
-          showConfirmButton: false,
-          timer: 2000
-        });
-      } else if (productDTO != null) {
-        Swal.fire({
-          title: 'Vật tư này đã được thêm vào danh sách?',
-          text: 'Bạn có muốn cập nhật lại số lượng vật tư này không',
-          icon: 'warning',
-          showCancelButton: true,
-          confirmButtonColor: '#3085d6',
-          cancelButtonColor: '#d33',
-          confirmButtonText: 'Cập nhật'
-        }).then((result) => {
-          if (result.isConfirmed) {
-            productDTO.product_Quantity = +quantity;
-            Swal.fire(
-              'Success!',
-              'Cập nhật vật tư thành công.',
-              'success'
-            );
+    debugger
+    const productDTO = this.receiptService.checkProduct(this.listProduct, + productId);
+    if (productId === '' || quantity === '' ) {
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'Bạn cần nhập đủ tên vật tư và số lượng',
+        showConfirmButton: false,
+        timer: 2000
+      });
+    } else  if (+quantity <= 0) {
+      Swal.fire({
+        position: 'center',
+        icon: 'warning',
+        title: 'Lưu ý số lượng không được bé hơn hoặc bằng 0',
+        showConfirmButton: false,
+        timer: 2000
+      });
+    } else if (productDTO != null) {
+      Swal.fire({
+        title: 'Vật tư này đã được thêm vào danh sách?',
+        text: 'Bạn có muốn cập nhật lại số lượng vật tư này không',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Cập nhật',
+        cancelButtonText: 'Hủy'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          productDTO.product_Quantity = +quantity;
+          for ( let i = 0; i< this.listReceiptDetailDTO.length ; i++ ) {
+            if (this.listReceiptDetailDTO[i].productId === +productId) {
+              this.listReceiptDetailDTO[i].quantity = + quantity;
+            }
           }
-        });
-      } else {
-        this.receiptService.findProductDTOByProductId(+productId).subscribe(next => {
-          next.product_Quantity = + quantity;
-          this.listReceiptDetailDTO.push(new ReceiptDetailDTO(+productId, +quantity));
-          this.listProduct.push(next);
-          console.log(this.listReceiptDetailDTO);
-        });
-      }
+          Swal.fire(
+            'Thành công!',
+            'Cập nhật vật tư thành công.',
+            'success'
+          );
+        }
+      });
+    } else {
+      this.receiptService.findProductDTOByProductId(+productId).subscribe(next => {
+        next.product_Quantity = + quantity;
+        this.listReceiptDetailDTO.push(new ReceiptDetailDTO(+productId, +quantity));
+        this.listProduct.push(next);
+        console.log(this.listReceiptDetailDTO);
+      });
+    }
   }
 
   createReceipt() {
@@ -174,6 +182,7 @@ export class ReceiptListComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
           });
+          this.isSaved = true;
         }
     });
   }

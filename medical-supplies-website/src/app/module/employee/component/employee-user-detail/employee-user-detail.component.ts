@@ -21,6 +21,7 @@ export class EmployeeUserDetailComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    window.scroll(0, 0);
     this.mainForm = new FormGroup({
       employeeName: new FormControl(''),
       phone: new FormControl(''),

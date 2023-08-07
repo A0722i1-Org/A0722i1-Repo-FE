@@ -72,7 +72,7 @@ export class ProductCreateEditComponent implements OnInit {
       expireDate: new FormControl('', [Validators.required]),
       customer: new FormControl('', [Validators.required]),
       category: new FormControl('', [Validators.required]),
-      productInfo: new FormControl('', [Validators.required])
+      productInfo: new FormControl('1', [Validators.required])
     });
   }
 
@@ -143,6 +143,7 @@ export class ProductCreateEditComponent implements OnInit {
           this.router.navigateByUrl('/supplies');
           this.reset();
         }, error => {
+          console.log(error)
           this.errorMessage = error.error;
           this.toast.error(this.errorMessage, 'LỖI!');
         }

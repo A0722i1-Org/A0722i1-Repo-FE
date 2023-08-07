@@ -29,10 +29,10 @@ export class CustomerService {
     return this.http.get<Customer>(this._API_URL + '/' + id, {headers});
   }
 
-  updateCustomer(id: string, customer: Customer): Observable<Customer> {
+  updateCustomer(id: string, customer: Customer): Observable<void> {
     const token = this.tokenStorageService.getToken();
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
-    return this.http.put<Customer>(this._API_URL + '/edit/' + id, customer, {headers});
+    return this.http.put<void>(this._API_URL + '/edit/' + id, customer, {headers});
   }
 
 

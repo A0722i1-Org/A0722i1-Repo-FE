@@ -114,7 +114,7 @@
           <label for="loaikhach" class="form-label" class="form-label">Loại khách hàng</label><span>*</span>
           <select id="loaikhach" class="form-select" formControlName="customerType">
             <option selected disabled value="">Chọn loại khách hàng</option>
-            <option *ngFor="let customerType of customerTypes" [value]="customerType">
+            <option *ngFor="let customerType of customerTypes" [value]="customerType.customerTypeId">
               {{customerType.customerTypeName}}
           </select>
           <span class="mess" class="mess" style="color: red">
@@ -153,7 +153,7 @@
         </div>
 
         <div class="form-group col-md-12" style="text-align: center;margin-top: 30px;margin-bottom: 10px;">
-          <button type="reset" class="btn btn-outline-danger mx-5" >Hủy</button>
+          <button type="" routerLink="customer" class="btn btn-outline-danger mx-5" >Hủy</button>
 
 <!--          <button type="submit"  class="btn btn-outline-success mx-4" [disabled]="customerFormEdit.invalid">-->
 <!--            Lưu-->

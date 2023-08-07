@@ -123,3 +123,26 @@ table th{
 p.text-danger {
   display: block; /* Thêm thuộc tính này để xuống dòng */
 }
+.invoice {
+  border-collapse: collapse;
+}
+
+/* CSS for table headers */
+.invoice th {
+  border: 1px solid #000;
+}
+
+/* CSS for table cells */
+.invoice td {
+  border: 1px solid #000;
+}
+
+/* CSS for the last row (Total row) */
+.invoice tr:last-child td {
+  border-top: 1px solid #000;
+}
+
+/* CSS for alternating row colors (optional) */
+.invoice tr:nth-child(even) {
+  background-color: #f2f2f2; /* Add a background color to alternate rows for better readability */
+}

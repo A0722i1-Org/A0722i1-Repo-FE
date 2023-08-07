@@ -7,7 +7,8 @@ import {CustomerType} from '../../model/CustomerType';
 import {formatDate} from '@angular/common';
 import {AngularFireStorage} from '@angular/fire/storage';
 import {finalize} from 'rxjs/operators';
-import Swal from "sweetalert2";
+import Swal from 'sweetalert2';
+import {Customer} from '../../model/Customer';
 
 @Component({
   selector: 'app-customer-create',
@@ -17,8 +18,9 @@ import Swal from "sweetalert2";
 export class CustomerCreateComponent implements OnInit {
   customerFormCreate: FormGroup;
   customerTypes: CustomerType [] = [];
-   inputImage: any;
-  imgSrc: any;
+  customer: Customer [] = [];
+  inputImage: any;
+  imgSrc: any = 'https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png';
   maxSize: any;
 
   constructor(private customerTypeService: CustomerTypeService,
@@ -61,19 +63,33 @@ export class CustomerCreateComponent implements OnInit {
         fileRef.getDownloadURL().subscribe(url => {
           this.customerFormCreate.value.customerImg = url;
           this.customerService.createCustomer(this.customerFormCreate.value).subscribe(next => {
-          });
+              this.router.navigateByUrl('customers').then(() => {
+                Swal.fire('Thành công',
+                  'Đã thêm khách hàng thành công',
+                  'success');
+              });
+            },
+            (error) => {
+              Swal.fire('Lỗi',
+                'Không thêm khách hàng thành công',
+                'success');
+              console.log(error);
+            },
+            () => {
+            }
+          );
         });
       })
     ).subscribe(
       () => {
       },
-      () => {
+      (error) => {
+        Swal.fire('Lỗi',
+          'Không thêm khách hàng thành công',
+          'success');
+        console.log(error);
       },
       () => {
-        Swal.fire('Thành công',
-          'Đã thêm khách hàng thành công',
-          'success');
-        this.router.navigateByUrl('customers');
       }
     );
     console.log(this.customerFormCreate.value);

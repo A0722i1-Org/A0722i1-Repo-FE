@@ -77,14 +77,14 @@
         </div>
 
 
-        <div class="form-group col-md-6">
-          <label class="form-label" for="detail">Thông tin chi tiết vật tư</label><span>*</span>
-          <select name="" id="detail" class="form-select" formControlName="productInfo">
-            <option selected disabled value="">Thông tin chi tiết</option>
-            <option *ngFor="let item of productInfo" value="{{item.infoId}}">{{item.infoIntroduction}}</option>
-          </select>
-          <span style="color: red" *ngIf="formGroup.controls.productInfo?.touched && !formGroup.controls.productInfo?.valid">thông tin chi tiết không được bỏ trống</span>
-        </div>
+<!--        <div class="form-group col-md-6">-->
+<!--          <label class="form-label" for="detail">Thông tin chi tiết vật tư</label><span>*</span>-->
+<!--          <select name="" id="detail" class="form-select" formControlName="productInfo">-->
+<!--            <option selected disabled value="">Thông tin chi tiết</option>-->
+<!--            <option *ngFor="let item of productInfo" value="{{item.infoId}}">{{item.infoIntroduction}}</option>-->
+<!--          </select>-->
+<!--          <span style="color: red" *ngIf="formGroup.controls.productInfo?.touched && !formGroup.controls.productInfo?.valid">thông tin chi tiết không được bỏ trống</span>-->
+<!--        </div>-->
 
 
         <div class="form-group cssButton">

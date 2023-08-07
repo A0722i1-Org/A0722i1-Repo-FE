@@ -22,9 +22,11 @@ export class CreateComponent {
   employeeCreate: EmployeeInfo = {};
   inputImage: any = null;
   maxSize = false;
+  existPhone = false;
+  existIdCard = false;
   employees: Employee[] = [];
   employeeCode: string;
-  imgSrc: string;
+  imgSrc: string = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfqGSpRSWM2LH7fa_Vvrr4V0IGlvG_QWXpJofT1-E&s';
   inquiredImg = false;
   account: Account = null;
   regexname: string = '^[AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+ [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+(?: [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]*)*';
@@ -79,14 +81,18 @@ export class CreateComponent {
     return this.employeeCreate.position;
   }
 
+  compareFn(c1: any, c2: any): boolean {
+    return c1 && c2 ? c1.id === c2.id : c1 === c2;
+  }
+
   private getFormCreate() {
     this.employeeCreateForm = new FormGroup({
       employeeCode: new FormControl(this.employeeCode),
-      employeeName: new FormControl('', [Validators.required, Validators.minLength(5),
+      employeeName: new FormControl('', [Validators.required, Validators.minLength(3),
         Validators.maxLength(50), Validators.pattern(this.regexname)]),
       email: new FormControl(this.account.email, [Validators.required, Validators.minLength(6),
         Validators.maxLength(50), Validators.pattern('^\\s*[a-zA-Z0-9_.+-]+@gmail.com+\\s*$')]),
-      phone: new FormControl('', [Validators.required, Validators.pattern('^\\s*(0)\\d{9}\\s*$')]),
+      phone: new FormControl('', [Validators.required, Validators.pattern('^\\s*(0)\\d{9,10}\\s*$')]),
       employeeAddress: new FormControl('', [Validators.required, Validators.maxLength(100)]),
       gender: new FormControl('', [Validators.required]),
       idCard: new FormControl('', [Validators.required, Validators.pattern('^\\s*\\d{12}\\s*$')]),
@@ -180,29 +186,23 @@ export class CreateComponent {
     }
   }
 
-  checkExistEmail(control: AbstractControl): any {
-    const email = control.value;
-    for (const employee of this.employees) {
-      if (employee.email === email) {
-        return {checkExistEmail: true};
-      }
-    }
-  }
 
-  checkExistPhone(control: AbstractControl): any {
-    const phone = control.value;
+  checkExistPhone(phone: string): any {
     for (const employee of this.employees) {
       if (employee.phone === phone) {
-        return {checkExistPhone: true};
+        this.existPhone = true;
+      } else {
+        this.existPhone = false;
       }
     }
   }
 
-  checkExistIdCard(control: AbstractControl): any {
-    const idCard = control.value;
+  checkExistIdCard(idCard: string): any {
     for (const employee of this.employees) {
       if (employee.idCard === idCard) {
-        return {checkExistIdCard: true};
+        this.existIdCard = true;
+      } else {
+        this.existIdCard = false;
       }
     }
   }

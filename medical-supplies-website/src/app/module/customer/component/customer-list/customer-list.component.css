@@ -4,6 +4,7 @@ h1 {
 }
 thead tr th {
   background-color: #55efc4 !important;
+  text-align: center;
 }
 
 form{

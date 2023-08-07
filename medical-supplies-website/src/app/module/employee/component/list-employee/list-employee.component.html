@@ -1,17 +1,33 @@
 <section>
   <div class="container">
+    <h1 style="text-align: center;color: #00B894">Thông tin nhân viên </h1>
     <form #searchForm="ngForm"
           (ngSubmit)="search(searchForm.value.nameEmployee,searchForm.value.dateofbirth,searchForm.value.pos)"
           class="form__filter d-flex">
       <div class="search-container">
-        <input name="nameEmployee" [(ngModel)]="employeeNameSearch" [value]="" type="text" placeholder="Tên Nhân Viên">
-        <input [(ngModel)]="dateOfBirth" name="dateofbirth" type="date" placeholder="Ngày sinh">
-        <select [(ngModel)]="posName" name="pos" class="position">
-          <option selected value="">
-            Chọn chức vụ
-          </option>
-          <option *ngFor="let pos of positions" [value]="pos.positionName">{{pos.positionName}}</option>
-        </select>
+        <div class="name-em">
+          <div class="lable">
+            <label>Tên nhân viên :</label>
+          </div>
+          <input name="nameEmployee" [(ngModel)]="employeeNameSearch" [value]="" type="text" placeholder="Nhập để tìm kiếm">
+        </div>
+        <div class="date-of-birth">
+          <div class="lable">
+            <label>Ngày sinh :</label>
+          </div>
+          <input [(ngModel)]="dateOfBirth" name="dateofbirth" type="date" placeholder="Ngày sinh">
+        </div>
+        <div class="pos">
+          <div class="lable">
+            <label>Chức vụ :</label>
+          </div>
+          <select [(ngModel)]="posName" name="pos" class="position">
+            <option selected value="">
+              Tất cả
+            </option>
+            <option *ngFor="let pos of positions" [value]="pos.positionName">{{pos.positionName}}</option>
+          </select>
+        </div>
         <button style="margin: 0px 4px" type="submit"><i class="fa fa-search"></i></button>
       </div>
       <div class="btn-create">
@@ -27,10 +43,10 @@
         <div class="product-single-card">
           <div class="product-top-area">
             <div class="product-discount" *ngIf="employee.gender==false">
-              Nữ
+              <i class="uil uil-venus" title="Nữ"></i>
             </div>
             <div class="product-discount" *ngIf="employee.gender==true">
-              Nam
+              <i class="uil uil-mars" title="Nam"></i>
             </div>
             <div class="product-img">
               <div class="first-view">
@@ -95,7 +111,7 @@
         <p *ngIf="employee?.gender==false" class="object-address">Giới tính: Nữ </p>
         <p *ngIf="employee?.gender==true" class="object-address">Giới tính: Nam </p>
         <p class="object-address">Ngày sinh: {{employee?.dateOfBirth|date:'dd/MM/yyyy'}}</p>
-        <p class="object-address">Lương: {{employee?.salary|currency}}</p>
+        <p class="object-address">Lương: {{employee?.salary|currency:'VND':'symbol':'1.0-0':'vi'}}</p>
         <p class="object-address">Tên tài khoản: {{employee?.account?.username}}</p>
         <p class="object-address">Quê quán: {{employee?.employeeAddress}}</p>
         <p class="object-address">Số điện thoại: {{employee?.phone}}</p>

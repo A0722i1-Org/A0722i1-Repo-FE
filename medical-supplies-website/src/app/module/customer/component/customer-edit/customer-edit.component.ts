@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {CustomerType} from '../../model/CustomerType';
 import {CustomerTypeService} from '../../service/customer-type.service';
@@ -7,6 +7,7 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {finalize} from 'rxjs/operators';
 import {formatDate} from '@angular/common';
 import {AngularFireStorage} from '@angular/fire/storage';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-customer-edit',
@@ -26,7 +27,8 @@ export class CustomerEditComponent implements OnInit {
               private customerService: CustomerService,
               private activatedRoute: ActivatedRoute,
               private storage: AngularFireStorage,
-              private router: Router) { }
+              private router: Router) {
+  }
 
   ngOnInit(): void {
     this.customerTypeService.getAllCustomerType().subscribe((data) => {
@@ -40,7 +42,7 @@ export class CustomerEditComponent implements OnInit {
         this.imgSrc = customerEdit.customerImg;
         this.customerFormEdit = new FormGroup({
           customerId: new FormControl(customerEdit.customerId),
-          customerCode : new FormControl(customerEdit.customerCode, [Validators.required, Validators.pattern('^KH-\\d{4}$')]),
+          customerCode: new FormControl(customerEdit.customerCode, [Validators.required, Validators.pattern('^KH-\\d{4}$')]),
           name: new FormControl(customerEdit.name, [Validators.required, Validators.maxLength(50),
             Validators.minLength(3), Validators.pattern('^(?:[A-Z][a-zÀ-ỹ]*(?: [A-Z][a-zÀ-ỹ]*)+)$')]),
           phone: new FormControl(customerEdit.phone, [Validators.required, Validators.pattern('^(09|08)\\d{8}$')]),
@@ -67,63 +69,142 @@ export class CustomerEditComponent implements OnInit {
   }
 
   editCustomer(id: string) {
-    const customerTypeId: number = this.customerFormEdit.get('customerType').
-      value.customerTypeId; // Lấy giá trị id từ form, kiểu dữ liệu là number
+    // const customerTypeId: number = this.customerFormEdit.get('customerType').
+    //   value.customerTypeId; // Lấy giá trị id từ form, kiểu dữ liệu là number
 
-    this.customerTypeService.findByIdCustomerType(customerTypeId).subscribe(
-      (data) => {
-        this.customerFormEdit.patchValue({
-          type: data
-        });
-        console.log(data);
-      },
-      () => {
-      },
-      () => {
-        if (this.inputImage != null && this.maxSize !== true ) {
-          const nameImg = formatDate(new Date(), 'dd-MM-yyyy_hh:mm:ss:a_', 'en-US') + this.inputImage.name;
-          const fileRef = this.storage.ref(nameImg);
-          this.storage.upload(nameImg, this.inputImage).snapshotChanges().pipe(
-            finalize(() => {
-              fileRef.getDownloadURL().subscribe(url => {
-                this.customerFormEdit.patchValue({employeeImg: url});
-                console.log('Change');
-                console.log(this.customerFormEdit.value);
+    // this.customerTypeService.findByIdCustomerType(customerTypeId).subscribe(
+    //   (data) => {
+    //     this.customerFormEdit.patchValue({
+    //       type: data
+    //     });
+    //     console.log(data);
+    //   },
+    //   () => {
+    //   },
+    //   () => {
+    if (this.inputImage != null && this.maxSize !== true) {
+      const nameImg = formatDate(new Date(), 'dd-MM-yyyy_hh:mm:ss:a_', 'en-US') + this.inputImage.name;
+      const fileRef = this.storage.ref(nameImg);
+      this.storage.upload(nameImg, this.inputImage).snapshotChanges().pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().subscribe(url => {
+            this.customerFormEdit.patchValue({employeeImg: url});
+            console.log('Change');
+            /*this.customerService.updateCustomer(id, this.customerFormEdit.value).subscribe(
+              () => {
+                this.router.navigateByUrl('/customers').then(() => {
+                  Swal.fire('Thành công',
+                    'Đã chỉnh sửa khách hàng thành công',
+                    'success');
+                });
+                console.log( this.customerFormEdit);
+              },
+              (error) => {
+                Swal.fire('Lỗi',
+                  'Không chỉnh sửa khách hàng thành công',
+                  'success');
+                console.log(error);
+
+              },
+              () => {
+                this.router.navigateByUrl('/customers');
+              }
+            );*/
+            this.customerTypeService.findByIdCustomerType(this.customerFormEdit.get('customerType').value).subscribe(
+              (data) => {
+                this.customerFormEdit.patchValue({
+                  customerType: data
+                });
+              },
+              () => {
+              },
+              () => {
                 this.customerService.updateCustomer(id, this.customerFormEdit.value).subscribe(
                   () => {
-                    console.log( this.customerFormEdit);
+                    this.router.navigateByUrl('/customers').then(() => {
+                      Swal.fire('Thành công',
+                        'Đã chỉnh sửa khách hàng thành công',
+                        'success');
+                    });
+                    /*console.log(this.customerFormEdit);*/
                   },
-                  () => {
+                  (error) => {
+                    Swal.fire('Lỗi',
+                      'Không chỉnh sửa khách hàng thành công',
+                      'success');
+                    console.log(error);
 
                   },
                   () => {
                     this.router.navigateByUrl('/customers');
                   }
                 );
-              });
-            })
-          ).subscribe();
-        } else {
-          console.log('No change');
-          console.log(this.customerFormEdit.value);
+              }
+            );
+          });
+        })
+      ).subscribe();
+    } else {
+      console.log('No change');
+      /*console.log(this.customerFormEdit.value);*/
+      /*this.customerService.updateCustomer(id, this.customerFormEdit.value).subscribe(
+        () => {
+          this.router.navigateByUrl('/customers').then(() => {
+            Swal.fire('Thành công',
+              'Đã chỉnh sửa khách hàng thành công',
+              'success');
+          });
+          /!*console.log(this.customerFormEdit);*!/
+        },
+        (error) => {
+          Swal.fire('Lỗi',
+            'Không chỉnh sửa khách hàng thành công',
+            'success');
+          console.log(error);
+        },
+        () => {
+          this.router.navigateByUrl('/customers');
+        }
+      );*/
+      this.customerTypeService.findByIdCustomerType(this.customerFormEdit.get('customerType').value).subscribe(
+        (data) => {
+          this.customerFormEdit.patchValue({
+            customerType: data
+          });
+        },
+        () => {
+        },
+        () => {
           this.customerService.updateCustomer(id, this.customerFormEdit.value).subscribe(
             () => {
-              console.log( this.customerFormEdit);
+              this.router.navigateByUrl('/customers').then(() => {
+                Swal.fire('Thành công',
+                  'Đã chỉnh sửa khách hàng thành công',
+                  'success');
+              });
+              /*console.log(this.customerFormEdit);*/
             },
-            () => {
+            (error) => {
+              Swal.fire('Lỗi',
+                'Không chỉnh sửa khách hàng thành công',
+                'success');
+              console.log(error);
 
             },
             () => {
               this.router.navigateByUrl('/customers');
             }
-          );        }
+          );
+        }
+      );
+    }
 
-      }
-
-
-
-    );
-    console.log(this.customerFormEdit.value);
+    //   }
+    //
+    //
+    //
+    // );
+    /*console.log(this.customerFormEdit.value);*/
   }
 
   selectImg(event: any) {

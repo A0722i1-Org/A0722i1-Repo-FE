@@ -24,7 +24,7 @@ const routes: Routes = [
   {
     path: 'detail',
     canActivate: [AuthGuard, RoleGuard],
-    data: {roles: ['ROLE_ADMIN', 'ROLE_ACCOUNTANT', 'ROLE_SALE']},
+    data: {roles: ['ROLE_USER']},
     component: CustomerUserDetailComponent
   },
   {

@@ -28,7 +28,9 @@
             <i *ngIf="detail.quantity > 1" class="fa fa-minus" aria-hidden="true"
                (click)="decreaseQuantity(detail.cartDetailId)"></i>
             <span>{{detail.quantity}}</span>
-            <i class="fa fa-plus" aria-hidden="true" (click)="increaseQuantity(detail.cartDetailId)"></i>
+            <i *ngIf="detail.quantity < detail.product.productQuantity" class="fa fa-plus" aria-hidden="true"
+               (click)="increaseQuantity(detail.cartDetailId)"></i>
+            <i *ngIf="detail.quantity>=detail.product.productQuantity" class="fa fa-ban" aria-hidden="true"></i>
           </div>
           <p>{{detail.product.productPrice | currency: 'VND'}}</p>
         </div>
@@ -38,8 +40,11 @@
     <div class="card">
       <div class="card-body row">
         <div>
-          <button *ngIf="details.length != 0" class="btn btn-outline-success text-center" style="width: inherit"
+          <button *ngIf="!allChecked && details.length > 0" class="btn btn-outline-success text-center" style="width: inherit"
                   (click)="checkAll()">Chọn tất cả
+          </button>
+          <button *ngIf="allChecked && details.length > 0" class="btn btn-outline-success text-center" style="width: inherit"
+                  (click)="uncheckAll()">Bỏ chọn tất cả
           </button>
           <p *ngIf="details.length == 0" class="text-center">Giỏ hàng hiện đang trống</p>
         </div>
@@ -58,21 +63,21 @@
       <div class="card-body">
         <table>
           <tr>
-            <th>Tổng tiền:</th>
+            <th>Tổng giá trị đơn hàng:</th>
             <td>{{total|currency: 'VND'}}</td>
           </tr>
-          <tr>
-            <th>Mã giảm giá:</th>
-            <td><input type="text" value="0X0001"></td>
-          </tr>
-          <tr>
-            <th>Phí vận chuyển:</th>
-            <td>{{shippingFee|currency:'VND'}}</td>
-          </tr>
-          <tr>
-            <th>Thành tiền:</th>
-            <td>{{total + shippingFee|currency:'VND'}}</td>
-          </tr>
+          <!--          <tr>-->
+          <!--            <th>Mã giảm giá:</th>-->
+          <!--            <td><input type="text" value="0X0001"></td>-->
+          <!--          </tr>-->
+          <!--          <tr>-->
+          <!--            <th>Phí vận chuyển:</th>-->
+          <!--            <td>{{shippingFee|currency:'VND'}}</td>-->
+          <!--          </tr>-->
+          <!--          <tr>-->
+          <!--            <th>Thành tiền:</th>-->
+          <!--            <td>{{total + shippingFee|currency:'VND'}}</td>-->
+          <!--          </tr>-->
         </table>
       </div>
     </div>
@@ -87,7 +92,7 @@
       <div class="card-body">
         <form [formGroup]="rf" *ngIf="rf">
           <div class="form-group mb-3">
-            <label>Họ và tên:</label>
+            <label>Họ và tên:<sup class="text-danger fw-bold">*</sup></label>
             <input type="text" formControlName="receiverName" class="form-control">
           </div>
           <p class="text-danger" *ngIf="rf.controls.receiverName.touched && rf.controls.receiverName.errors?.required">
@@ -95,7 +100,7 @@
           <p class="text-danger" *ngIf="rf.controls.receiverName.touched && rf.controls.receiverName.errors?.pattern">
             Tên không chính xác</p>
           <div class="form-group mb-3">
-            <label>Địa chỉ:</label>
+            <label>Địa chỉ:<sup class="text-danger fw-bold">*</sup></label>
             <input type="text" formControlName="receiverAddress" class="form-control">
           </div>
           <p class="text-danger"
@@ -105,7 +110,7 @@
              *ngIf="rf.controls.receiverAddress.touched && rf.controls.receiverAddress.errors?.pattern">Địa chỉ không
             chính xác</p>
           <div class="form-group mb-3">
-            <label>Số điện thoại:</label>
+            <label>Số điện thoại:<sup class="text-danger fw-bold">*</sup></label>
             <input type="text" formControlName="receiverPhone" class="form-control">
           </div>
           <p class="text-danger"
@@ -114,7 +119,7 @@
           <p class="text-danger" *ngIf="rf.controls.receiverPhone.touched && rf.controls.receiverPhone.errors?.pattern">
             Số điện thoại không đúng định dạng</p>
           <div class="form-group mb-3">
-            <label>Địa chỉ:</label>
+            <label>Địa chỉ:<sup class="text-danger fw-bold">*</sup></label>
             <input type="text" formControlName="receiverEmail" class="form-control">
           </div>
           <p class="text-danger"
@@ -123,7 +128,7 @@
           <p class="text-danger" *ngIf="rf.controls.receiverEmail.touched && rf.controls.receiverEmail.errors?.email">
             Email không đúng định dạng</p>
           <div class="form-group mb-3">
-            <label for="paymentMethod">Hình thức thanh toán:</label>
+            <label for="paymentMethod">Hình thức thanh toán:<sup class="text-danger fw-bold">*</sup></label>
             <select name="paymentMethod" id="paymentMethod" (change)="changeMethod($event)" class="form-control">
               <option value="direct" selected>Trực tiếp khi nhận hàng</option>
               <option value="vnpay">Thanh toán qua VNPay</option>

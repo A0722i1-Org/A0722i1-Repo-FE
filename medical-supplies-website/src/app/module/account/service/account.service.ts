@@ -28,4 +28,19 @@ export class AccountService {
     const url = `${this._API_URL}/roles`;
     return this.httpClient.get<Role[]>(url, {headers});
   }
+
+  checkExistingUsername(username: string): Observable<boolean> {
+    const token = this.tokenStorageService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const url = `${this._API_URL}/checkExistingUsername?username=${username}`;
+    return this.httpClient.get<boolean>(url, {headers});
+  }
+
+  checkExistingEmail(email: string): Observable<boolean> {
+    const token = this.tokenStorageService.getToken();
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const url = `${this._API_URL}/checkExistingEmail?email=${email}`;
+    return this.httpClient.get<boolean>(url, {headers});
+  }
+
 }

@@ -105,7 +105,7 @@
   <br>
   <div class="d-flex justify-content-center gap-2">
     <button   class="btn" (click)="saveInvoice()" style="background: #00b894; color: white"><i class="fa-solid fa-pen-to-square"></i> Lưu </button>
-    <button (click)="selectInvoiceCode(invoiceCode.value)" class="btn" style="background: #00b894; color: white" data-bs-toggle="modal" data-bs-target="#modelInvoice"><i class="fa-solid fa-print"></i> In hóa đơn</button>
+    <button (click)="selectInvoiceCode(invoiceCode.value)" class="btn" style="background: #00b894; color: white" data-bs-toggle="modal" data-bs-target="#modelInvoice" [disabled]="!isSaved"><i class="fa-solid fa-print"></i> In hóa đơn</button>
     <a type="button" class="btn" style="background: #00b894; color: white" routerLink=""><i class="fa-solid fa-person-walking-arrow-loop-left" ></i> Trở về</a>
   </div>
 </div>
@@ -165,20 +165,20 @@
           <br>
           <div class="section">
             <h3 class="section-title" style="text-align: center">Danh sách vật tư:</h3>
-            <table class="table-responsive item-list"  border="1">
+            <table class="table-responsive invoice"  border="1" style="width: 100%">
               <tr>
-                <th>Mã vật tư</th>
-                <th>Tên vật tư</th>
-                <th>Số lượng</th>
-                <th>Giá thành (VNĐ)</th>
-                <th>Ghi chú</th>
+                <th style="width: 10%">Mã vật tư</th>
+                <th style="width: 35%">Tên vật tư</th>
+                <th style="width: 10%">Số lượng</th>
+                <th style="width: 15%">Giá thành (VNĐ)</th>
+                <th style="width: 30%">Ghi chú</th>
               </tr>
               <tr  *ngFor="let s of shipmentDetailDtos">
-                <td style="display: flex;justify-content: center;align-items: center;">{{s.productId}}</td>
-                <td>{{s.productName}}</td>
-                <td style="display: flex;justify-content: center;align-items: center;">{{s.quantity}}</td>
-                <td>{{s.productPrice | currency: "đ"}}</td>
-                <th>{{s.note}}</th>
+                <td style=" width: 10%">{{s.productId}}</td>
+                <td style="width: 35%">{{s.productName}}</td>
+                <td style=" width: 10%">{{s.quantity}}</td>
+                <td style="width: 15%">{{s.productPrice | currency: "đ"}}</td>
+                <th style="width: 30%">{{s.note}}</th>
               </tr>
               <tr>
                 <td colspan="3">Tổng tiền: {{calculateTotalPrice() | currency: "đ"}} </td>

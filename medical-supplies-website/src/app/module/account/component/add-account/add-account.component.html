@@ -29,7 +29,7 @@
             <p class="text-danger" *ngIf="accountForm.get('username').errors.pattern">Tài khoản không hợp lệ</p>
             <p class="text-danger"
                *ngIf="accountForm.get('username').errors.minlength || accountForm.get('username').errors.maxlength">
-              Tài khoản phải có độ dài từ 4 đến 12 ký tự
+              Tài khoản phải có độ dài từ 4 đến 30 ký tự
             </p>
           </div>
         </div>
@@ -55,6 +55,26 @@
         </div>
 
         <div class="mb-3">
+          <label for="rePassword" class="form-label fw-bolder">Nhập lại mật khẩu</label>
+          <div class="input-group">
+            <span class="input-group-text"><i class="fa-solid fa-key"></i></span>
+            <input formControlName="rePassword" type="password" class="form-control"
+                   placeholder="Nhập lại mật khẩu"
+                   id="rePassword"
+                   [ngClass]="accountForm.controls.rePassword?.invalid?'is-invalid':'is-valid'">
+          </div>
+          <div *ngIf="accountForm.get('rePassword').invalid && accountForm.get('rePassword').touched">
+            <p class="text-danger" *ngIf="accountForm.get('rePassword').errors.required">Vui lòng nhập lại mật khẩu</p>
+            <p class="text-danger" *ngIf="accountForm.get('rePassword').errors.pattern">Mật khẩu không hợp lệ.
+              Mật khẩu phải có ít nhất 1 ký tự số, 1 ký tự in hoa và 1 ký tự thường.</p>
+            <p class="text-danger"
+               *ngIf="accountForm.get('rePassword').errors.minlength || accountForm.get('rePassword').errors.maxlength">
+              Mật khẩu phải có độ dài từ 6 đến 32 ký tự
+            </p>
+          </div>
+        </div>
+
+        <div class="mb-3">
           <label for="email" class="form-label fw-bolder">Email</label>
           <div class="input-group">
             <span class="input-group-text"><i class="fa-regular fa-envelope"></i></span>
@@ -67,7 +87,7 @@
               nhập lại. Ex: tên_email@gmail.com</p>
             <p class="text-danger"
                *ngIf="accountForm.get('email').errors.minlength || accountForm.get('email').errors.maxlength">
-              Tên email chỉ được phép chứa từ 6 đến 30 kí tự
+              Tên email chỉ được phép chứa từ 6 đến 128 kí tự
             </p>
           </div>
         </div>
@@ -98,5 +118,3 @@
     </div>
   </div>
 </div>
-
-
