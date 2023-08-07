@@ -1,4 +1,3 @@
-
 import {Component, OnInit} from '@angular/core';
 import {CartWithDetail} from '../../model/cart-with-detail';
 import {CartService} from '../../service/cart.service';
@@ -20,8 +19,8 @@ export class CartListComponent implements OnInit {
   cart?: Cart;
   details?: CartDetail[];
   total = 0;
-  shippingFee = 0;
   paymentMethod = 'direct';
+  allChecked: boolean = false;
 
   constructor(private cartService: CartService,
               private paymentService: PaymentService,
@@ -54,14 +53,13 @@ export class CartListComponent implements OnInit {
     const tempCartDetails: CartDetail[] = [];
     this.details.forEach(next => {
       if (next.cartDetailId === cartDetailId) {
-        if (next.quantity > 0) {
           next.quantity--;
-        }
       }
       tempCartDetails.push(next);
     });
     this.details = tempCartDetails;
     this.getTotalAmount();
+    this.cartService.updateCart(this.prepareCartForSendingToBackend()).subscribe();
   }
 
   increaseQuantity(cartDetailId: number) {
@@ -74,9 +72,11 @@ export class CartListComponent implements OnInit {
     });
     this.details = tempCartDetails;
     this.getTotalAmount();
+    this.cartService.updateCart(this.prepareCartForSendingToBackend()).subscribe();
   }
 
   checkAll() {
+    this.allChecked = true;
     const tempCartDetails: CartDetail[] = [];
     this.details.forEach(item => {
       item.status = true;
@@ -87,6 +87,7 @@ export class CartListComponent implements OnInit {
   }
 
   uncheckAll() {
+    this.allChecked = false;
     const tempCartDetails: CartDetail[] = [];
     this.details.forEach(item => {
       item.status = false;
@@ -98,7 +99,7 @@ export class CartListComponent implements OnInit {
 
   formBuilder() {
     this.rf = new FormGroup({
-      receiverName: new FormControl(this.cart.receiverName, [Validators.required, Validators.pattern('^(?:[A-Z][a-zÀ-ỹ]*(?: [A-Z][a-zÀ-ỹ]*)+)$')]),
+      receiverName: new FormControl(this.cart.receiverName, [Validators.required, Validators.pattern('^[AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+ [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+(?: [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]*)*')]),
       receiverAddress: new FormControl(this.cart.receiverAddress, [Validators.required, Validators.pattern('^[^!@#$%^&*()_+<>?\'\"{}\\`~|/\\\\]+$')]),
       receiverPhone: new FormControl(this.cart.receiverPhone, [Validators.required, Validators.pattern('^0\\d{9,10}')]),
       receiverEmail: new FormControl(this.cart.receiverEmail, [Validators.required, Validators.email])
@@ -106,7 +107,6 @@ export class CartListComponent implements OnInit {
   }
 
   save() {
-    this.uncheckAll();
     this.cartService.updateCart(this.prepareCartForSendingToBackend()).subscribe(next => {
       Swal.fire({
         title: 'Đã huỷ!',
