@@ -28,7 +28,7 @@
           <td>{{supply.expire_Date | date: 'dd-MM-yyyy'}}</td>
           <td>{{supply.name}}</td>
           <td>
-            <button class="btn btn-warning">
+            <button class="btn btn-warning" [routerLink]="['/products/update/',supply.product_Code]">
               <i class="fa fa-pencil-square-o"></i> Chỉnh sửa
             </button>
           </td>

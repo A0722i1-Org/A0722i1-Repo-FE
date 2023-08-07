@@ -39,7 +39,7 @@ export class EmployeeUserUpdateComponent implements OnInit {
       employeeImg: new FormControl('', [Validators.required]),
       employeeName: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.minLength(5),
         // tslint:disable-next-line:max-line-length
-        Validators.pattern('^[a-zA-ZÀ-Ỹà-ỹĂăÂâĐđÊêÔôƠơƯưá-ýÁ-Ý]*\\s?[a-zA-ZÀ-Ỹà-ỹĂăÂâĐđÊêÔôƠơƯưá-ýÁ-Ý]*\\s?[a-zA-ZÀ-Ỹà-ỹĂăÂâĐđÊêÔôƠơƯưá-ýÁ-Ý]*$')]),
+        Validators.pattern('^[AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+ [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]+(?: [AÀẢÃÁẠĂẰẲẴẮẶÂẦẨẪẤẬBCDĐEÈẺẼÉẸÊỀỂỄẾỆFGHIÌỈĨÍỊJKLMNOÒỎÕÓỌÔỒỔỖỐỘƠỜỞỠỚỢPQRSTUÙỦŨÚỤƯỪỬỮỨỰVWXYỲỶỸÝỴZ][aàảãáạăằẳẵắặâầẩẫấậbcdđeèẻẽéẹêềểễếệfghiìỉĩíịjklmnoòỏõóọôồổỗốộơờởỡớợpqrstuùủũúụưừửữứựvwxyỳỷỹýỵz]*)*')]),
       gender: new FormControl('', [Validators.required]),
       // tslint:disable-next-line:max-line-length
       dateOfBirth: new FormControl('', [Validators.required, this.checkDateOfBirth,
@@ -208,5 +208,4 @@ export class EmployeeUserUpdateComponent implements OnInit {
       };
     }
   }
-
 }

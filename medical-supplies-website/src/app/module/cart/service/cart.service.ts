@@ -30,7 +30,7 @@ export class CartService {
 
   checkout(cartWithDetail: CartWithDetail): Observable<CartWithDetail> {
     const token = this.tokenStorageService.getToken();
-    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`).set('Content-Type', 'application/json').set('charset', 'utf-8');
     return this.httpClient.put<CartWithDetail>(`${this._API_URL}/checkout`, cartWithDetail, {headers});
   }
 

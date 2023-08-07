@@ -4,6 +4,9 @@ import {ActivatedRoute, ParamMap, Router} from '@angular/router';
 import {FormControl, FormGroup} from '@angular/forms';
 import {Product} from '../../model/Product';
 import Swal from 'sweetalert2';
+import {TokenStorageService} from "../../../security/service/token-storage.service";
+import {CartService} from "../../../cart/service/cart.service";
+import {CartDetail} from "../../../cart/model/CartDetail";
 
 @Component({
   selector: 'app-product-detail',
@@ -27,16 +30,25 @@ export class ProductDetailComponent implements OnInit {
   };
   productDetail: FormGroup;
   quantity = 1;
+  maxQuantity = 1;
+  details: CartDetail[] = [];
 
   @ViewChild('quantityInput', {static: true}) quantityInput: ElementRef<HTMLInputElement>;
+  role = '';
 
   constructor(private productService: ProductService,
               private activatedRoute: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private tokenStorageService: TokenStorageService,
+              private cartService: CartService) {
   }
 
   ngOnInit(): void {
     this.getAll();
+    this.getRole();
+    if(this.role=='ROLE_USER'){
+      this.getCart();
+    }
   }
 
   getAll() {
@@ -46,10 +58,15 @@ export class ProductDetailComponent implements OnInit {
         console.log(productData);
         this.productViewDetail = productData;
         this.quantity = this.productViewDetail.productQuantity || 1;
+        this.maxQuantity = this.productViewDetail.productQuantity;
         this.quantityInput.nativeElement.value = this.quantity.toString();
         this.initProductDetailForm(productData);
       });
     });
+  }
+
+  getRole() {
+    this.role = this.tokenStorageService.getRole()
   }
 
   private initProductDetailForm(productData: Product) {
@@ -68,8 +85,7 @@ export class ProductDetailComponent implements OnInit {
   }
 
   increaseQuantity(): void {
-    const maxValue = 100;
-    if (this.quantity < maxValue) {
+    if (this.quantity < this.maxQuantity) {
       this.quantity++;
       this.quantityInput.nativeElement.value = this.quantity.toString();
     }
@@ -83,18 +99,29 @@ export class ProductDetailComponent implements OnInit {
     }
   }
 
-  addToCart(): void {
-    const cartItem: Product = {
-      productId: this.productViewDetail.productId,
-      productImg: this.productViewDetail.productImg,
-      productName: this.productViewDetail.productName,
-      productPrice: this.productViewDetail.productPrice,
-      productQuantity: this.quantity,
-    };
-    this.productService.addToCart(cartItem);
-    Swal.fire('Thành công',
-      'Đã thêm sản phẩm vào giỏ hàng',
-      'success');
-    this.router.navigateByUrl('/carts');
+  addToCart(productId: number) {
+    let flag = false;
+    this.details.forEach(value => {
+      if (value.product.productId === productId) {
+        flag = true;
+      }
+    });
+    if (flag) {
+      Swal.fire('Lưu ý',
+        'Sản phẩm đã có trong giỏ',
+        'info');
+    } else {
+      this.cartService.addToCart(productId).subscribe(next => {
+        Swal.fire('Thành công',
+          'Đã thêm sản phẩm vào giỏ',
+          'success');
+      });
+    }
+  }
+
+  getCart() {
+    return this.cartService.getCart().subscribe(next => {
+      this.details = next.cartDetailList;
+    });
   }
 }

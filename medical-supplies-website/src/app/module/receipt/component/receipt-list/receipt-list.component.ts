@@ -4,7 +4,7 @@ import {ReceiptType} from '../../model/ReceiptType';
 import {Employee} from '../../../employee/model/Employee';
 import {Supplier} from '../../model/Supplier';
 import {ProductDTO} from '../../model/ProductDTO';
-import {AbstractControl, FormControl, FormGroup, ValidationErrors, Validators} from '@angular/forms';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {ReceiptDetailDTO} from '../../model/ReceiptDetailDTO';
 import Swal from 'sweetalert2';
 import {Receipt} from '../../model/Receipt';

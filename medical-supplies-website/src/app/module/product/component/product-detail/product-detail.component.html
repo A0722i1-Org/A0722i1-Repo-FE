@@ -14,12 +14,6 @@
                 </div>
               </div>
             </div>
-<!--            <div class="row">-->
-<!--              <div class="col-6 col-md-12">-->
-<!--                <img [src]="image" *ngFor="let image of images" class="img-fluid selectable-image"-->
-<!--                     alt="Hình ảnh" (mousemove)="selectImage(image)">-->
-<!--              </div>-->
-<!--            </div>-->
           </div>
           <div class="col-md-8">
             <div class="card-body">
@@ -29,10 +23,6 @@
                   <strong>Giá:</strong>
                   <span> {{productViewDetail.productPrice | currency: 'VND'}} / Thùng</span>
                 </li>
-                <!--                <li class="list-group-item">
-                                  <strong>Số lượng còn lại:</strong>
-                                  <span> {{ productViewDetail.productQuantity }}</span>
-                                </li>-->
                 <li class="list-group-item">
                   <strong>Thương hiệu:</strong>
                   <span> {{productViewDetail.productInfo?.trademark}}</span>
@@ -52,7 +42,7 @@
                                 (click)="decreaseQuantity()">-
                         </button>
                         <input type="text" class="form-control quantity-input-field" [value]="quantity" min="1"
-                               max="100" #quantityInput>
+                               [max]="maxQuantity" #quantityInput>
                         <button class="btn btn-outline-secondary increase-btn" type="button"
                                 (click)="increaseQuantity()">+
                         </button>
@@ -62,7 +52,7 @@
                   <br>
                   <div class="row align-items-center justify-content-center">
                     <div class="col-auto">
-                      <button type="button" class="btn btn-outline-success add-to-cart-btn" (click)="addToCart()">
+                      <button type="button" *ngIf="role === 'ROLE_USER'" class="btn btn-outline-success add-to-cart-btn" (click)="addToCart(productViewDetail.productId)">
                         <span class="bi bi-cart4 me-2"></span> Thêm vào giỏ hàng
                       </button>
                       <button type="button" class="btn btn-outline-success ms-3" routerLink="/">Trở về</button>
@@ -83,7 +73,7 @@
           <div class="mt-3">
             <p><strong>Giới thiệu:</strong> {{productViewDetail.productInfo?.infoIntroduction}}</p>
             <p><strong>Thông tin kỹ thuật:</strong></p>
-            {{productViewDetail.productInfo?.infoDescription}}
+            <div [innerHtml]="productViewDetail.productInfo?.infoDescription"></div>
           </div>
         </div>
       </form>
