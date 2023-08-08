@@ -51,6 +51,8 @@ Product Single Card - Start
   padding: 5px 10px;
   user-select: none;
   font-size: larger;
+  font-weight: bold;
+  color: #00B894;
 }
 
 .product-single-card .product-top-area .product-img {
@@ -232,7 +234,9 @@ Product Single Card - Start
 .search-container {
   padding: 8px 16px;
   display: flex;
-  align-items: center;
+  align-items: end;
+  border-radius: 15px;
+  border: 1px #00b894;
 }
 
 input[type="text"] {
@@ -240,7 +244,7 @@ input[type="text"] {
   border: 1px solid #00B894;
   outline: none;
   width: 140px;
- 
+  border-radius: 10px;
 }
 
 button[type="submit"] {
@@ -253,6 +257,7 @@ button[type="submit"] {
   border-radius: 50%;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
+  margin-top: 15px;
 
 }
 
@@ -274,6 +279,8 @@ input[type="date"] {
   outline: none;
   width: 150px;
   border: 1px solid #00B894;
+  border-radius: 10px;
+
 }
 
 .position {
@@ -281,6 +288,7 @@ input[type="date"] {
   border: 1px solid #00B894;
   outline: none;
   width: 150px;
+  border-radius: 10px;
 
 }
 

@@ -73,7 +73,7 @@ export class ListEmployeeComponent implements OnInit {
     if (specialCharPattern.test(this.employeeNameSearch) || this.employeeNameSearch.length > 36) {
       Swal.fire({
         icon: 'error',
-        text: 'Chuỗi không được chứa kí tự đặc biệt và lớn hơn 36 kí tự',
+        text: 'Chuỗi không được chứa kí tự đặc biệt và lớn hơn 36 kí tự.',
         position: 'top-end',
         toast: true,
         showConfirmButton: false,
@@ -84,7 +84,7 @@ export class ListEmployeeComponent implements OnInit {
         if (next.length === 0) {
           Swal.fire({
             icon: 'error',
-            text: 'Không tìm thấy nhân viên ' + this.employeeNameSearch,
+            text: 'Không tìm thấy nhân viên. ' + this.employeeNameSearch,
             position: 'top-end',
             toast: true,
             showConfirmButton: false,
