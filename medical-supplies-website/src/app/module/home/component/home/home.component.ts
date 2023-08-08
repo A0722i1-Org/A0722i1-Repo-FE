@@ -28,7 +28,7 @@ export class HomeComponent implements OnInit {
   totalPage = 0;
   currentPage = 0;
   role = '';
-
+  msg = false;
 
   constructor(private homeService: HomeService,
               private categoryHomeService: CategoryHomeService,
@@ -61,14 +61,20 @@ export class HomeComponent implements OnInit {
 
   getAllProduct() {
     this.homeService.findAll().subscribe((products) => {
-      this.productsMain = products.content;
-      this.totalPage = products.totalPages;
-      this.currentPage = products.number;
-      this.totalPages = [];
-      for (let j = 0; j < this.totalPage; j++) {
-        this.totalPages.push(j);
+      if (products != null) {
+        this.productsMain = products.content;
+        this.totalPage = products.totalPages;
+        this.currentPage = products.number;
+        this.msg = false;
+        this.totalPages = [];
+        for (let j = 0; j < this.totalPage; j++) {
+          this.totalPages.push(j);
+        }
+        this.activeCategories(0);
+      } else {
+        this.productsMain = [];
+        this.msg = true;
       }
-      this.activeCategories(0);
     });
   }
 
@@ -93,8 +99,10 @@ export class HomeComponent implements OnInit {
       this.rfSearch.reset();
       if (next != null) {
         this.productsMain = next.content;
+        this.msg = false;
       } else {
         this.productsMain = [];
+        this.msg = true;
       }
     });
   }
@@ -104,8 +112,10 @@ export class HomeComponent implements OnInit {
     this.homeService.searchByCate(categoryId).subscribe(next => {
       if (next != null) {
         this.productsMain = next.content;
+        this.msg = false;
       } else {
         this.productsMain = [];
+        this.msg = true;
       }
     });
   }

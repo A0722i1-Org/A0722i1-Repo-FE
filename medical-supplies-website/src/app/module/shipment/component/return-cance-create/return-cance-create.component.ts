@@ -14,6 +14,7 @@ export class ReturnCanceCreateComponent implements OnInit {
   products: Product[];
   productDtos: ProductDto[];
   p = 1;
+  selectAll = false;
 
   constructor(public shipmentService: ShipmentService,
               private router: Router) {
@@ -47,5 +48,17 @@ export class ReturnCanceCreateComponent implements OnInit {
     // Tiến hành reset lại danh sách tạm
     // this.shipmentService.clearShipmentItems();
     this.router.navigate(['/shipments/return']);
+  }
+
+  /*Chon tat ca checkbox*/
+  selectAllCheckboxes() {
+    for (const item of this.productDtos) {
+      item.select = this.selectAll;
+      if (item.select) {
+        this.shipmentService.addShipmentProductDetailDto(item);
+      } else {
+        this.shipmentService.removeShipmentProductDetailDto(item);
+      }
+    }
   }
 }

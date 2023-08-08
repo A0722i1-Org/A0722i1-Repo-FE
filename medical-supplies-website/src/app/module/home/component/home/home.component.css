@@ -403,7 +403,7 @@ a.paginationItem.active {
   text-align: center;
 }
 .product-item {
-  max-width: 20%; /* Điều chỉnh độ rộng tùy ý */
+  width: 20%; /* Điều chỉnh độ rộng tùy ý */
 }
 @media screen and (width < 576px) {
   .product-item {
@@ -420,3 +420,4 @@ a.paginationItem.active {
     width: 20%; /* Điều chỉnh độ rộng tùy ý */
   }
 }
+

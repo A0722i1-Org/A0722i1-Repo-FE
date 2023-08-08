@@ -62,8 +62,8 @@
   </div>
 
   <!-- ***** Main home start***** -->
-  <div class="container-fluid">
-    <div class="row">
+  <div class="container-fluid" >
+    <div class="row" >
       <div class="col-lg-12">
         <div class="filter">
           <div class="category__item active" id="category__item-0" (click)="getAllProduct()">
@@ -94,14 +94,14 @@
 
   <div class="content">
     <div class="container-fluid">
-      <div class="row">
+      <div class="row" >
         <div class="col-lg-12">
           <div *ngIf="productsMain === undefined">
             <p>Không tìm thấy sản phẩm !</p>
           </div>
           <div *ngIf="productsMain !== undefined">
             <div class="row">
-              <div class="col-lg-3 col-sm-6 col-12 col-md-4 mb-4" *ngFor="let pro of productsMain">
+              <div class="col-lg-3 col-sm-6 col-12 col-md-4 mb-4 product-item" *ngFor="let pro of productsMain">
                 <div class="card">
                   <div class="card-body">
                     <div class="products-single fix">
@@ -128,8 +128,8 @@
                         </div>
                       </div>
                       <div class="why-text product-info">
-                        <h4>{{pro.product_Name}}</h4>
-                        <h5>{{pro.product_Price|currency:'VND'}}</h5>
+                        <h4 class="product-name">{{pro.product_Name}}</h4>
+                        <h5 class="product-price">{{pro.product_Price|currency:'VND'}}</h5>
                       </div>
                     </div>
                   </div>
@@ -141,6 +141,9 @@
       </div>
     </div>
   </div>
+<div>
+  <p style="text-align: center" *ngIf="msg">Không có sản phẩm</p>
+</div>
 
   <!-- ***** paging ***** -->
   <div class="pagination">

@@ -13,6 +13,7 @@ export class ShipmentCreateComponent implements OnInit {
   products: Product[];
   productDtos: ProductDto[];
   p = 1;
+  selectAll = false;
 
 
   constructor(public shipmentService: ShipmentService,
@@ -47,5 +48,17 @@ export class ShipmentCreateComponent implements OnInit {
     // Tiến hành reset lại danh sách tạm
     // this.shipmentService.clearShipmentItems();
     this.router.navigate(['/shipments/shipment']);
+  }
+
+  /*Chon tat ca checkbox*/
+  selectAllCheckboxes() {
+    for (const item of this.productDtos) {
+      item.select = this.selectAll;
+      if (item.select) {
+        this.shipmentService.addShipmentProductDetailDto(item);
+      } else {
+        this.shipmentService.removeShipmentProductDetailDto(item);
+      }
+    }
   }
 }
