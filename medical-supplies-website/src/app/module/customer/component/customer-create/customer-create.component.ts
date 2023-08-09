@@ -81,8 +81,8 @@ export class CustomerCreateComponent implements OnInit {
               console.log(error);
             },
             () => {
-              }
-            );
+            }
+          );
         });
       })
     ).subscribe(

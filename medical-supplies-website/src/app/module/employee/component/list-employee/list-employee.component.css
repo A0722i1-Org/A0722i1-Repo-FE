@@ -50,6 +50,7 @@ Product Single Card - Start
   border-radius: 3px;
   padding: 5px 10px;
   user-select: none;
+  font-size: larger;
 }
 
 .product-single-card .product-top-area .product-img {
@@ -231,17 +232,15 @@ Product Single Card - Start
 .search-container {
   padding: 8px 16px;
   display: flex;
-  border: 1px solid #00B894;
-  border-radius: 15px;
-
+  align-items: center;
 }
 
 input[type="text"] {
   padding: 10px;
-  border: none;
+  border: 1px solid #00B894;
   outline: none;
   width: 140px;
-  border-radius: 15px;
+
 }
 
 button[type="submit"] {
@@ -254,6 +253,7 @@ button[type="submit"] {
   border-radius: 50%;
   -moz-border-radius: 50%;
   -webkit-border-radius: 50%;
+
 }
 
 .search-container:hover button[type="submit"] {
@@ -271,17 +271,17 @@ button[type="submit"] {
 
 input[type="date"] {
   padding: 10px;
-  border: none;
   outline: none;
   width: 150px;
-  border-radius: 15px;
+  border: 1px solid #00B894;
 }
 
 .position {
   padding: 10px;
-  border: none;
+  border: 1px solid #00B894;
   outline: none;
   width: 150px;
+
 }
 
 @media (max-width: 480px) {
@@ -299,9 +299,47 @@ input[type="date"] {
 
   .position {
     width: 40px;
+
   }
 
 }
+.date-of-birth{
+  display: flex;
+  flex-direction: column;
+  margin: 0 2px;
+
+
+}
+.date-of-birth .lable{
+  padding: 4px 8px;
+  color: #00B894;
+  font-weight: bold;
+
+}
+.name-em{
+  display: flex;
+  flex-direction: column;
+  margin: 0 2px;
+}
+.name-em .lable{
+  padding: 4px 8px;
+  color: #00B894;
+  font-weight: bold;
+
+}
+.pos {
+  display: flex;
+  flex-direction: column;
+  margin: 0 2px;
+}
+.pos .lable{
+  padding: 4px 8px;
+  color: #00B894;
+  font-weight: bold;
+}
+.
+
+
 
 @media (max-width: 320px) {
   search-container {
@@ -333,6 +371,93 @@ input[type="date"] {
   width: 130px;
 
 }
+
+
+.lds-roller {
+  display: inline-block;
+  position: relative;
+  width: 80px;
+  height: 80px;
+}
+.lds-roller div {
+  animation: lds-roller 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+  transform-origin: 40px 40px;
+}
+.lds-roller div:after {
+  content: " ";
+  display: block;
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fff;
+  margin: -4px 0 0 -4px;
+}
+.lds-roller div:nth-child(1) {
+  animation-delay: -0.036s;
+}
+.lds-roller div:nth-child(1):after {
+  top: 63px;
+  left: 63px;
+}
+.lds-roller div:nth-child(2) {
+  animation-delay: -0.072s;
+}
+.lds-roller div:nth-child(2):after {
+  top: 68px;
+  left: 56px;
+}
+.lds-roller div:nth-child(3) {
+  animation-delay: -0.108s;
+}
+.lds-roller div:nth-child(3):after {
+  top: 71px;
+  left: 48px;
+}
+.lds-roller div:nth-child(4) {
+  animation-delay: -0.144s;
+}
+.lds-roller div:nth-child(4):after {
+  top: 72px;
+  left: 40px;
+}
+.lds-roller div:nth-child(5) {
+  animation-delay: -0.18s;
+}
+.lds-roller div:nth-child(5):after {
+  top: 71px;
+  left: 32px;
+}
+.lds-roller div:nth-child(6) {
+  animation-delay: -0.216s;
+}
+.lds-roller div:nth-child(6):after {
+  top: 68px;
+  left: 24px;
+}
+.lds-roller div:nth-child(7) {
+  animation-delay: -0.252s;
+}
+.lds-roller div:nth-child(7):after {
+  top: 63px;
+  left: 17px;
+}
+.lds-roller div:nth-child(8) {
+  animation-delay: -0.288s;
+}
+.lds-roller div:nth-child(8):after {
+  top: 56px;
+  left: 12px;
+}
+@keyframes lds-roller {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
 
 @media screen and (max-width: 1024px) {
   input[type="text"] {

@@ -5,21 +5,26 @@ import {ShipmentCreateComponent} from './component/shipment-create/shipment-crea
 import {ReturnCanceComponent} from './component/return-cance/return-cance.component';
 import {ReturnCanceCreateComponent} from './component/return-cance-create/return-cance-create.component';
 import {AuthGuard} from "../../auth.guard";
+import {RoleGuard} from "../../role.guard";
 
 
 
 const routes: Routes = [
   {path: 'shipment',
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
+    data: {roles: ['ROLE_ADMIN', 'ROLE_SALE']},
     component: ShipmentListComponent},
   {path: 'shipment/create',
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
+    data: {roles: ['ROLE_ADMIN', 'ROLE_SALE']},
     component: ShipmentCreateComponent},
   {path: 'return',
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
+    data: {roles: ['ROLE_ADMIN', 'ROLE_ACCOUNTANT']},
     component: ReturnCanceComponent},
   {path: 'return/create',
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard, RoleGuard],
+    data: {roles: ['ROLE_ADMIN', 'ROLE_ACCOUNTANT']},
     component: ReturnCanceCreateComponent}
 ];
 

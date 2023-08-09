@@ -38,6 +38,7 @@ export class ShipmentListComponent implements OnInit {
   shipmentDto: ShipmentDto;
   shipment: Shipment;
   iShipmentDtos: IShipmentDto[];
+  isSaved: boolean = false;
   constructor(private shipmentService: ShipmentService,
               private router: Router) {
     this.shipmentForm = new FormGroup({
@@ -169,6 +170,7 @@ export class ShipmentListComponent implements OnInit {
             showConfirmButton: false,
             timer: 1500
           });
+          this.isSaved = true;
           console.log(data);
         });
       }

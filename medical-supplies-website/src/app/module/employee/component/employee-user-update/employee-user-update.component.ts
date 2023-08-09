@@ -208,5 +208,4 @@ export class EmployeeUserUpdateComponent implements OnInit {
       };
     }
   }
-
 }

@@ -19,8 +19,8 @@ export class CartListComponent implements OnInit {
   cart?: Cart;
   details?: CartDetail[];
   total = 0;
-  shippingFee = 0;
   paymentMethod = 'direct';
+  allChecked: boolean = false;
 
   constructor(private cartService: CartService,
               private paymentService: PaymentService,
@@ -54,14 +54,13 @@ export class CartListComponent implements OnInit {
     const tempCartDetails: CartDetail[] = [];
     this.details.forEach(next => {
       if (next.cartDetailId === cartDetailId) {
-        if (next.quantity > 0) {
           next.quantity--;
-        }
       }
       tempCartDetails.push(next);
     });
     this.details = tempCartDetails;
     this.getTotalAmount();
+    this.cartService.updateCart(this.prepareCartForSendingToBackend()).subscribe();
   }
 
   increaseQuantity(cartDetailId: number) {
@@ -74,6 +73,7 @@ export class CartListComponent implements OnInit {
     });
     this.details = tempCartDetails;
     this.getTotalAmount();
+    this.cartService.updateCart(this.prepareCartForSendingToBackend()).subscribe();
   }
 
   checkAll() {
@@ -87,6 +87,7 @@ export class CartListComponent implements OnInit {
   }
 
   uncheckAll() {
+    this.allChecked = false;
     const tempCartDetails: CartDetail[] = [];
     this.details.forEach(item => {
       item.status = false;
@@ -98,25 +99,23 @@ export class CartListComponent implements OnInit {
 
   formBuilder() {
     this.rf = new FormGroup({
-      receiverName: new FormControl(this.cart.receiverName, [Validators.required,
-        Validators.pattern('^(?:[A-Z][a-zÀ-ỹ]*(?: [A-Z][a-zÀ-ỹ]*)+)$')]),
-      receiverAddress: new FormControl(this.cart.receiverAddress, [Validators.required,
-        Validators.pattern('^[^!@#$%^&*()_+<>?\'\"{}\\`~|/\\\\]+$')]),
+      receiverName: new FormControl(this.cart.receiverName, [Validators.required, Validators.pattern('^(?:[A-Z][a-zÀ-ỹ]*(?: [A-Z][a-zÀ-ỹ]*)+)$')]),
+      receiverAddress: new FormControl(this.cart.receiverAddress, [Validators.required, Validators.pattern('^[^!@#$%^&*()_+<>?\'\"{}\\`~|/\\\\]+$')]),
       receiverPhone: new FormControl(this.cart.receiverPhone, [Validators.required, Validators.pattern('^0\\d{9,10}')]),
       receiverEmail: new FormControl(this.cart.receiverEmail, [Validators.required, Validators.email])
     });
   }
 
   save() {
-    this.uncheckAll();
-    this.cartService.updateCart(this.prepareCartForSendingToBackend()).subscribe(next =>
+    this.cartService.updateCart(this.prepareCartForSendingToBackend()).subscribe(next => {
       Swal.fire({
         title: 'Đã huỷ!',
         text: 'Đã huỷ thao tác, quay về trang chính',
         icon: 'info',
         confirmButtonText: 'Cool'
-      }));
-    this.router.navigateByUrl('/');
+      });
+      this.router.navigateByUrl('/');
+    });
   }
 
   checkout() {

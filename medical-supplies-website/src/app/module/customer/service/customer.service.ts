@@ -65,4 +65,10 @@ export class CustomerService {
     const headers: HttpHeaders = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     return this.http.get<Customer>(this._API_URL + `/${id}`, {headers});
   }
+
+  getAllSuppliers(): Observable<Customer[]> {
+    const token: string = this.tokenStorageService.getToken();
+    const headers: HttpHeaders = new HttpHeaders().set('Authorization', `Bearer ${token}`);
+    return  this.http.get<Customer[]>(this._API_URL + '/suppliers', {headers});
+  }
 }

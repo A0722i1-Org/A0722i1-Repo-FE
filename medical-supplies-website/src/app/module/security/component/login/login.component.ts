@@ -54,12 +54,38 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
+    let timerInterval
+    Swal.fire({
+      title: 'Đang tải dữ liệu!',
+      html: '<b></b>',
+      timer: 2000,
+      timerProgressBar: true,
+      didOpen: () => {
+        Swal.showLoading()
+        const b = Swal.getHtmlContainer().querySelector('b')
+        timerInterval = setInterval(() => {
+          b.textContent = String(Swal.getTimerLeft())
+        }, 100)
+      },
+      willClose: () => {
+        clearInterval(timerInterval)
+      }
+    }).then((result) => {
+      /* Read more about handling dismissals below */
+      if (result.dismiss === Swal.DismissReason.timer) {
+        console.log('I was closed by the timer')
+      }
+    })
     this.authService.login(this.formLogin.value)
       .pipe(
         tap(response => {
-          if (response.status === 202) {
-            this.message = 'Chú ý: Thông tin đăng nhập không hợp lệ.';
-          }
+          Swal.fire({
+            icon: 'error',
+            title: 'Lỗi...',
+            text: 'Thông tin đăng nhập không hợp lệ.',
+            showConfirmButton: false,
+            timer: 1500
+          });
         })
       )
       .subscribe(data => {

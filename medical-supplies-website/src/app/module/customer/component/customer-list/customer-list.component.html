@@ -67,15 +67,15 @@
 <div class="modal fade" id="modelId" tabindex="-1" role="dialog" aria-labelledby="modelTitleId" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
-      <div class="modal-header">
-        <h4 class="modal-title" id="modelTitleId" style="color: red; text-align: center">Xác nhận xóa</h4>
+      <div style="background-color: #55efc4" class="modal-header">
+        <h4 class="modal-title" id="modelTitleId" style="text-align: center; color: white">Xác nhận xóa</h4>
       </div>
       <div class="modal-body">
         <p>Bạn Có Muốn Xóa Khách hàng <span class="fw-bold">{{customer?.name}}</span> không?</p>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Trở về</button>
-        <button type="button" class="btn btn-primary" (click)="deleteCustomer()" data-bs-dismiss="modal">Xóa</button>
+        <button type="button" style="background-color: red" class="btn btn-primary" (click)="deleteCustomer()" data-bs-dismiss="modal">Xóa</button>
       </div>
     </div>
   </div>

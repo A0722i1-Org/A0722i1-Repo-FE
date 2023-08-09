@@ -9,7 +9,7 @@
           <th scope="col" style="background: #00b894; color: white">ID</th>
           <th scope="col" style="background: #00b894; color: white">Tên vật tư</th>
           <th scope="col" style="background: #00b894; color: white">Số lượng</th>
-          <th scope="col" style="background: #00b894; color: white">Thành tiền</th>
+          <th scope="col" style="background: #00b894; color: white">Giá tiền</th>
           <th scope="col" style="background: #00b894; color: white">Ghi chú</th>
           <th style="background: #00b894; color: white">Chọn</th>
         </tr>
@@ -21,7 +21,7 @@
           <td>{{p.product_Name}}</td>
           <td><input #quantityMax
                      type="number" style="width: 70px" [(ngModel)]="p.product_Quantity" ></td>
-          <td>{{p.product_Quantity*p.product_Price | currency: "đ"}}</td>
+          <td>{{p.product_Price | currency: "đ"}}</td>
           <td><input type="text" class="form-control" [(ngModel)]="p.note" ></td>
           <td style="display: flex;justify-content: center;align-items: center;"><input type="checkbox" [(ngModel)]="p.select" (change)="chonChekBox(p)"/></td>
         </tr>

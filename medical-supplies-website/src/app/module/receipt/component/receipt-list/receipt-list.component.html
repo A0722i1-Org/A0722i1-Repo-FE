@@ -1,4 +1,4 @@
-<!doctype html>
+  <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -147,7 +147,7 @@
         <button type="submit" class="btn btn-primary" style="background-color: #00b894 ;"><i
           class="fa-solid fa-pen-to-square"></i> Lưu
         </button>
-        <button (click)="selectInvoiceCode(invoiceCode.value)" data-bs-toggle="modal" data-bs-target="#modelInvoice"
+        <button (click)="selectInvoiceCode(invoiceCode.value)" data-bs-toggle="modal" data-bs-target="#modelInvoice" [disabled]="!isSaved"
                 type="button" class="btn btn-success" style="background-color: #00b894 "><i
           class="fa-solid fa-print"></i>
           In hóa đơn

@@ -5,6 +5,7 @@ import {Position} from '../../model/Position';
 import Swal from 'sweetalert2';
 
 
+
 @Component({
   selector: 'app-list-employee',
   templateUrl: './list-employee.component.html',
@@ -72,7 +73,7 @@ export class ListEmployeeComponent implements OnInit {
     if (specialCharPattern.test(this.employeeNameSearch) || this.employeeNameSearch.length > 36) {
       Swal.fire({
         icon: 'error',
-        text: 'Chuổi không được chứa kí tự đặc biệt và lớn hơn 36 kí tự',
+        text: 'Chuỗi không được chứa kí tự đặc biệt và lớn hơn 36 kí tự',
         position: 'top-end',
         toast: true,
         showConfirmButton: false,
