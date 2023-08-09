@@ -4,7 +4,7 @@
     <div class="col-lg-12">
 
       <div class="form-group col-md-12 avatar" style="background-color: #00B894 ; border-radius: 20px">
-        <img style="max-width: 200px; max-height: 200px; border-radius: 50%;" [src]="oldAvatarLink">
+        <img style="max-width: 200px; max-height: 200px; border-radius: 10px; margin: 5px 0 5px 0" width="200" height="200" [src]="oldAvatarLink">
       </div>
       <form class="row" [formGroup]="formGroup" (ngSubmit)="submitProduct()">
         <div class="form-group col-md-6" style="margin-top: 10px">
@@ -70,18 +70,18 @@
           <input type="number" class="form-control" id="soluong" placeholder="Số lượng" formControlName="productQuantity">
           <span style="color: red" *ngIf="formGroup.controls.productQuantity.touched && formGroup.controls.productQuantity.errors?.required">SỐ LƯỢng không được bỏ trống.</span>
           <span style="color: red" *ngIf="(formGroup.controls.productQuantity?.touched && !formGroup.controls.productQuantity?.valid) && formGroup.controls.productQuantity?.errors?.min">Số Lượng không được nhở hơn 1.</span>
-          <span style="color: red" *ngIf="(formGroup.controls.productQuantity?.touched && !formGroup.controls.productQuantity?.valid) && formGroup.controls.productQuantity?.errors?.max">Số Lượng không được lớn hơn 100000.</span>
+          <span style="color: red" *ngIf="(formGroup.controls.productQuantity?.touched && !formGroup.controls.productQuantity?.valid) && formGroup.controls.productQuantity?.errors?.max">Số Lượng không được lớn hơn 10000.</span>
         </div>
 
 
-        <div class="form-group col-md-6">
-          <label class="form-label" for="detail">Thông tin chi tiết vật tư</label><span>*</span>
-          <select name="" id="detail" class="form-select" formControlName="productInfo">
-            <option selected disabled value="">Thông tin chi tiết</option>
-            <option *ngFor="let item of productInfo" value="{{item.infoId}}">{{item.infoIntroduction}}</option>
-          </select>
-          <span style="color: red" *ngIf="formGroup.controls.productInfo.touched && formGroup.controls.productInfo.errors?.required">thông tin chi tiết khoon đuopwc bỏ trống</span>
-        </div>
+        <!--        <div class="form-group col-md-6">-->
+        <!--          <label class="form-label" for="detail">Thông tin chi tiết vật tư</label><span>*</span>-->
+        <!--          <select name="" id="detail" class="form-select" formControlName="productInfo">-->
+        <!--            <option selected disabled value="">Thông tin chi tiết</option>-->
+        <!--            <option *ngFor="let item of productInfo" value="{{item.infoId}}">{{item.infoIntroduction}}</option>-->
+        <!--          </select>-->
+        <!--          <span style="color: red" *ngIf="formGroup.controls.productInfo.touched && formGroup.controls.productInfo.errors?.required">thông tin chi tiết khoon đuopwc bỏ trống</span>-->
+        <!--        </div>-->
 
 
         <div class="form-group cssButton">
