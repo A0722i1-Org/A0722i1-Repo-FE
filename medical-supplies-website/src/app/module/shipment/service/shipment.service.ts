@@ -98,6 +98,8 @@ export class ShipmentService {
                 showConfirmButton: false,
                 timer: 1500
               });
+
+
             } else if (shipmentItem.quantity <= 0) {
               Swal.fire({
                 position: 'center',
