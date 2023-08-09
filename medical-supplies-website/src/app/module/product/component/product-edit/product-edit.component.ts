@@ -44,6 +44,8 @@ export class ProductEditComponent implements OnInit {
   errorMessage: string;
   oldAvatarLink = 'https://cdn.pixabay.com/photo/2020/03/17/20/52/covid-4941846_640.png';
 
+  price: number ;
+
   constructor( private categoryService: CategoryService,
                private customerService: CustomerService,
                private productService: ProductService,
@@ -72,6 +74,7 @@ export class ProductEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.productService.findById(this.id.trim()).subscribe(data => {
+      this.price = data.productPrice
       console.log(data);
       this.product = data;
       this.oldAvatarLink = data.productImg;

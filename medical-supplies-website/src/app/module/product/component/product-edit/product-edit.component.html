@@ -52,8 +52,8 @@
         </div>
 
         <div class="form-group col-md-6" style="margin-top: 10px">
-          <label class="form-label" for="price">Giá(VNĐ)</label><span>*</span>
-          <input type="number" class="form-control" id="price" placeholder="Giá" formControlName="productPrice">
+          <label class="form-label" for="price">Giá({{price | currency:"VND":true}})</label><span>*</span>
+          <input [(ngModel)]="price" type="number" class="form-control" id="price" placeholder="Giá" formControlName="productPrice">
           <span style="color: red" *ngIf="formGroup.controls.productPrice.touched && formGroup.controls.productPrice.errors?.required">Giá không được bỏ trống</span>
           <span style="color: red" *ngIf="(formGroup.controls.productPrice?.touched && !formGroup.controls.productPrice?.valid) && formGroup.controls.productPrice?.errors?.min">Giá không được nhỏ hơn 1 VNĐ.</span>
           <span style="color: red" *ngIf="(formGroup.controls.productPrice?.touched && !formGroup.controls.productPrice?.valid) && formGroup.controls.productPrice?.errors?.max">Giá không được Lớn hơn 1000000000 VNĐ</span>
