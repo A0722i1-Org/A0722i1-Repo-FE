@@ -4,6 +4,7 @@ import {CustomerType} from '../../model/CustomerType';
 import {CustomerService} from '../../service/customer.service';
 import Swal from 'sweetalert2';
 import {ActivatedRoute, Router} from '@angular/router';
+import {FormControl, FormGroup} from '@angular/forms';
 
 
 @Component({
@@ -13,7 +14,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class CustomerListComponent implements OnInit {
   keyword: string;
-  searchKeyword = '';
+  customerForm: FormGroup;
   customers: Customer[] = [];
   customer: Customer;
   customerType: CustomerType[] = [];
@@ -36,6 +37,12 @@ export class CustomerListComponent implements OnInit {
       if (this.page !== 0 && this.page != null) {
         this.keyword += `page=${this.page}`;
       }
+    });
+    this.customerForm = new FormGroup({
+      customerType: new FormControl(''),
+      customerName: new FormControl(''),
+      customerAddress: new FormControl(''),
+      customerPhone: new FormControl(''),
     });
   }
 
@@ -113,8 +120,21 @@ export class CustomerListComponent implements OnInit {
 
   searchCustomer() {
     this.keyword = '?';
-    if (this.searchKeyword !== '' && this.searchKeyword != null) {
-      this.keyword += `keyword=${this.searchKeyword}&`;
+    const customerType = this.customerForm.value.customerType;
+    if (customerType !== '' && customerType != null) {
+      this.keyword += `type=${customerType}&`;
+    }
+    const customerName = this.customerForm.value.customerName;
+    if (customerName !== '' && customerName != null) {
+      this.keyword += `name=${customerName}&`;
+    }
+    const customerAddress = this.customerForm.value.customerAddress;
+    if (customerAddress !== '' && customerAddress != null) {
+      this.keyword += `address=${customerAddress}&`;
+    }
+    const customerPhone = this.customerForm.value.customerPhone;
+    if (customerPhone !== '' && customerPhone != null) {
+      this.keyword += `phone=${customerPhone}&`;
     }
     this.keyword += 'page=1';
     this.customerService.getAllCustomerAndSearch(this.keyword).subscribe(next => {

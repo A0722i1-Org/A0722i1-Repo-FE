@@ -17,6 +17,9 @@ import Swal from 'sweetalert2';
   styleUrls: ['./edit.component.css']
 })
 export class EditComponent implements OnInit {
+  existPhone: boolean;
+  existIdCard: boolean;
+  existEmail: boolean;
 
 
   constructor(private employeeService: EmployeeService, private router: Router,
@@ -151,29 +154,52 @@ export class EditComponent implements OnInit {
                 icon: 'success',
                 title: 'Cập nhật thông tin nhân viên thành công!'
               });
+            }, error => {
+              console.log(error);
+              if (error.error.duplicateEmail) {
+                this.existEmail = true;
+              } else this.existEmail = false;
+              if (error.error.duplicatePhone) {
+                this.existPhone = true;
+              } else this.existPhone = false;
+              if (error.error.duplicateIdCard) {
+                this.existIdCard = true;
+              } else this.existIdCard = false;
             });
           });
         })
       ).subscribe();
     } else {
       this.employeeService.updateEmployee(this.employeeEditForm.value, this.employeeEdit.employeeId).subscribe(next => {
-        this.router.navigateByUrl('employees');
-        const Toast = Swal.mixin({
-          toast: true,
-          position: 'top-end',
-          showConfirmButton: false,
-          timer: 3000,
-          timerProgressBar: true,
-          didOpen: (toast) => {
-            toast.addEventListener('mouseenter', Swal.stopTimer);
-            toast.addEventListener('mouseleave', Swal.resumeTimer);
-          }
+        this.router.navigateByUrl('/employees').then(() => {
+          Swal.fire('Thành công',
+            'Đã chỉnh sửa thông tin nhân viên thành công',
+            'success');
         });
-        Toast.fire({
-          icon: 'success',
-          title: 'Cập nhật thông tin nhân viên thành công!'
-        });
+      }, error => {
+        console.log(error);
+        if (error.error.duplicateEmail) {
+          this.existEmail = true;
+        } else this.existEmail = false;
+        if (error.error.duplicatePhone) {
+          this.existPhone = true;
+        } else this.existPhone = false;
+        if (error.error.duplicateIdCard) {
+          this.existIdCard = true;
+        } else this.existIdCard = false;
       });
     }
+  }
+
+  setFlagEmail() {
+    this.existEmail = false;
+  }
+
+  setFlagPhone() {
+    this.existPhone = false;
+  }
+
+  setFlagIdCard() {
+    this.existIdCard = false;
   }
 }

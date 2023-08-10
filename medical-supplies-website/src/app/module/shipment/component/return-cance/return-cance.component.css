@@ -114,7 +114,7 @@
   margin-bottom: 10px;
   border-bottom: 1px solid #ccc;
 }
-table th{
+.sticky-table th{
   position: sticky;
   top: -1px;
   z-index: 1;
@@ -123,26 +123,27 @@ table th{
 p.text-danger {
   display: block; /* Thêm thuộc tính này để xuống dòng */
 }
-.invoice {
+
+.item_invoice {
   border-collapse: collapse;
 }
 
 /* CSS for table headers */
-.invoice th {
+.item_invoice th {
   border: 1px solid #000;
 }
 
 /* CSS for table cells */
-.invoice td {
+.item_invoice td {
   border: 1px solid #000;
 }
 
 /* CSS for the last row (Total row) */
-.invoice tr:last-child td {
+.item_invoice tr:last-child td {
   border-top: 1px solid #000;
 }
 
 /* CSS for alternating row colors (optional) */
-.invoice tr:nth-child(even) {
+.item_invoice tr:nth-child(even) {
   background-color: #f2f2f2; /* Add a background color to alternate rows for better readability */
 }

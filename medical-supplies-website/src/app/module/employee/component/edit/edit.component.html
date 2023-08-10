@@ -54,12 +54,14 @@
 
         <div class="form-group col-md-6">
           <label class="form-label" for="email">Email</label><span>*</span>
-          <input type="email" formControlName = "email" class="form-control" id="email" placeholder="Email">
+          <input type="email" formControlName = "email" class="form-control" id="email" placeholder="Email" (input)="setFlagEmail()">
           <span *ngIf="employeeEditForm.controls.email.hasError('required')&&employeeEditForm.controls.email.dirty">(Vui lòng nhập email)</span>
           <span *ngIf="employeeEditForm.controls.email.hasError('minlength')&&employeeEditForm.controls.email.dirty">(Chứa ít nhất 6 kí tự)</span>
           <span *ngIf="employeeEditForm.controls.email.hasError('maxlength')&&employeeEditForm.controls.email.dirty">(Chứa tối đa 50 kí tự)</span>
           <span
             *ngIf="employeeEditForm.controls.email.hasError('pattern')&&employeeEditForm.controls.email.dirty&&!employeeEditForm.controls.email.hasError('minlength')&&!employeeEditForm.controls.email.hasError('maxlength')">(Email chưa đúng định dạng)</span>
+          <span
+            *ngIf="existEmail==true&&!employeeEditForm.controls.email.hasError('required')&&!employeeEditForm.controls.email.hasError('minlength')&&!employeeEditForm.controls.email.hasError('pattern')&&!employeeEditForm.controls.email.hasError('maxlength')">(Email đã được đăng kí)</span>
         </div>
 
         <div class="form-group col-md-6">
@@ -71,16 +73,20 @@
 
         <div class="form-group col-md-6">
           <label class="form-label" for="sdt">Số điện thoại</label><span>*</span>
-          <input type="tel" class="form-control" formControlName = "phone" id="sdt" placeholder="Số điện thoại">
+          <input type="tel" class="form-control" formControlName = "phone" id="sdt" placeholder="Số điện thoại" (input)="setFlagPhone()">
           <span *ngIf="employeeEditForm.controls.phone.hasError('required')&&employeeEditForm.controls.phone.dirty">(Vui lòng nhập số điện thoại)</span>
           <span *ngIf="employeeEditForm.controls.phone.hasError('pattern')&&employeeEditForm.controls.phone.dirty">(Chỉ được phép chứa 10 số và bắt đầu 09 hoặc 08)</span>
+          <span
+            *ngIf="existPhone==true&&!employeeEditForm.controls.phone.hasError('pattern')&&!employeeEditForm.controls.phone.hasError('required')">(Số điện thoại đã được đăng kí)</span>
         </div>
 
         <div class="form-group col-md-6">
           <label class="form-label" for="cmnd">CMND/Hộ chiếu</label><span>*</span>
-          <input type="text" class="form-control" formControlName = "idCard" id="cmnd" placeholder="CMND/Hộ chiếu">
+          <input type="text" class="form-control" formControlName = "idCard" id="cmnd" placeholder="CMND/Hộ chiếu" (input)="setFlagIdCard()">
           <span *ngIf="employeeEditForm.controls.idCard.hasError('required')&&employeeEditForm.controls.idCard.dirty">(Vui lòng nhập hộ chiếu/CMND)</span>
           <span *ngIf="employeeEditForm.controls.idCard.hasError('pattern')&&employeeEditForm.controls.idCard.dirty">(Chỉ được phép chứa 12)</span>
+          <span
+            *ngIf="existIdCard==true&&!employeeEditForm.controls.idCard.hasError('required')&&!employeeEditForm.controls.idCard.hasError('pattern')">(Hộ chiếu/CMND đã được đăng kí)</span>
         </div>
 
         <div class="form-group col-md-6">

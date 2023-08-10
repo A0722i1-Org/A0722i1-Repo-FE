@@ -27,7 +27,7 @@ export class ShipmentListComponent implements OnInit {
   day: number = this.currentDate.getDate();
   month: number = this.currentDate.getMonth() + 1; // Tháng trong JavaScript bắt đầu từ 0, vì vậy cần cộng thêm 1.
   year: number = this.currentDate.getFullYear();
-  phone: string;
+  phone = null;
   customerDto: CustomerDto;
   notFound: boolean;
   shipmentTypes: ShipmentType[];
@@ -191,9 +191,22 @@ export class ShipmentListComponent implements OnInit {
   /*in hóa đơn*/
   printPDF() {
     const doc = new jsPDF();
-    html2canvas(this.htmlContent.nativeElement).then((canvas) => {
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    // Increase the height of the canvas
+    html2canvas(this.htmlContent.nativeElement, { windowHeight: pageHeight }).then((canvas) => {
       const contentDataURL = canvas.toDataURL('image/png');
-      doc.addImage(contentDataURL, 'PNG', 20, 20, doc.internal.pageSize.getWidth() - 10, 0);
+      doc.addImage(contentDataURL, 'PNG', 5, 0, pageWidth - 10, 0);
+      // Calculate the additional height needed for the remaining content
+      let remainingContentHeight = canvas.height - pageHeight;
+      let currentY = pageHeight;
+      // Loop through and add the remaining content in multiple pages if needed
+      while (remainingContentHeight > 0) {
+        doc.addPage();
+        doc.addImage(contentDataURL, 'PNG', 5, -currentY, pageWidth - 10, 0);
+        currentY += pageHeight;
+        remainingContentHeight -= pageHeight;
+      }
       doc.save('file.pdf');
     });
   }
@@ -218,4 +231,3 @@ export class ShipmentListComponent implements OnInit {
     return null;
   }
 }
-

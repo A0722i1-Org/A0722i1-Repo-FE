@@ -74,18 +74,20 @@
 
         <div class="form-group col-md-6">
           <label class="form-label" for="sdt">Số điện thoại</label><span>*</span>
-          <input type="tel" #phone class="form-control" formControlName = "phone" id="sdt" placeholder="Số điện thoại" (change)="checkExistPhone(phone.value)" >
+          <input type="tel" #phone class="form-control" formControlName = "phone" id="sdt" placeholder="Số điện thoại" (input)="setFlagPhone()">
           <span *ngIf="employeeCreateForm.controls.phone.hasError('required')&&employeeCreateForm.controls.phone.dirty">(Vui lòng nhập số điện thoại)</span>
           <span *ngIf="employeeCreateForm.controls.phone.hasError('pattern')&&employeeCreateForm.controls.phone.dirty">(Số điện thoại không đúng định dạng)</span>
-          <span *ngIf="existPhone == true">(Số điện thoại đã tồn tại)</span>
+          <span
+            *ngIf="existPhone==true&&!employeeCreateForm.controls.phone.hasError('pattern')&&!employeeCreateForm.controls.phone.hasError('required')">(Số điện thoại đã được đăng kí)</span>
         </div>
 
         <div class="form-group col-md-6">
           <label class="form-label" for="cmnd">CCCD/Hộ chiếu</label><span>*</span>
-          <input type="text" #idCard class="form-control" formControlName = "idCard" id="cmnd" placeholder="CMND/Hộ chiếu" (change)="checkExistIdCard(idCard.value)">
+          <input type="text" #idCard class="form-control" formControlName = "idCard" id="cmnd" placeholder="CMND/Hộ chiếu" (input)="setFlagIdCard()">
           <span *ngIf="employeeCreateForm.controls.idCard.hasError('required')&&employeeCreateForm.controls.idCard.dirty">(Vui lòng nhập hộ chiếu/CMND)</span>
           <span *ngIf="employeeCreateForm.controls.idCard.hasError('pattern')&&employeeCreateForm.controls.idCard.dirty">(Số hộ chiếu/CCCD phải 12 số)</span>
-          <span *ngIf="existIdCard == true">(Số CCCD/Hộ chiếu đã tồn tại)</span>
+          <span
+            *ngIf="existIdCard==true&&!employeeCreateForm.controls.idCard.hasError('required')&&!employeeCreateForm.controls.idCard.hasError('pattern')">(Hộ chiếu/CMND đã được đăng kí)</span>
         </div>
 
         <div class="form-group col-md-6">

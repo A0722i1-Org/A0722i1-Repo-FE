@@ -15,7 +15,7 @@
 
       <div class="staff">
         <label>Hình thức:
-          <select class="id_ncc" formControlName="shipmentTypeId">
+          <select class="id_ncc" formControlName="shipmentTypeId" style="margin-left: 27px">
             <option value="2">Hủy hàng</option>
             <option value="3">Trả về nhà cung cấp</option>
           </select>
@@ -24,9 +24,9 @@
       <p class="text-danger" style="text-align: center"*ngIf="shipmentForm.controls.shipmentTypeId?.touched &&
   shipmentForm.controls.shipmentTypeId?.errors?.required">Vui lòng chọn hình thức</p>
       <div class="user_id">
-        <label style="display: flex;align-items: center;justify-content: center;">Mã hóa đơn:
-          <input #invoiceCode type="text" style="padding: 5px;border: 1px solid #ccc;border-radius: 5px;"
-                   formControlName="invoiceCode"  >
+        <label style="display: flex;align-items: center;justify-content: center;">Mã hóa đơn: <span style="color: red">*</span>
+          <input #invoiceCode type="text" style="padding: 5px;border: 1px solid #ccc;border-radius: 5px; margin-left: 10px"
+                 formControlName="invoiceCode"  >
         </label>
         <p class="text-danger" style="text-align: center"*ngIf="shipmentForm.controls.invoiceCode?.touched &&
   shipmentForm.controls.invoiceCode?.errors?.required">Mã hóa đơn không được để trống</p>
@@ -51,8 +51,8 @@
             <label >Tên NCC:
               <input type="text" disabled style="margin-left: 58px" placeholder="{{customerDto?.name}}">
             </label>
-            <label >Số điện thoại:
-              <input type="text"  style="margin-left: 22px"  id="phone-number" (input)="onPhoneInputChange()" placeholder="Nhập số điện thoại" formControlName="phone">
+            <label >Số điện thoại: <span style="color: red">*</span>
+              <input type="text"  style="margin-left: 15px"  id="phone-number" (input)="onPhoneInputChange()" placeholder="Nhập số điện thoại" formControlName="phone">
             </label>
             <p class="text-danger" style="text-align: center"*ngIf="shipmentForm.controls.phone?.touched &&
   shipmentForm.controls.phone?.errors?.required">Số điện thoại không được để trống</p>
@@ -71,7 +71,7 @@
     </div>
     <h3 style="text-align: center; color: #00b894">Danh sách vật tư</h3>
     <div class="table-responsive" style="max-height: 200px;">
-      <table class="table" border="1">
+      <table class="table sticky-table" border="1">
         <thead>
         <tr>
           <th scope="col" style="background: #00b894; color: white; text-align: left">Mã vật tư</th>
@@ -209,17 +209,17 @@
         <div class="invoice">
           <div class="section">
             <h3 style="text-align: center;color: red">Hóa đơn hủy - trả hàng</h3>
-            <p><strong>Mã hóa đơn:</strong> {{shipment?.invoiceCode}}</p>
-            <p><strong>Nhân viên:</strong> {{shipment?.employee.employeeName}}</p>
-            <p><strong>Ngày làm việc:</strong> {{ day }}/{{ month }}/{{year}}</p>
-            <p><strong>Hình thức:</strong> {{shipment?.shipmentType.shipmentTypeName}}</p>
-            <p><strong>Nhà cung cấp:</strong> {{shipment?.customer.name}}</p>
-            <p><strong>Số điện thoại:</strong> {{shipment?.customer.phone}}</p>
+            <p style="text-align: center"><strong>Mã hóa đơn:</strong> {{shipment?.invoiceCode}}</p>
+            <p style="text-align: center"><strong>Nhân viên:</strong> {{shipment?.employee.employeeName}}</p>
+            <p style="text-align: center"><strong>Ngày làm việc:</strong> {{ day }}/{{ month }}/{{year}}</p>
+            <p style="text-align: center"><strong>Hình thức:</strong> {{shipment?.shipmentType.shipmentTypeName}}</p>
+            <p style="text-align: center"><strong>Nhà cung cấp:</strong> {{shipment?.customer.name}}</p>
+            <p style="text-align: center"><strong>Số điện thoại:</strong> {{shipment?.customer.phone}}</p>
           </div>
           <br>
           <div class="section">
             <h3 class="section-title" style="text-align: center">Danh sách vật tư:</h3>
-            <table class="table-responsive invoice"  border="1" style="width: 100%">
+            <table class=" item_invoice"  border="1" style="width: 100%">
               <tr>
                 <th style="width: 10%">Mã vật tư</th>
                 <th style="width: 35%">Tên vật tư</th>
@@ -228,10 +228,10 @@
                 <th style="width: 30%">Ghi chú</th>
               </tr>
               <tr  *ngFor="let s of shipmentDetailDtos">
-                <td style=" width: 10%">{{s.productId}}</td>
+                <td style=" width: 10%; text-align: center">{{s.productId}}</td>
                 <td style="width: 35%">{{s.productName}}</td>
-                <td style=" width: 10%">{{s.quantity}}</td>
-                <td style="width: 15%">{{s.productPrice | currency: "đ"}}</td>
+                <td style=" width: 10%; text-align: center">{{s.quantity}}</td>
+                <td style="width: 15%; text-align: center">{{s.productPrice | currency: "đ"}}</td>
                 <th style="width: 30%">{{s.note}}</th>
               </tr>
               <tr>
@@ -261,7 +261,6 @@
     </div>
   </div>
 </div>
-
 
 
 

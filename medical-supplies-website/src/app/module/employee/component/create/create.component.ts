@@ -22,8 +22,8 @@ export class CreateComponent {
   employeeCreate: EmployeeInfo = {};
   inputImage: any = null;
   maxSize = false;
-  existPhone = false;
-  existIdCard = false;
+  existPhone: boolean;
+  existIdCard: boolean;
   employees: Employee[] = [];
   employeeCode: string;
   imgSrc: string = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfqGSpRSWM2LH7fa_Vvrr4V0IGlvG_QWXpJofT1-E&s';
@@ -114,23 +114,20 @@ export class CreateComponent {
               this.employeeCreate = this.employeeCreateForm.value;
               this.employeeCreate.account = this.account;
               this.employeeService.saveEmployee(this.employeeCreate).subscribe(next => {
-                this.router.navigateByUrl('/employees');
-                const Toast = Swal.mixin({
-                  toast: true,
-                  position: 'top-end',
-                  showConfirmButton: false,
-                  timer: 1500,
-                  timerProgressBar: true,
-                  didOpen: (toast) => {
-                    toast.addEventListener('mouseenter', Swal.stopTimer);
-                    toast.addEventListener('mouseleave', Swal.resumeTimer);
-                  }
-                });
-                Toast.fire({
-                  icon: 'success',
-                  title: 'Thêm nhân viên thành công! Vui lòng kiểm tra trong danh sách'
+                this.router.navigateByUrl('/employees').then(() => {
+                  Swal.fire('Thành công',
+                    'Đã thêm nhân viên thành công',
+                    'success');
                 });
                 localStorage.removeItem('tempAccount');
+              }, error => {
+                console.log(error);
+                if (error.error.duplicatePhone) {
+                  this.existPhone = true;
+                } else this.existPhone = false;
+                if (error.error.duplicateIdCard) {
+                  this.existIdCard = true;
+                } else this.existIdCard = false;
               });
             });
           })
@@ -186,24 +183,11 @@ export class CreateComponent {
     }
   }
 
-
-  checkExistPhone(phone: string): any {
-    for (const employee of this.employees) {
-      if (employee.phone === phone) {
-        this.existPhone = true;
-      } else {
-        this.existPhone = false;
-      }
-    }
+  setFlagPhone() {
+    this.existPhone = false;
   }
 
-  checkExistIdCard(idCard: string): any {
-    for (const employee of this.employees) {
-      if (employee.idCard === idCard) {
-        this.existIdCard = true;
-      } else {
-        this.existIdCard = false;
-      }
-    }
+  setFlagIdCard() {
+    this.existIdCard = false;
   }
 }
