@@ -139,16 +139,7 @@ export class ProductCreateEditComponent implements OnInit {
                     text : error.error.name,
                     showConfirmButton: false,
                     timer: 1000
-                  })
-                } else if (error.error.expireDate !== undefined) {
-                  Swal.fire({
-                    title: "Lỗi",
-                    icon : "error",
-                    text : error.error.expireDate,
-                    showConfirmButton: false,
-                    timer: 1000
-                  })
-                }
+                  })}
               }
             );
           });

@@ -140,13 +140,24 @@ export class ProductEditComponent implements OnInit {
               console.log('hêt');
             }, error => {
               console.log(error);
-              Swal.fire({
-                title: "Lỗi",
-                icon : "error",
-                text : error.error.name,
-                showConfirmButton: false,
-                timer: 1000
-              })
+              console.log(error.error);
+              if (error.error.productName !== undefined) {
+                Swal.fire({
+                  title: "Lỗi",
+                  icon : "error",
+                  text : error.error.productName,
+                  showConfirmButton: false,
+                  timer: 1000
+                })
+              } else if (error.error.name !== undefined) {
+                Swal.fire({
+                  title: "Lỗi",
+                  icon : "error",
+                  text : error.error.name,
+                  showConfirmButton: false,
+                  timer: 1000
+                })
+              }
             });
           });
         })
@@ -169,19 +180,19 @@ export class ProductEditComponent implements OnInit {
         }, error => {
           console.log(error);
           console.log(error.error.expireDate);
-          if (error.error.name !== undefined) {
+          if (error.error.productName !== undefined) {
+            Swal.fire({
+              title: "Lỗi",
+              icon : "error",
+              text : error.error.productName,
+              showConfirmButton: false,
+              timer: 1000
+            })
+          } else if (error.error.name !== undefined) {
             Swal.fire({
               title: "Lỗi",
               icon : "error",
               text : error.error.name,
-              showConfirmButton: false,
-              timer: 1000
-            })
-          } else if (error.error.expireDate !== undefined) {
-            Swal.fire({
-              title: "Lỗi",
-              icon : "error",
-              text : error.error.expireDate,
               showConfirmButton: false,
               timer: 1000
             })
