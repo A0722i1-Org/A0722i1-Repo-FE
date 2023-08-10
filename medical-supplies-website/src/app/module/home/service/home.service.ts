@@ -13,27 +13,28 @@ export class HomeService {
   constructor(private httpClient: HttpClient) {
   }
 
-  findAll(): Observable<any> {
-    return this.httpClient.get<any>(this.API_PRO_MAIN );
-  }
+  findAll(categoryId?: number, productName?: string, page?: number, size?: number): Observable<any> {
+    if (categoryId === undefined) {
+      categoryId = 0;
+    }
 
-    searchByName(keyword: string): Observable<any> {
-    return this.httpClient.get<any[]>(`${this.API_PRO_MAIN}/search-name${keyword}`);
-  }
+    if (productName === undefined) {
+      productName = '';
+    }
 
-  // searchByCate(keyword: number, currentpage: number): Observable<any> {
-  //   console.log(`${this.API_PRO_MAIN}/search-cate?page=${currentpage}&${keyword}`);
-  //   return this.httpClient.get<any[]>(`${this.API_PRO_MAIN}/search-cate?categoryId=${keyword}`);
-  // }
+    if (page === undefined) {
+      page = 1;
+    }
 
-  searchByCate(keyword: number): Observable<any> {
-    console.log(`${this.API_PRO_MAIN}/search-cate?${keyword}`);
-    return this.httpClient.get<any[]>(`${this.API_PRO_MAIN}/search-cate?categoryId=${keyword}`);
+    if (size === undefined) {
+      size = 10;
+    }
+
+    const url = `${this.API_PRO_MAIN}?categoryId=${categoryId}&productName=${productName}&page=${page}&size=${size}`;
+    return this.httpClient.get<any>(url);
   }
 
   getProductHighest(): Observable<any> {
     return this.httpClient.get<any>(this.API_PRO_MAIN + '/highest');
   }
-
-
 }

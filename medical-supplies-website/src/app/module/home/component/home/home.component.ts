@@ -17,59 +17,47 @@ import {TokenStorageService} from '../../../security/service/token-storage.servi
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent implements OnInit {
-  productsMain: ProductMain[];
+  productsMain: ProductMain[] = [];
   rfSearch: FormGroup;
   categories: CategoryMain[];
   cart?: Cart;
-  details?: CartDetail[];
-  page = 0;
-  keyword: string;
-  totalPages: number[] = [];
-  totalPage = 0;
-  currentPage = 0;
+  cartDetails?: CartDetail[];
   role = '';
-
+  currentCategoryId = 0;
+  currentProductNameSearch = '';
+  totalPages = 0;
 
   constructor(private homeService: HomeService,
               private categoryHomeService: CategoryHomeService,
               private cartService: CartService,
-              private route: ActivatedRoute,
               private tokenStorageService: TokenStorageService) {
-    this.route.queryParams.subscribe(param => {
-      this.page = param.page || 1;
-      this.currentPage = param.page || 1;
-      this.keyword = '?';
-      if (this.page !== 0 && this.page != null) {
-        this.keyword += `page=${this.page}`;
-      }
-      console.log('page: ' + this.page);
-      console.log('keyword: ' + this.keyword);
-    });
   }
 
   ngOnInit(): void {
-    this.getAllProduct();
     this.getAllCategory();
+
+    this.getAllProduct();
+
     this.rfSearch = new FormGroup({
-      productName: new FormControl(''),
-      categoryName: new FormControl(''),
+      productName: new FormControl('')
     });
+
     if (this.loadRole() === 'ROLE_USER') {
       this.getCart();
     }
   }
 
   getAllProduct() {
-    this.homeService.findAll().subscribe((products) => {
-      this.productsMain = products.content;
-      this.totalPage = products.totalPages;
-      this.currentPage = products.number;
-      this.totalPages = [];
-      for (let j = 0; j < this.totalPage; j++) {
-        this.totalPages.push(j);
-      }
-      this.activeCategories(0);
-    });
+    this.currentCategoryId = 0;
+    this.currentProductNameSearch = '';
+    this.activeCategories(0);
+    this.homeService.findAll().subscribe(next => {
+        this.totalPages = next.totalPages;
+        this.productsMain = next.content;
+      },
+      error => {
+        console.error('Error fetching product: ', error);
+      });
   }
 
   getAllCategory() {
@@ -82,44 +70,61 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  search() {
+  searchProductName() {
     this.activeCategories(0);
-    let keyword = '?';
     const productName = this.rfSearch.value.productName;
     if (productName !== '' && productName != null) {
-      keyword += `productName=${productName}`;
+      this.homeService.findAll(undefined, productName).subscribe(next => {
+        this.rfSearch.reset();
+        const productListContainer = document.getElementById('main-home-start');
+        productListContainer.scrollIntoView({behavior: 'smooth'});
+        this.currentProductNameSearch = productName;
+        if (next != null) {
+          this.currentCategoryId = 0;
+          this.totalPages = next.totalPages;
+          this.productsMain = next.content;
+        } else {
+          this.productsMain = [];
+          this.totalPages = 1;
+          this.currentCategoryId = 0;
+        }
+      });
     }
-    this.homeService.searchByName(keyword).subscribe(next => {
-      this.rfSearch.reset();
-      if (next != null) {
-        this.productsMain = next.content;
-      } else {
-        this.productsMain = [];
-      }
-    });
   }
 
   searchCategory(categoryId: number) {
     this.activeCategories(categoryId);
-    this.homeService.searchByCate(categoryId).subscribe(next => {
+    this.homeService.findAll(categoryId).subscribe(next => {
+      const productListContainer = document.getElementById('main-home-start');
+      productListContainer.scrollIntoView({behavior: 'smooth'});
       if (next != null) {
+        this.currentCategoryId = categoryId;
+        this.currentProductNameSearch = '';
+        this.totalPages = next.totalPages;
         this.productsMain = next.content;
       } else {
+        this.currentCategoryId = 0;
+        this.currentProductNameSearch = '';
+        this.totalPages = 1;
         this.productsMain = [];
       }
     });
   }
 
+  /*
+  * Author: NhatLH
+  * Created: 2023-07-27
+  * */
   getCart() {
     return this.cartService.getCart().subscribe(next => {
       this.cart = next.cart;
-      this.details = next.cartDetailList;
+      this.cartDetails = next.cartDetailList;
     });
   }
 
   addToCart(productId: number) {
     let flag = false;
-    this.details.forEach(value => {
+    this.cartDetails.forEach(value => {
       if (value.product.productId === productId) {
         flag = true;
       }
@@ -137,82 +142,6 @@ export class HomeComponent implements OnInit {
     }
   }
 
-  receiveKeyword($event: string) {
-    this.keyword = $event;
-    console.log('receive keyword: ' + $event);
-  }
-
-  receiveTotalPages($event: number) {
-    this.totalPage = $event;
-    this.page = 1;
-    this.currentPage = 0;
-    this.totalPages = [];
-    for (let j = 0; j < this.totalPage; j++) {
-      this.totalPages.push(j);
-    }
-  }
-
-  nextPage() {
-    this.page++;
-    if (this.keyword.includes('page')) {
-      console.log('keyword before remove page: ' + this.keyword);
-      const pageIndex = this.keyword.indexOf('page=');
-      if (pageIndex !== -1) {
-        this.keyword = this.keyword.substring(0, pageIndex);
-      }
-      console.log('keyword after remove page: ' + this.keyword);
-    }
-    if (this.page !== 0 && this.page != null) {
-      this.keyword += `page=${this.page}`;
-    }
-    console.log('next: ' + this.keyword);
-    this.homeService.searchByName(this.keyword).subscribe(next => {
-      this.productsMain = next.content;
-      this.currentPage = next.number;
-    });
-  }
-
-  previousPage() {
-    this.page--;
-    if (this.keyword.includes('page')) {
-      const pageIndex = this.keyword.indexOf('page=');
-      if (pageIndex !== -1) {
-        this.keyword = this.keyword.substring(0, pageIndex);
-      }
-    }
-    if (this.page !== 0 && this.page != null) {
-      this.keyword += `page=${this.page}`;
-    }
-    this.homeService.searchByName(this.keyword).subscribe(next => {
-      this.productsMain = next.content;
-      this.currentPage = next.number;
-    });
-  }
-
-  accessPage(page: number) {
-    this.page = page;
-    if (this.keyword.includes('page')) {
-      console.log('keyword before remove page: ' + this.keyword);
-      const pageIndex = this.keyword.indexOf('page=');
-      if (pageIndex !== -1) {
-        this.keyword = this.keyword.substring(0, pageIndex);
-      }
-      console.log('keyword after remove page: ' + this.keyword);
-    }
-    if (this.page !== 0 && this.page != null) {
-      this.keyword += `page=${this.page}`;
-    }
-    console.log(this.keyword);
-    this.homeService.searchByName(this.keyword).subscribe(next => {
-      this.productsMain = next.content;
-      this.currentPage = next.number;
-    });
-  }
-
-  /*
-  * Author: NhatLH
-  * Created: 2023-07-27
-  * */
   loadRole(): string {
     if (this.tokenStorageService.getToken()) {
       this.role = this.tokenStorageService.getRole();
@@ -231,5 +160,17 @@ export class HomeComponent implements OnInit {
       }
     }
     document.getElementById(`category__item-${categoryId}`).classList.add('active');
+  }
+
+  changePage($event: number) {
+    const currentPage = $event;
+
+    const productListContainer = document.getElementById('main-home-start');
+    productListContainer.scrollIntoView({behavior: 'smooth'});
+
+    this.homeService.findAll(this.currentCategoryId, this.currentProductNameSearch, currentPage).subscribe(next => {
+      this.productsMain = next.content;
+      this.totalPages = next.totalPages;
+    });
   }
 }

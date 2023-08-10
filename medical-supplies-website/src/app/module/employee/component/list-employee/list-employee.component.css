@@ -51,6 +51,8 @@ Product Single Card - Start
   padding: 5px 10px;
   user-select: none;
   font-size: larger;
+  font-weight: bold;
+  color: #00B894;
 }
 
 .product-single-card .product-top-area .product-img {
@@ -230,58 +232,65 @@ Product Single Card - Start
 }
 
 .search-container {
-  padding: 8px 16px;
+  padding: 8px;
+  height: 100%;
   display: flex;
   align-items: center;
+  border-radius: 15px;
+  border: 1px #00b894;
+  background-color: #bce4e3 ;
 }
 
 input[type="text"] {
   padding: 10px;
-  border: 1px solid #00B894;
+  border: none;
   outline: none;
-  width: 140px;
+  width: 200px;
+  border-radius: 10px;
 
 }
 
 button[type="submit"] {
-  width: 40px;
-  height: 40px;
-  background-color: #00B894;
-  border: none;
-  color: #ffff;
-  cursor: pointer;
-  border-radius: 50%;
-  -moz-border-radius: 50%;
-  -webkit-border-radius: 50%;
-
+  color: white;
+  margin:4px 4px;
+  width: 150px;
 }
 
-.search-container:hover button[type="submit"] {
-  background-color: #fdcc0d;
-  color: #ffff;
+
+.button{
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: center;
+}
+.button a{
+  margin:4px 4px;
+  width: 150px;
 }
 
 .form__filter {
   display: flex;
   height: 100px;
   align-items: center;
-  justify-content: space-between;
+  justify-content:center;
   padding: 0 16px;
 }
 
 input[type="date"] {
   padding: 10px;
   outline: none;
-  width: 150px;
-  border: 1px solid #00B894;
+  width: 200px;
+  border: none;
+  border-radius: 10px;
+
 }
 
 .position {
   padding: 10px;
-  border: 1px solid #00B894;
+  border: none;
   outline: none;
-  width: 150px;
-
+  width: 200px;
+  border-radius: 10px;
 }
 
 @media (max-width: 480px) {
@@ -305,39 +314,36 @@ input[type="date"] {
 }
 .date-of-birth{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin: 0 2px;
 
 
 }
 .date-of-birth .lable{
   padding: 4px 8px;
-  color: #00B894;
-  font-weight: bold;
+
 
 }
 .name-em{
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin: 0 2px;
 }
 .name-em .lable{
   padding: 4px 8px;
-  color: #00B894;
-  font-weight: bold;
+
 
 }
 .pos {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   margin: 0 2px;
 }
 .pos .lable{
   padding: 4px 8px;
-  color: #00B894;
-  font-weight: bold;
+
 }
-.
+
 
 
 
@@ -360,18 +366,12 @@ input[type="date"] {
 
 }
 
-.btn-create {
-  cursor: pointer;
-  justify-content: flex-end;
+
+
+.btn-success{
   color: white;
-  font-size: larger;
-  text-align: center;
-  background-color: #00b894;
-  border-radius: 5px;
-  width: 130px;
-
+  border:none;
 }
-
 
 .lds-roller {
   display: inline-block;

@@ -28,14 +28,17 @@
             <option *ngFor="let pos of positions" [value]="pos.positionName">{{pos.positionName}}</option>
           </select>
         </div>
-        <button style="margin: 0px 4px" type="submit"><i class="fa fa-search"></i></button>
+        <div class="button">
+          <button class="btn btn-primary " type="submit"><i class="fa fa-search"></i>Tìm kiếm</button>
+          <div class="btn-create">
+            <a class="btn btn-success" routerLink="/accounts/create">
+              <i class="fa fa-plus"></i>
+              Thêm mới
+            </a>
+          </div>
+        </div>
       </div>
-      <div class="btn-create">
-        <a routerLink="/accounts/create">
-          <i class="fa-solid fa-plus"></i>
-          Thêm mới
-        </a>
-      </div>
+
     </form>
     <div class="error" *ngIf="employees.length==0">Danh sách rỗng !!!</div>
     <div class="row g-4 py-5">

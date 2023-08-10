@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class CategoryHomeService {
-  private API_CATE_MAIN = 'http://localhost:8080/api/v1/category/home';
+  private API_CATE_MAIN = 'http://localhost:8080/api/v1/category';
 
   constructor(private httpClient: HttpClient) {
   }
