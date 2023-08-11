@@ -61,7 +61,7 @@ export class ReceiptListComponent implements OnInit {
     this.formReceipt = new FormGroup({
       // tslint:disable-next-line:radix
       receiptTypeId: new FormControl('', [Validators.required]),
-      invoiceCode: new FormControl('', [Validators.required]),
+      invoiceCode: new FormControl('', [Validators.required, Validators.pattern('^HD-\\d{10}$')]),
       dateOfCreate: new FormControl(this.todayDate, ),
       employeeId: new FormControl('', ),
       customerId: new FormControl('', [Validators.required]),

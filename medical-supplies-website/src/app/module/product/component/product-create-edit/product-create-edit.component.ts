@@ -35,6 +35,7 @@ export class ProductCreateEditComponent implements OnInit {
     });
 
     this.customerService.getAllSuppliers().subscribe(data => {
+      console.log(data)
       this.customer = data;
     });
 
@@ -55,7 +56,7 @@ export class ProductCreateEditComponent implements OnInit {
   oldAvatarLink = 'https://cdn.pixabay.com/photo/2020/03/17/20/52/covid-4941846_640.png';
   formArrayImg: FormArray;
 
-  returnUrl: string;
+  price: number ;
 
   ngOnInit(): void {
     this.buildForm();
@@ -66,7 +67,7 @@ export class ProductCreateEditComponent implements OnInit {
     this.formGroup = new FormGroup({
       productCode: new FormControl('', [Validators.minLength(3)]),
       productName: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(45)]),
-      productPrice: new FormControl('', [Validators.required, Validators.min(1), Validators.max(10000000000)]),
+      productPrice: new FormControl('', [Validators.required, Validators.min(1), Validators.max(1000000000)]),
       productQuantity: new FormControl('', [Validators.required, Validators.min(1), Validators.max(10000)]),
       productImg: new FormControl('', [Validators.required, checkFile]),
       expireDate: new FormControl('', [Validators.required]),
@@ -109,7 +110,7 @@ export class ProductCreateEditComponent implements OnInit {
               (resp) => {
                 this.router.navigateByUrl('/supplies').then(() => {
                   Swal.fire({
-                    icon: 'info',
+                    icon: 'success',
                     title: 'THÔNG BÁO',
                     text: 'Thêm mới vật tư thành công!',
                     showConfirmButton: false,
@@ -124,10 +125,21 @@ export class ProductCreateEditComponent implements OnInit {
                 console.log(typeof error.error.productName);
                 console.log(typeof error.error.name);
                 if (error.error.productName !== undefined) {
-                  this.toast.error(error.error.productName, 'LỖI!', {timeOut: 3000});
+                  Swal.fire({
+                    title: "Lỗi",
+                    icon : "error",
+                    text : error.error.productName,
+                    showConfirmButton: false,
+                    timer: 1000
+                  })
                 } else if (error.error.name !== undefined) {
-                  this.toast.error(error.error.name, 'LỖI!', {timeOut: 3000});
-                }
+                  Swal.fire({
+                    title: "Lỗi",
+                    icon : "error",
+                    text : error.error.name,
+                    showConfirmButton: false,
+                    timer: 1000
+                  })}
               }
             );
           });
@@ -143,9 +155,14 @@ export class ProductCreateEditComponent implements OnInit {
           this.router.navigateByUrl('/supplies');
           this.reset();
         }, error => {
-          console.log(error)
-          this.errorMessage = error.error;
-          this.toast.error(this.errorMessage, 'LỖI!');
+          console.log(error.error)
+          Swal.fire({
+            title: "Lỗi",
+            icon : "error",
+            text : "Vui lòng nhập dữ liệu đầy đủ",
+            showConfirmButton: false,
+            timer: 1000
+          })
         }
       );
     }

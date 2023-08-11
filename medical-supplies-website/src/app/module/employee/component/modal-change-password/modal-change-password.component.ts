@@ -39,6 +39,7 @@ export class ModalChangePasswordComponent implements OnInit {
    */
   changePassword() {
     const username = this.tokenStorageService.getUser();
+
     this.employeeService.changePassword(new ChangePasswordDto(username,
       this.changePasswordFormGroup.value.presentPassword,
       this.changePasswordFormGroup.value.confirmPassword))
@@ -59,15 +60,54 @@ export class ModalChangePasswordComponent implements OnInit {
       console.log(temp.status + ' temp');
       this.changePasswordFormGroup.reset();
       if (temp.username === username) {
-        Swal.fire({
-          position: 'center',
-          icon: 'success',
+        // Swal.fire({
+        //   position: 'center',
+        //   icon: 'success',
+        //   title: 'Cập nhật mật khẩu thành công!',
+        //   showConfirmButton: false,
+        //   timer: 1500
+        // });
+        const swalWithBootstrapButtons = Swal.mixin({
+          customClass: {
+            confirmButton: 'btn btn-success',
+            cancelButton: 'btn btn-danger'
+          },
+          buttonsStyling: false
+        })
+        swalWithBootstrapButtons.fire({
           title: 'Cập nhật mật khẩu thành công!',
-          showConfirmButton: false,
-          timer: 1500
-        });
+          text: "Bạn có đăng xuất không?",
+          icon: 'success',
+          showCancelButton: true,
+          confirmButtonText: 'Đăng xuất',
+          cancelButtonText: 'Huỷ bỏ',
+          reverseButtons: true
+        }).then((result) => {
+          debugger
+          if (result.isConfirmed) {
+            swalWithBootstrapButtons.fire(
+              'Đã đăng xuất!',
+              // 'Your file has been deleted.',
+              // 'success'
+            )
+            this.logOut();
+          } else if (
+            /* Read more about handling dismissals below */
+            result.dismiss === Swal.DismissReason.cancel
+          ) {
+            swalWithBootstrapButtons.fire(
+              'Đã huỷ',
+              // 'Bạn  :)',
+              // 'error'
+            )
+          }
+        })
       }
     });
+  }
+  logOut() {
+    this.tokenStorageService.signOut();
+    location.reload();
   }
 
 

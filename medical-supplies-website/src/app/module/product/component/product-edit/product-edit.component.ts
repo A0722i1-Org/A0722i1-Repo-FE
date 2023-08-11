@@ -13,6 +13,7 @@ import {CategoryService} from '../../service/category.service';
 import {ProductInfoService} from '../../service/product-info.service';
 import {FileValidator} from '../../utils/CustomerValidator';
 import {ToastrService} from 'ngx-toastr';
+import Swal from "sweetalert2";
 
 @Component({
   selector: 'app-product-edit',
@@ -43,6 +44,8 @@ export class ProductEditComponent implements OnInit {
   errorMessage: string;
   oldAvatarLink = 'https://cdn.pixabay.com/photo/2020/03/17/20/52/covid-4941846_640.png';
 
+  price: number ;
+
   constructor( private categoryService: CategoryService,
                private customerService: CustomerService,
                private productService: ProductService,
@@ -71,6 +74,7 @@ export class ProductEditComponent implements OnInit {
 
   ngOnInit(): void {
     this.productService.findById(this.id.trim()).subscribe(data => {
+      this.price = data.productPrice
       console.log(data);
       this.product = data;
       this.oldAvatarLink = data.productImg;
@@ -79,7 +83,7 @@ export class ProductEditComponent implements OnInit {
         productId: new FormControl(data.productId),
         productCode: new FormControl( data.productCode, [Validators.required, Validators.minLength(3)]),
         productName: new FormControl(data.productName, [Validators.required, Validators.minLength(3), Validators.maxLength(45)]),
-        productPrice: new FormControl(data.productPrice, [Validators.required, Validators.min(1), Validators.max(10000000000)]),
+        productPrice: new FormControl(data.productPrice, [Validators.required, Validators.min(1), Validators.max(1000000000)]),
         productQuantity: new FormControl(data.productQuantity, [Validators.required, Validators.min(1), Validators.max(10000)]),
         productImg: new FormControl((data.productImg), [Validators.required, FileValidator.validate]),
         expireDate: new FormControl( (data.expireDate), [Validators.required]),
@@ -124,13 +128,36 @@ export class ProductEditComponent implements OnInit {
             this.productService.updateProductId(this.formGroup.value).subscribe(() => {
               console.log('bắt');
               this.router.navigateByUrl('/supplies').then(() => {
-                this.toast.success('Chỉnh sửa vật tư thành công thành công.', 'THÔNG BÁO');
+                Swal.fire({
+                  icon: 'success',
+                  title: 'THÔNG BÁO',
+                  text: 'chỉnh sửa vật tư thành công!',
+                  showConfirmButton: false,
+                  timer: 3000
+                });
                 this.reset();
               });
               console.log('hêt');
             }, error => {
               console.log(error);
-              this.toast.error(error.error.name, 'LỖI!');
+              console.log(error.error);
+              if (error.error.productName !== undefined) {
+                Swal.fire({
+                  title: "Lỗi",
+                  icon : "error",
+                  text : error.error.productName,
+                  showConfirmButton: false,
+                  timer: 1000
+                })
+              } else if (error.error.name !== undefined) {
+                Swal.fire({
+                  title: "Lỗi",
+                  icon : "error",
+                  text : error.error.name,
+                  showConfirmButton: false,
+                  timer: 1000
+                })
+              }
             });
           });
         })
@@ -141,12 +168,35 @@ export class ProductEditComponent implements OnInit {
       this.productService.updateProductId(this.formGroup.value).subscribe(
         () => {
           this.router.navigateByUrl('/supplies').then(() => {
-            this.toast.success('Chỉnh sửa vật tư thành công.', 'Thông báo: ');
+            Swal.fire({
+              icon: 'success',
+              title: 'THÔNG BÁO',
+              text: 'chỉnh sửa vật tư thành công!',
+              showConfirmButton: false,
+              timer: 3000
+            });
             this.reset();
           });
         }, error => {
           console.log(error);
-          this.toast.error(error.error.name, 'LỖI!');
+          console.log(error.error.expireDate);
+          if (error.error.productName !== undefined) {
+            Swal.fire({
+              title: "Lỗi",
+              icon : "error",
+              text : error.error.productName,
+              showConfirmButton: false,
+              timer: 1000
+            })
+          } else if (error.error.name !== undefined) {
+            Swal.fire({
+              title: "Lỗi",
+              icon : "error",
+              text : error.error.name,
+              showConfirmButton: false,
+              timer: 1000
+            })
+          }
         }
       );
     }

@@ -74,6 +74,10 @@
         <div class="col-auto flex-grow-1">
           <input formControlName="dateOfBirth" type="date" id="birthday" class="form-control"
                  [ngClass]="employeeFormGroup.controls.dateOfBirth?.valid?'is-invalid':'is-valid'">
+          <span class=" text-danger p-2 m-0 " role="alert"
+                *ngIf="employeeFormGroup.controls.dateOfBirth.hasError('isOver18')&&employeeFormGroup.controls.dateOfBirth.dirty">Phải lớn hơn hoặc bằng 18 tuổi</span>
+          <span class=" text-danger p-2 m-0 " role="alert"
+                *ngIf="employeeFormGroup.controls.dateOfBirth.hasError('isOver50')&&employeeFormGroup.controls.dateOfBirth.dirty">Không được lớn hơn 50 tuổi</span>
           <div class=" text-danger p-2 m-0 " role="alert"
                *ngIf="employeeFormGroup.controls.dateOfBirth?.errors?.required && employeeFormGroup.controls.dateOfBirth?.touched">
             Không được để trống ngày sinh!
@@ -118,7 +122,7 @@
             class="text-danger fw-bold">*</sup></label>
         </div>
         <div class="col-auto flex-grow-1">
-          <input formControlName="phone" type="text" id="phone" class="form-control"
+          <input formControlName="phone" type="text" id="phone" class="form-control" (input)="setFlagPhone()"
                  [ngClass]="employeeFormGroup.controls.phone?.invalid?'is-invalid':'is-valid'">
           <div class=" text-danger p-2 m-0 " role="alert"
                *ngIf="employeeFormGroup.controls.phone?.errors?.required && employeeFormGroup.controls.phone?.touched">
@@ -128,6 +132,8 @@
                *ngIf="employeeFormGroup.controls.phone?.errors?.pattern && employeeFormGroup.controls?.phone?.touched">
             Số điện thoại phải đúng định dạng.
           </div>
+          <div class=" text-danger p-2 m-0 " role="alert"
+               *ngIf="existPhone==true&&!employeeFormGroup.controls.phone.hasError('pattern')&&!employeeFormGroup.controls.phone.hasError('required')">Số điện thoại đã được đăng kí</div>
         </div>
       </div>
       <!--          Email-->
