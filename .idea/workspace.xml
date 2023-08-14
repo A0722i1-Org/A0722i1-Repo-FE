@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="af0ff34e-74bc-42a1-8165-cc60019f2e31" name="Default Changelist" comment="Fix">
+      <change afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/product/component/product-create-edit/product-create-edit.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/product/component/product-create-edit/product-create-edit.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/product/component/product-create-edit/product-create-edit.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/product/component/product-edit/product-edit.component.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/product/component/product-edit/product-edit.component.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/product/component/product-edit/product-edit.component.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/product/model/ProductCreateFormDTO.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/product/service/category.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/product/service/product-info.service.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/product/utils/CustomerValidator.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/role.guard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/issuestore/index.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/sonarlint/securityhotspotstore/index.pb" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical-supplies-website/angular.json" beforeDir="false" afterPath="$PROJECT_DIR$/medical-supplies-website/angular.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical-supplies-website/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/medical-supplies-website/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical-supplies-website/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/medical-supplies-website/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical-supplies-website/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/app.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical-supplies-website/src/app/auth.guard.ts" beforeDir="false" afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/auth.guard.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical-supplies-website/src/app/module/account/account-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/account/account-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical-supplies-website/src/app/module/cart/cart-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/cart/cart-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical-supplies-website/src/app/module/customer/customer-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/customer/customer-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical-supplies-website/src/app/module/customer/service/customer.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/customer/service/customer.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical-supplies-website/src/app/module/employee/component/edit/edit.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/employee/component/edit/edit.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical-supplies-website/src/app/module/employee/employee-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/employee/employee-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical-supplies-website/src/app/module/product/component/product-detail/product-detail.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/product/component/product-detail/product-detail.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical-supplies-website/src/app/module/product/product-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/product/product-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical-supplies-website/src/app/module/product/product.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/product/product.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical-supplies-website/src/app/module/product/service/product.service.ts" beforeDir="false" afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/product/service/product.service.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical-supplies-website/src/app/module/receipt/receipt-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/receipt/receipt-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical-supplies-website/src/app/module/shipment/shipment-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/shipment/shipment-routing.module.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical-supplies-website/src/app/module/supply/components/supply-list/supply-list.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/supply/components/supply-list/supply-list.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical-supplies-website/src/app/module/supply/components/supply-search/supply-search.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/supply/components/supply-search/supply-search.component.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/medical-supplies-website/src/app/module/supply/supply-routing.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/medical-supplies-website/src/app/module/supply/supply-routing.module.ts" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 3
+}</component>
+  <component name="ProjectId" id="2SkeqCTyFPUxW5O3W8biwjNoE2P" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "SONARLINT_PRECOMMIT_ANALYSIS": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "A0722I1-KhanhNL",
+    "last_opened_file_path": "E:/Final Code/A0722i1-Repo-FE/medical-supplies-website/src/app",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "E:\\Final Code\\A0722i1-Repo-FE\\medical-supplies-website\\node_modules\\typescript\\lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Final Code\A0722i1-Repo-FE\medical-supplies-website\src\app" />
+      <recent name="E:\Final Code\A0722i1-Repo-FE\medical-supplies-website\src\app\module\product\service" />
+      <recent name="E:\Final Code\A0722i1-Repo-FE\medical-supplies-website\src\app\module\product" />
+      <recent name="E:\Final Code\A0722i1-Repo-FE\medical-supplies-website\src\app\module\product\component" />
+      <recent name="E:\Final Code\A0722i1-Repo-FE\medical-supplies-website\src\app\module\product\model" />
+    </key>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="af0ff34e-74bc-42a1-8165-cc60019f2e31" name="Default Changelist" comment="" />
+      <created>1689695194635</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1689695194635</updated>
+      <workItem from="1689695198800" duration="10000" />
+      <workItem from="1690976597674" duration="4080000" />
+      <workItem from="1690981145611" duration="1501000" />
+    </task>
+    <task id="LOCAL-00001" summary="Fix">
+      <option name="closed" value="true" />
+      <created>1690977603767</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1690977603767</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Fix" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix" />
+  </component>
+</project>
